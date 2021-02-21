@@ -21,17 +21,6 @@ typedef vector<long> vl;
 typedef vector<ll> vll;
 typedef vector<string> vs;
 
-ll helper(ll i, ll &count, vll &h, vll &iq, ll &n){
-    if(i==n){
-        return count;
-    }
-    else{
-        if(h.at(i)>h.at(i-1)&&iq.at(i)<iq.at(i-1)){
-            helper(i+1, ++count, h, iq, n);
-        }
-    }
-}
-
 void solve(){
     ll n; cin>>n;
     vll heights(n, 0);
@@ -42,15 +31,17 @@ void solve(){
     forf(ll, i, n){
         cin>>iqs.at(i);
     }
-    ll ans{};
-    for(ll i=1; i<n-1; i++)
-    {
-        ll count{};
-        ll t = helper(i+1, count, heights, iqs, n))
-        if(t)
+    ll dp[n];
+    dp[0]=1;
+    for(ll i=1; i<n; i++){
+        dp[i] = 1;
+        for(ll j=0; j<i; j++){
+            if(heights.at(i)>heights.at(j)&&iqs.at(i)<iqs.at(j)&&dp[i]<dp[j]+1){
+                dp[i] = dp[j]+1;
+            }
         }
     }
-    cout<<ans<<endl;
+    cout<<*max_element(dp, dp+n)<<endl;
 }
 
 int main(){
