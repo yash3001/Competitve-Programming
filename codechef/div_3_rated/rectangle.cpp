@@ -26,25 +26,44 @@ typedef vector<string> vs;
 
 void solve(){
     ll n, m; cin>>n>>m;
-    vll ones;
-    unordered_map<ll, ll> mp;
+    vll ones, ones_y;
+    unordered_map<ll, ll> mp, mp_y;
+    ll max_x{-1}, max_y{-1}, min_x{n+1}, min_y{n+1}; 
     forf(ll, i, n){
         forf(ll, j, m){
             char c; cin>>c;
             if(c=='1'){
+                if(j>max_x)
+                    max_x = j;
+                if(j<min_x)
+                    min_x = j;
+                if(i>max_y)
+                    max_y = i;
+                if(i<min_y)
+                    min_y = i;
+
                 ones.pb(j);
+                ones_y.pb(i);
                 mp[j]++;
+                mp_y[i]++;
             }
         }
     }
-    print(ones);
-    ll min = *min_element(all(ones)), max = *max_element(all(ones));
-    ll count = mp[min];
+    ll count_x = mp[min_x];
+    ll count_y = mp_y[min_y];
     bool is_rect {1};
-    for(int i=min+1; i<=max; i++){
-        if(mp[i]!=count){
+    for(int i=min_x+1; i<=max_x; i++){
+        if(mp[i]!=count_x){
             is_rect = 0;
             break;
+        }
+    }
+    if(is_rect){
+        for(int i=min_y+1; i<=max_y; i++){
+            if(mp_y[i]!=count_y){
+                is_rect = 0;
+                break;
+            }
         }
     }
     if(is_rect){
