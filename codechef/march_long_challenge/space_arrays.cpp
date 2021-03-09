@@ -29,16 +29,18 @@ typedef unordered_map<long long, long long> umll;
 void solve(){
     ll n, flag{1}; cin>>n;
     ll sum{};
-    umll mp;
+    vll nums;
     forf(ll, i, n){
         ll t; cin>>t;
-        mp[t]++;
-        if(mp[t]>(n-t+1)){
-            flag=0;
-        }
         sum += t;
+        nums.pb(t);
     }
     ll sum_n = ((n)*(n+1))/2;
+    sort(all(nums));
+    for(int i=0; i<n; i++){
+        if(nums.at(i)>i+1)
+            flag=0;
+    }
     if(!flag){
         cout<<"Second"<<endl;
     }
