@@ -38,11 +38,11 @@ void solve(){
         for(int j=i+1; j<n; j++){
             ll x1{i+1}, x2{j+1}, y1{h.at(i)}, y2{h.at(j)};
             ll flag{1};
+            ld slope = (x2-x1)/(y2*1.0-y1);
             for(ll k=i+1; k<j; k++){
                 ll x = k+1;
                 ll y = h.at(k);
-                ll m = (y2-y1)/(x2-x1);
-                if((x-m*y+m*(y1-x1))>0){
+                if((x-x1)/(y*1.0-y1)>slope){
                     flag = 0;
                     break;
                 }
