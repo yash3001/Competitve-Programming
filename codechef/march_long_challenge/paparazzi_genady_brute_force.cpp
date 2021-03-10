@@ -27,7 +27,41 @@ typedef vector<string> vs;
 typedef unordered_map<long long, long long> umll;
 
 void solve(){
-    
+    ll n; cin>>n;
+    vll h;
+    forf(ll, i, n){
+        ll t; cin>>t;
+        h.pb(t);
+    }
+    ll ans{};
+    for(ll i=0; i<n-1; i++){
+        for(int j=i+1; j<n; j++){
+            ll h1 = h.at(i), h2 = h.at(j);
+            ll minh = min(h1, h2);
+            ll flag{1};
+            for(ll k=i+1; k<j; k++){
+                if(h.at(k)>=minh){
+                    if(h.at(k)==minh){
+                        if(minh == h1 && minh == h2){
+                            flag = 0;
+                            break;
+                        }
+                    }
+                    else{
+                        if(!(h.at(k)-minh == max(h1, h2)-h.at(k) && h.at(k)-minh == j-k && j-k == k-i))
+                        {
+                            flag = 0;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(flag){
+                ans = max(ans, j-i);
+            }
+        }
+    }
+    cout<<ans<<endl;
 }
 
 int main(){
