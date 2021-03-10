@@ -18,6 +18,7 @@ using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double ld;
+typedef long double lld;
 typedef vector<int> vi;
 typedef vector<long> vl;
 typedef vector<long long> vll;
@@ -28,27 +29,27 @@ typedef unordered_map<long long, long long> umll;
 
 void solve(){
     ll n; cin>>n;
-    vll h;
-    forf(ll, i, n){
-        ll t; cin>>t;
+    vector<lld> h;
+    forf(lld, i, n){
+        lld t; cin>>t;
         h.pb(t);
     }
     ll ans{};
-    for(ll i=0; i<n-1; i++){
-        for(int j=i+1; j<n; j++){
-            ll x1{i+1}, x2{j+1}, y1{h.at(i)}, y2{h.at(j)};
+    for(lld i=0; i<n-1; i++){
+        for(lld j=i+1; j<n; j++){
+            lld x1{i+1}, x2{j+1}, y1{h.at(i)}, y2{h.at(j)};
             ll flag{1};
-            for(ll k=i+1; k<j; k++){
-                ll x = k+1;
-                ll y = h.at(k);
-                ll m = (y2-y1)/(x2-x1);
+            for(lld k=i+1; k<j; k++){
+                lld x = k+1;
+                lld y = h.at(k);
+                lld m = (y2-y1)/(x2-x1);
                 if((x-m*y+m*(y1-x1))>0){
                     flag = 0;
                     break;
                 }
             }
             if(flag){
-                ans = max(ans, j-i);
+                ans = ans>j-i?ans:j-1;
             }
         }
     }
