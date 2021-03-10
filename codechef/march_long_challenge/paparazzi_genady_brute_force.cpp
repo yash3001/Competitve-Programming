@@ -36,24 +36,15 @@ void solve(){
     ll ans{};
     for(ll i=0; i<n-1; i++){
         for(int j=i+1; j<n; j++){
-            ll h1 = h.at(i), h2 = h.at(j);
-            ll minh = min(h1, h2);
+            ll x1{i+1}, x2{j+1}, y1{h.at(i)}, y2{h.at(j)};
             ll flag{1};
             for(ll k=i+1; k<j; k++){
-                if(h.at(k)>=minh){
-                    if(h.at(k)==minh){
-                        if(minh == h1 && minh == h2){
-                            flag = 0;
-                            break;
-                        }
-                    }
-                    else{
-                        if(!(h.at(k)-minh == max(h1, h2)-h.at(k) && h.at(k)-minh == j-k && j-k == k-i))
-                        {
-                            flag = 0;
-                            break;
-                        }
-                    }
+                ll x = k+1;
+                ll y = h.at(k);
+                ll m = (y2-y1)/(x2-x1);
+                if((x-m*y+m*(y1-x1))>0){
+                    flag = 0;
+                    break;
                 }
             }
             if(flag){
