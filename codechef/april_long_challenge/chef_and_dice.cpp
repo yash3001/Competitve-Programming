@@ -28,7 +28,30 @@ typedef unordered_map<long long, long long> umll;
 
 void solve(){
     ll n; cin>>n;
-    cout<<14*n+6<<endl;
+    if(n<=4){
+        ll ans{};
+        if(n%4 == 1)
+            ans = 20;
+        if(n%4 == 2)
+            ans = 36;
+        if(n%4 == 3)
+            ans = 51;
+        if(n%4 == 0)
+            ans = 60;
+        cout<<ans<<endl;
+    }
+    else{
+        ll ans = (n/4-1)*44;
+        if(n%4 == 1)
+            ans += 76;
+        if(n%4 == 2)
+            ans += 88;
+        if(n%4 == 3)
+            ans += 99;
+        if(n%4 == 0)
+            ans += 60;
+        cout<<ans<<endl;
+    }
 }
 
 int main(){

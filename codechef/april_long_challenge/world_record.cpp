@@ -31,7 +31,7 @@ void solve(){
     ld pro = k1*k2*k3*v;
     pro = (ld)((int)(pro*100+0.5))/100;
     pro = (ld)((int)((100/pro)*100+0.5))/100;
-    if(pro>9.58 || abs(pro-9.58)<=EPS){
+    if(pro>=9.575){
         cout<<"NO"<<endl;
         return;
     }
