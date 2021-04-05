@@ -1,4 +1,5 @@
 /* @author -> gamma30 */
+#include <algorithm>
 #include <bits/stdc++.h>
 #include <ios>
 
@@ -40,19 +41,33 @@ T lcm(T a, T b){
 }
 
 void solve(){
-    string s, t;
-    while(cin>>t){
-        s.append(t+" ");
+    // string s, t;
+    // while(cin>>t){
+    //     s.append(t+" ");
+    // }
+    // s.pop_back();
+    // cout<<s;
+    vll nums {1,2,4,5,6, 7};
+    // vector<long long>::iterator it = lower_bound(all(nums), 5);
+    // cout<<it-nums.begin();
+    ll l=0, u=nums.size(), mid=(u+l)/2;
+    while(!(nums.at(mid)>=3 && nums.at(mid-1)<3)){
+        if(nums.at(mid)>3){
+            u = mid-1;
+        }
+        else{
+            l = mid+1;
+        }
+        mid = (l+u)/2;
     }
-    s.pop_back();
-    cout<<s;
+    cout<<mid<<endl;
 }
 
 int main(){
-    #ifndef ONLINE_JUDGE
-        freopen("input.txt", "r", stdin);
-        freopen("output.txt", "w", stdout);
-    #endif
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    //     freopen("output.txt", "w", stdout);
+    // #endif
 
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
