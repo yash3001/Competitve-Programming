@@ -67,29 +67,43 @@ void solve(){
     // }
     ll max_l = min(n, m);
     forf(ll, i, n-1){
+        bool worthy = false;
         forf(ll, j, m-1){
+            ll l=2;
             // bool worthy = false;
-            ll l;
-            for(l=2; l<=max_l && l<=n-i && l<=m-j; l++){
-                ll sum{};
-                for(ll x=i; x<i+l; x++){
-                    for(ll y=j; y<j+l; y++){
-                        sum+=mat.at(x).at(y);
-                        // cout<<"x: "<<x<<" y: "<<y<<" value: "<<mat.at(x).at(y)<<"   ";
+            if(!worthy){
+                for(l=2; l<=max_l && l<=n-i && l<=m-j; l++){
+                    // cout<<"loop: x: "<<i<<" y: "<<j<<endl;
+                    ll sum{};
+                    for(ll x=i; x<i+l; x++){
+                        for(ll y=j; y<j+l; y++){
+                            sum+=mat.at(x).at(y);
+                            // cout<<"x: "<<x<<" y: "<<y<<" value: "<<mat.at(x).at(y)<<"   ";
+                        }
+                    }
+                    // cout<<"\nsum: "<<sum<<" for i: "<<i<<" j: "<<j<<" l: "<<l<<endl;
+                    if(sum/(l*l) >= k){
+                        // cout<<"avg: "<<sum/(l*l)<<" for i: "<<i<<" j: "<<j<<" l: "<<l<<endl;
+                        worthy = true;
+                        ans++;
+                    }
+                    if(worthy){
+                        break;
                     }
                 }
-                // cout<<"\nsum: "<<sum<<" for i: "<<i<<" j: "<<j<<" l: "<<l<<endl;
-                if(sum/(l*l) >= k){
-                    // cout<<"avg: "<<sum/(l*l)<<" for i: "<<i<<" j: "<<j<<" l: "<<l<<endl;
-                    // worthy = true;
-                    ans++;
+                if(worthy){
+                    // cout<<"else"<<endl;
+                    // cout<<"loop: x: "<<i<<" y: "<<j<<" max: "<<max(min(min(max_l-l, n-i-l), m-j-l), zero)<<endl;
+                    ans += min(min(max_l-l, n-i-l), m-j-l);
                 }
-                // if(worthy){
-                //     break;
-                // }
             }
-            // if(worthy)
-            //     ans += min(min(max_l-l, n-i-l), m-j);
+            else{
+                // cout<<"else"<<endl;
+                ans += min(min(max_l-l, n-i-l), m-j-l)+1;
+                // cout<<"loop: x: "<<i<<" y: "<<j<<" max: "<<min(min(max_l-l, n-i-l), m-j-l)+1<<endl;
+                // ans += min(min(max_l-l, n-i-l), m-j-l);
+                // cout<<"value: "<<min(min(max_l-l, n-i-l), m-j-l)<<" l: "<<l<<" m: "<<m<<" n: "<<n<<" i: "<<i<<" j: "<<j<<endl;
+            }
         }
     }
     cout<<ans<<endl;
