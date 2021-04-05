@@ -50,17 +50,25 @@ void solve(){
     vll nums {1,2,4,5,6, 7};
     // vector<long long>::iterator it = lower_bound(all(nums), 5);
     // cout<<it-nums.begin();
-    ll l=0, u=nums.size(), mid=(u+l)/2;
-    while(!(nums.at(mid)>=3 && nums.at(mid-1)<3)){
-        if(nums.at(mid)>3){
+    ll l=0, u=nums.size()-1, mid=(u+l)/2;
+    while(l<=u){
+        mid = l+(u-l)/2;
+        if(nums.at(mid) == 9){
+            break;
+        }
+        if(nums.at(mid)>9){
             u = mid-1;
         }
         else{
             l = mid+1;
         }
-        mid = (l+u)/2;
     }
-    cout<<mid<<endl;
+    if(l>u)
+        cout<<"no"<<endl;
+    else{
+        cout<<mid<<endl;
+
+        }
 }
 
 int main(){

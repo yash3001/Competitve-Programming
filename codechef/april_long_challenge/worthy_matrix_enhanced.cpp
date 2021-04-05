@@ -89,27 +89,66 @@ void solve(){
     ll max_l = min(n, m);
     for(ll l=2; l<=max_l; l++){
         for(ll i=l-1; i<n; i++){
-            ll j=l-1;
-            for(; j<m; j++){
-                ll sum{};
-                if(i-l < 0 && j-l < 0){
-                    sum = aux.at(i).at(j);
+            ll lower=l-1, upper=m-1, mid;
+            ll sum{};
+            ll sum1{};
+            ll check_sum{};
+            if(i-l < 0 && lower-l < 0){
+                check_sum = aux.at(i).at(lower);
+            }
+            else{
+                check_sum = aux.at(i).at(lower) - aux.at(i-l).at(lower);
+            }
+            if(check_sum/(l*l) >= k){
+                mid = lower;
+            }
+            else{
+            while(lower<=upper){
+                mid = lower + (upper-lower)/2;
+                if(i-l < 0 && mid-l < 0){
+                    sum = aux.at(i).at(mid);
                 }
                 else if(i-l<0){
-                    sum = aux.at(i).at(j) - aux.at(i).at(j-l);
+                    sum = aux.at(i).at(mid) - aux.at(i).at(mid-l);
                 }
-                else if(j-l<0){
-                    sum = aux.at(i).at(j) - aux.at(i-l).at(j);
+                else if(mid-l<0){
+                    sum = aux.at(i).at(mid) - aux.at(i-l).at(mid);
                 }
                 else{
-                    sum = aux.at(i).at(j) - aux.at(i-l).at(j) - aux.at(i).at(j-l) + aux.at(i-l).at(j-l);
+                    sum = aux.at(i).at(mid) - aux.at(i-l).at(mid) - aux.at(i).at(mid-l) + aux.at(i-l).at(mid-l);
                 }
-                // cout<<"sum: "<<sum<<" x: "<<i<<" y: "<<j<<endl;
-                if(sum/(l*l)>=k){
+                if(i-l < 0 && mid-1-l < 0){
+                    sum1 = aux.at(i).at(mid-1);
+                }
+                else if(i-l<0){
+                    sum1 = aux.at(i).at(mid-1) - aux.at(i).at(mid-1-l);
+                }
+                else if(mid-1-l<0){
+                    sum1 = aux.at(i).at(mid-1) - aux.at(i-l).at(mid-1);
+                }
+                else{
+                    sum1 = aux.at(i).at(mid-1) - aux.at(i-l).at(mid-1) - aux.at(i).at(mid-1-l) + aux.at(i-l).at(mid-1-l);
+                }
+                sum = sum/(l*l);
+                sum1 = sum1/(l*l);
+
+                if(sum>=k && sum1<k){
                     break;
                 }
+                if(sum<k){
+                    lower = mid+1;
+                }
+                else{
+                    upper = mid-1;
+                }
+
             }
-            ans += m - j;
+
+            }
+            if(!(upper<lower)){
+                ans += m - mid;
+                // cout<<aux.at(i).at(mid)<<endl;
+            }
         }
     }
 
