@@ -1,7 +1,5 @@
 /* @author -> gamma30 */
-#include <algorithm>
 #include <bits/stdc++.h>
-#include <ios>
 
 #define pb push_back
 #define eb emplace_back
@@ -41,42 +39,15 @@ T lcm(T a, T b){
 }
 
 void solve(){
-    // string s, t;
-    // while(cin>>t){
-    //     s.append(t+" ");
-    // }
-    // s.pop_back();
-    // cout<<s;
-    // vll nums {1,2,4,5,6, 7};
-    // vector<long long>::iterator it = lower_bound(all(nums), 5);
-    // cout<<it-nums.begin();
-    // ll l=0, u=nums.size()-1, mid=(u+l)/2;
-    // while(l<=u){
-    //     mid = l+(u-l)/2;
-    //     if(nums.at(mid) == 9){
-    //         break;
-    //     }
-    //     if(nums.at(mid)>9){
-    //         u = mid-1;
-    //     }
-    //     else{
-    //         l = mid+1;
-    //     }
-    // }
-    // if(l>u)
-    //     cout<<"no"<<endl;
-    // else{
-    //     cout<<mid<<endl;
-
-    //     }
+    string s; cin>>s;
     
 }
 
 int main(){
-    // #ifndef ONLINE_JUDGE
-    //     freopen("input.txt", "r", stdin);
-    //     freopen("output.txt", "w", stdout);
-    // #endif
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    #endif
 
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
