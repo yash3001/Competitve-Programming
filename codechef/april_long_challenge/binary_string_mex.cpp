@@ -1,5 +1,6 @@
 /* @author -> gamma30 */
 #include <bits/stdc++.h>
+#include <math.h>
 
 #define pb push_back
 #define eb emplace_back
@@ -38,9 +39,41 @@ T lcm(T a, T b){
     return (a / gcd<T>(a, b)) * b;
 }
 
+string getBinaryRep(int num){
+    string t;
+    stack<char> st;
+    if(num==0){
+        t.pb('0');
+        return t;
+    }
+    while(num>0){
+        char ch = ((num&1) == 1)?'1':'0';
+        t = ch+t;
+        num>>=1;
+    }
+    return t;
+}
+
 void solve(){
     string s; cin>>s;
-    
+    string ans;
+    for(ll i=0; i<pow(2, s.size()); i++){
+        string num = getBinaryRep(i);
+        ll m=0;
+        for(int j=0; j<s.size(); j++){
+            if(num.at(m)==s.at(j)){
+                m++;
+            }
+            if(m>=num.size()){
+                break;
+            }
+        }
+        if(m<num.size()){
+            ans = num;
+            break;
+        }
+    }
+    cout<<ans<<endl;
 }
 
 int main(){
