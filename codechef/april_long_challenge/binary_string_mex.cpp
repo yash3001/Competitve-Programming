@@ -1,6 +1,5 @@
 /* @author -> gamma30 */
 #include <bits/stdc++.h>
-#include <math.h>
 
 #define pb push_back
 #define eb emplace_back
@@ -39,39 +38,114 @@ T lcm(T a, T b){
     return (a / gcd<T>(a, b)) * b;
 }
 
-string getBinaryRep(int num){
-    string t;
-    stack<char> st;
-    if(num==0){
-        t.pb('0');
-        return t;
-    }
-    while(num>0){
-        char ch = ((num&1) == 1)?'1':'0';
-        t = ch+t;
-        num>>=1;
-    }
-    return t;
+template<typename T>
+void swap(T &a, T &b){
+    a = a^b;
+    b = b^a;
+    a = a^b;
 }
 
+vll zeros(1'000'001), ones(1'000'001);
+vll dp0(1'000'002), dp1(1'000'002);
+
 void solve(){
-    string s; cin>>s;
-    string ans;
-    for(ll i=0; i<pow(2, s.size()); i++){
-        string num = getBinaryRep(i);
-        ll m=0;
-        for(int j=0; j<s.size(); j++){
-            if(num.at(m)==s.at(j)){
-                m++;
+    string s, ans="1"; cin>>s;
+    ll pos0=-1, pos1=-1;
+    for(int i=0; i<s.size(); i++){
+        if(s.at(i)=='1'){
+            for(int j=pos1+1; j<i+1; j++){
+                ones.at(j)=i;
             }
-            if(m>=num.size()){
-                break;
+            pos1 = i;
+        }
+        if(s.at(i)=='0'){
+            for(int j=pos0+1; j<i+1; j++){
+                zeros.at(j)=i;
             }
+            pos0 = i;
         }
-        if(m<num.size()){
-            ans = num;
-            break;
+    }
+
+    // for(int i=0; i<s.size(); i++){
+    //     cout<<zeros.at(i)<<" ";
+    // }
+    // cout<<endl;
+    // for(int i=0; i<s.size(); i++){
+    //     cout<<ones.at(i)<<" ";
+    // }
+    // cout<<endl;
+
+    for(int i=pos0+1, j=pos1+1; i<s.size() || j<s.size(); i++, j++){
+        if(i<s.size()){
+            zeros.at(i)=s.size();
         }
+        if(j<s.size()){
+            ones.at(j)=s.size();
+        }
+    }
+    // for(int i=0; i<s.size(); i++){
+    //     cout<<zeros.at(i)<<" ";
+    // }
+    // cout<<endl;
+    // for(int i=0; i<s.size(); i++){
+    //     cout<<ones.at(i)<<" ";
+    // }
+    // cout<<endl;
+
+    dp1.at(s.size())=dp1.at(s.size()+1) = 0;
+    dp0.at(s.size())=dp0.at(s.size()+1) = 0;
+
+    for(ll i=s.size()-1; i>=0; i--){
+        dp0.at(i) = dp0.at(i+1);
+        dp1.at(i) = dp1.at(i+1);
+        if(s.at(i)=='1' && zeros.at(i)<s.size()){
+            dp0.at(i) = max(dp0.at(i), dp0.at(zeros.at(i)+1)+1);
+        }
+        if(s.at(i)=='0' && ones.at(i)<s.size()){
+            dp0.at(i) = max(dp0.at(i), dp0.at(ones.at(i)+1)+1);
+        }
+        if(ones.at(i)<s.size()){
+            dp1.at(i) = max(dp1.at(i), dp0.at(ones.at(i)+1)+1);
+        }
+    }
+    // cout<<"dp0: ";
+    // for(int i=0; i<s.size()+2; i++){
+    //     cout<<dp0.at(i)<<" ";
+    // }
+    // cout<<endl;
+    // cout<<"dp1: ";
+    // for(int i=0; i<s.size()+2; i++){
+    //     cout<<dp1.at(i)<<" ";
+    // }
+    // cout<<endl;
+
+    ll var = ones.at(0)+1;
+    for(ll i=1; i<dp1.at(0)+1; i++){
+        // cout<<"answer starting: "<<ans<<endl;
+        if(var >= s.size()){
+            ans.pb('0');
+            continue;
+        }
+        if(zeros.at(var)>=s.size()){
+            ans.pb('0');
+            var = zeros.at(var)+1;
+            continue;
+        }
+        if(dp0.at(zeros.at(var)+1) < dp1.at(0)-i){
+            ans.pb('0');
+            var = zeros.at(var)+1;
+            // cout<<"answer: "<<ans<<endl;
+        }
+        else{
+            ans.pb('1');
+            var = ones.at(var)+1;
+        }
+        // cout<<"answer ending: "<<ans<<endl;
+    }
+
+    if(zeros.at(0)==s.size()){
+        cout<<"0"<<endl;
+        return;
     }
     cout<<ans<<endl;
 }
