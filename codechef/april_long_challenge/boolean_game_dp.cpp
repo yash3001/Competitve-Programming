@@ -43,7 +43,7 @@ T lcm(T a, T b){
 
 ll helper(vll &g, vll &u, vll &v, vll &d, ll n, ll last_pos, ll val){
     if(n==0){
-        return 0;
+        return -20;
     }
     // if(dp[n][last_pos][val]!=-1){
     //     return dp[n][last_pos][val];
