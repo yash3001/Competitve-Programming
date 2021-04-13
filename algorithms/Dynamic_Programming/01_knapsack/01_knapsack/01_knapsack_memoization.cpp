@@ -25,6 +25,12 @@ int main(){
         cin>>value[i];
     }
     cout<<"The maximum profit is: "<<knapsack(weight, value, w, n)<<endl;
+    // for(int i=0; i<n+1; i++){
+    //     for(int j=0; j<w+1; j++){
+    //         cout<<dp[i][j]<<" ";
+    //     }
+    //     cout<<endl;
+    // }
     return 0;
 }
 
