@@ -1,0 +1,1 @@
+Find whether a given array can be devided in such a way that both subsets members sum are equal.
