@@ -1,0 +1,1 @@
+Assign + or - to all array elements such that the sum of all the elements is equal to the given sum.

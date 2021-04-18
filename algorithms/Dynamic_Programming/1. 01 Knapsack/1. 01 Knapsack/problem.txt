@@ -1,0 +1,1 @@
+We are given a knapsack (a bag) and we are given the maximum weight the bag can accomodate. Now we are also given a particular number of items and their weight and value and we have to maximise the profit that one can get by putting the items in the bag.

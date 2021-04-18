@@ -1,0 +1,1 @@
+Devide the array into two subsets and find the minimum difference between the sum of both partitions.
