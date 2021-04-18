@@ -1,0 +1,1 @@
+Count the number of ways in which we can devide the given array in two subsets in such a way that the difference of sum of both the subsets is equal to a given value.
