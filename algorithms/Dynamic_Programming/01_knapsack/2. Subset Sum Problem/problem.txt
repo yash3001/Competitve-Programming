@@ -1,1 +1,0 @@
-Find whether the given array has a subset whose elements sum is equal to given sum.
