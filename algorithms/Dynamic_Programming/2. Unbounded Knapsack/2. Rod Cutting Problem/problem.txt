@@ -1,0 +1,1 @@
+We are given a rod, we can cut the in any length and we are given the value for the corresponding lengths. We have to maximise the profit.

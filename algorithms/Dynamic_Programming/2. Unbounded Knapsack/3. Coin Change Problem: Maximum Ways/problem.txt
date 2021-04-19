@@ -1,0 +1,1 @@
+We are given a coin array and a sum. Find the number of maximum ways of selecting coins from that array such that the sum of the coins is equal to the given sum.
