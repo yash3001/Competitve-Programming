@@ -8,12 +8,11 @@ int coin_change(vector<int> value, int sum, int n);
 int dp[1001][1001];
 
 int main(){
-    memset(dp, -1, sizeof(dp));
     cout<<"Enter the number of coins: ";
     int n; cin>>n;
 
     vector<int> value(n);
-    cout<<"Enter the value of the elements:"<<endl;
+    cout<<"Enter the value of the elements: ";
     for(int i=0; i<n; i++){
         cin>>value[i];
     }
