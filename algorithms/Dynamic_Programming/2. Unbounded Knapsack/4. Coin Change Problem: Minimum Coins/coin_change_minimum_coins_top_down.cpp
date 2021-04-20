@@ -1,7 +1,5 @@
 /* @author -> gamma30 */
 #include <bits/stdc++.h>
-#include <climits>
-#include <cstdint>
 
 using namespace std;
 
