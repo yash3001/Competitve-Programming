@@ -1,0 +1,1 @@
+Given two strings, print the shortest common supersequence. A supersequence of two srings is a string that contains both the strings but in sequence.
