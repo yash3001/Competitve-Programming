@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int longest_common_supersequence_length(string &s1, string &s2, int m, int n);
+int shortest_common_supersequence_length(string &s1, string &s2, int m, int n);
 
 int dp[1001][1001];
 
@@ -12,11 +12,11 @@ int main(){
     string s1; cin>>s1;
     cout<<"Enter the second string: ";
     string s2; cin>>s2;
-    cout<<"The length of the longest common supersequence is "<<s1.length()+s2.length()-longest_common_supersequence_length(s1, s2, s1.length(), s2.length())<<endl;
+    cout<<"The length of the longest common supersequence is "<<s1.length()+s2.length()-shortest_common_supersequence_length(s1, s2, s1.length(), s2.length())<<endl;
     return 0;
 }
 
-int longest_common_supersequence_length(string &s1, string &s2, int m, int n){
+int shortest_common_supersequence_length(string &s1, string &s2, int m, int n){
 
     for(int i=0; i<m+1; i++){
         dp[i][0] = 0;

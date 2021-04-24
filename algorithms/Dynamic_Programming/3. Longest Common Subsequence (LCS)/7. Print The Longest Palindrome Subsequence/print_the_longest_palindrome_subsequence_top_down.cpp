@@ -3,20 +3,20 @@
 
 using namespace std;
 
-string longest_common_subsequence(string &s1, string &s2, int m, int n);
+string longest_common_palindrome_subsequence(string &s1, string &s2, int m, int n);
 
 int dp[1001][1001];
 
 int main(){
-    cout<<"Enter the first string: ";
+    cout<<"Enter the string: ";
     string s1; cin>>s1;
-    cout<<"Enter the second string: ";
-    string s2; cin>>s2;
-    cout<<"The longest common subsequence is "<<longest_common_subsequence(s1, s2, s1.length(), s2.length())<<endl;
+    string s2 = s1;
+    reverse(s2.begin(), s2.end());
+    cout<<"The longest palindrome subsequence is "<<longest_common_palindrome_subsequence(s1, s2, s1.length(), s2.length())<<endl;
     return 0;
 }
 
-string longest_common_subsequence(string &s1, string &s2, int m, int n){
+string longest_common_palindrome_subsequence(string &s1, string &s2, int m, int n){
     for(int i=0; i<m+1; i++){
         dp[i][0] = 0;
     }
