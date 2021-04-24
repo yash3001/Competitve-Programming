@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int minimum_insertions_deletions(string &s1, string &s2, int m, int n);
+int longest_palindrome_subsequence_length(string &s1, string &s2, int m, int n);
 
 int dp[1001][1001];
 
@@ -12,11 +12,11 @@ int main(){
     string s1; cin>>s1;
     string s2 = s1;
     reverse(s2.begin(), s2.end());
-    cout<<"The length of the longest common subsequence is "<<minimum_insertions_deletions(s1, s2, s1.length(), s2.length())<<endl;
+    cout<<"The length of the longest common subsequence is "<<longest_palindrome_subsequence_length(s1, s2, s1.length(), s2.length())<<endl;
     return 0;
 }
 
-int minimum_insertions_deletions(string &s1, string &s2, int m, int n){
+int longest_palindrome_subsequence_length(string &s1, string &s2, int m, int n){
 
     for(int i=0; i<m+1; i++){
         dp[i][0] = 0;
