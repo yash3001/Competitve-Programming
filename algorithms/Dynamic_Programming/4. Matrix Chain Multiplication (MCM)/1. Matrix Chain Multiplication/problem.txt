@@ -1,0 +1,1 @@
+Given a array that contains the row and colums of each matrix, we multiply each of them, find the minimum number of multiplications opertions(cost).
