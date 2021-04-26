@@ -1,0 +1,1 @@
+Given a string that contains either T(true), F(false), |(or), &(and), ^(xor), find the number of ways in which we can place brackets so that the whole expression evaluates out to be true.
