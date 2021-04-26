@@ -1,0 +1,1 @@
+Given two strings, check whether the second string is a scrambled verison of the first string or not.
