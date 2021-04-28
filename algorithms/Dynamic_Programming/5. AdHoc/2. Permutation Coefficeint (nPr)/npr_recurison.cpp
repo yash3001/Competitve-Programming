@@ -3,26 +3,26 @@
 
 using namespace std;
 
-int nCr(int n, int r);
+int nPr(int n, int r);
 
 int main(){
     cout<<"Enter n: ";
     int n; cin>>n;
     cout<<"Enter r: ";
     int r; cin>>r;
-    cout<<"Value of nCr is(-1 if r>n) "<<nCr(n, r)<<endl;
+    cout<<"Value of nPr is(-1 if r>n) "<<nPr(n, r)<<endl;
     return 0;
 }
 
-int nCr(int n, int r){
-    if(r==0 || r==n){
+int nPr(int n, int r){
+    if(r==0){
         return 1;
     }
     if(r==1){
         return n;
     }
     if(r>n){
-        return -1;
+        return 0;
     }
-    return nCr(n-1, r-1) + nCr(n-1, r);
+    return r*nPr(n-1, r-1) + nPr(n-1, r);
 }
