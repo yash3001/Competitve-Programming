@@ -6,7 +6,7 @@ using namespace std;
 void dfs(vector<vector<int>> &adjacency_list, vector<int> &visited, int node){
     visited.at(node) = 1;
     for(int i=0; i<adjacency_list.at(node).size(); i++){
-        if(!visited[adjacency_list.at(node).at(i)])
+        if(!visited.at(adjacency_list.at(node).at(i)))
             dfs(adjacency_list, visited, adjacency_list.at(node).at(i));
     }
 }
