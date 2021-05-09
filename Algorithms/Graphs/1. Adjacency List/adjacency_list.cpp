@@ -9,6 +9,7 @@ int main(){
     cout<<"Enter the number of edges: ";
     int m; cin>>m;
     vector<int> adjacency_list[n+1];
+    cout<<"Enter the edges:"<<endl;
     while(m--){
         int a, b; cin>>a>>b;
         adjacency_list[a].push_back(b);
