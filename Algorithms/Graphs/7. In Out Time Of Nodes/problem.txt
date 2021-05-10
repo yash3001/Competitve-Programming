@@ -1,0 +1,1 @@
+Count the in and out time of each node and find whether the out of the two given nodes, one node is in the subgraph of the other.
