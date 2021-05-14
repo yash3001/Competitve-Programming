@@ -1,0 +1,1 @@
+Given a array, construct an array such that array[n] gives the size of the subtree rooted at node n.
