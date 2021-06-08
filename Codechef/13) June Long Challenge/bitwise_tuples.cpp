@@ -46,7 +46,7 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    cout<<(1&2&3)<<endl;
+    
 }
 
 int main(){
