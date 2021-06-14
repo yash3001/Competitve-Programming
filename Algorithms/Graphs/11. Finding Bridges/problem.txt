@@ -1,0 +1,1 @@
+Find all the bridges (edges which when removed, splits the graph into more than 1 component) in the given graph.
