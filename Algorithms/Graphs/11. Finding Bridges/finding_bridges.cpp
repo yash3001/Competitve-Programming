@@ -37,7 +37,6 @@ int main(){
         adjacency_list.at(a).push_back(b);
         adjacency_list.at(b).push_back(a);
     }
-    vector<int> visited(n+1, 0), in(n+1, 0), low(n+1, 0);
     dfs(1, -1);
     return 0;
 }
