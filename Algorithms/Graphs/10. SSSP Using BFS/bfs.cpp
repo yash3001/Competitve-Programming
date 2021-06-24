@@ -10,11 +10,12 @@ void bfs(vector<vector<int>> adjacency_list, int n){
     while(!q.empty()){
         int node = q.front();
         q.pop();
-        visited.at(node) = 1;
         cout<<node<<" ";
         for(const auto &child: adjacency_list.at(node)){
-            if(!visited.at(child))
+            if(!visited.at(child)){
+                visited.at(child) = 1;
                 q.push(child);
+            }
         }
     }
     cout<<endl;
