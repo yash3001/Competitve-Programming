@@ -7,7 +7,7 @@ int grid[1001][1001], n, m;
 int xadd[]{-1, 0, 1, 0}, yadd[]{0, 1, 0, -1};
 
 bool isValid(int i, int j){
-    return (i<m && i>=0 && j<n && j>=0 && !grid[i][j]);
+    return (i<=m && i>=1 && j<=n && j>=1 && !grid[i][j]);
 }
 
 void dfs(int i, int j){
@@ -23,6 +23,6 @@ void dfs(int i, int j){
 int main(){
     cout<<"Enter the size of the grid(mxn): ";
     cin>>m>>n;
-    dfs(0, 0);   
+    dfs(1, 1);   
     return 0;
 }
