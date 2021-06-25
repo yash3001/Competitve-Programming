@@ -1,0 +1,1 @@
+Find out the weight of the minimum spanning tree using kruskal's algorithm.
