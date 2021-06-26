@@ -1,0 +1,1 @@
+Find the lowest(first) common parent/anscestor of two given nodes.
