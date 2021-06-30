@@ -1,0 +1,2 @@
+A strongly connected component in a digraph is a group of vertices such that each vertex is reachable from every other vertex in the group.
+Find and print the strongly connected components in the given graph.
