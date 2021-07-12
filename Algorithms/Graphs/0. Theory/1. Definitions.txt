@@ -1,0 +1,15 @@
+Walks
+1) Walk - A walk is a sequence of vertices and edges
+2) Closed Walk - A walk that starts and ends on the same vertex
+
+Trail
+1) Trial - A walk with no repeated edges.
+2) Circuit - A closed trial is call a circuit.
+
+Path
+1) Path - A path is walk with no repeated vertices.
+2) Cycle - A closed path is called a cycle. The start and the end is repeated.
+
+Euler Trial and Euler Circuit
+1) Euler Trial - If there exists a trial that traverses every edge in the graph(only once), then its called an euler trial.
+2) Euler Circuit - If there exists a circuit that traverses every edge in the graph(only once), then its called an euler circuit.
