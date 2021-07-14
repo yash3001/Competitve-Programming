@@ -21,12 +21,13 @@ int longest_common_subsequence_length(string &s1, string &s2, int m, int n){
     if(m==0 ||  n==0){
         return dp[m][n]=0;
     }
-    if(s1[m-1]==s2[n-1]){
-        return dp[m][n]=(1+longest_common_subsequence_length(s1, s2, m-1, n-1));
-    }
 
     if(dp[m][n] != -1){
         return dp[m][n];
+    }
+
+    if(s1[m-1]==s2[n-1]){
+        return dp[m][n]=(1+longest_common_subsequence_length(s1, s2, m-1, n-1));
     }
 
     else{
