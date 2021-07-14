@@ -18,7 +18,7 @@ class Solution{
     { 
     	// Your code here
     	long long ans[n];
-    	int i=0, j=n-1;
+        int i=0, j=n-1;
         for(int k=0; k<n; k++){
             if(k%2){
                 ans[k] = arr[i++];
