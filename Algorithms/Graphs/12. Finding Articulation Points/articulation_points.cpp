@@ -23,7 +23,7 @@ void dfs(int v, int p){
             dfs(n, v);
             child_cnt++;
             low.at(v) = min(low.at(v), low.at(n));
-            if(in.at(v)<=low.at(n) && p != -1){
+            if(low.at(n) >= in.at(v) && p != -1){
                 s.insert(v);
             }
         }
