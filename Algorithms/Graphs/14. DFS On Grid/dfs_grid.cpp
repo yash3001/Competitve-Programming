@@ -7,7 +7,13 @@ int grid[1001][1001], n, m;
 int xadd[]{-1, 0, 1, 0}, yadd[]{0, 1, 0, -1};
 
 bool isValid(int i, int j){
-    return (i<=m && i>=1 && j<=n && j>=1 && !grid[i][j]);
+    if(i<=m && i>=1 && j<=n && n>=1){
+        if(!grid[i][j]){
+            return true;
+        }
+        return false;
+    }
+    return false;
 }
 
 void dfs(int i, int j){
