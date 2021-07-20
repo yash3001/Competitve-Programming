@@ -35,10 +35,10 @@ int main(){
         if(s.at(i) == ']'){
             string str;
             while(st.top() != "["){
-                str += st.top();
+                str = st.top()+str;
                 st.pop();
             }
-            reverse(str.begin(), str.end());
+            // reverse(str.begin(), str.end());
 
             st.pop();
             string n = st.top();
