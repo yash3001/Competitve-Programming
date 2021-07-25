@@ -8,7 +8,7 @@ int palindrome_partitioning(string &s, int i, int j);
 int main(){
     cout<<"Enter the string: ";
     string s; cin>>s;
-    cout<<"The minimum number of partitioning can needs to be done is "<<palindrome_partitioning(s, 0, s.size()-1)<<endl;
+    cout<<"The minimum number of partitioning that needs to be done is "<<palindrome_partitioning(s, 0, s.size()-1)<<endl;
     return 0;
 }
 
