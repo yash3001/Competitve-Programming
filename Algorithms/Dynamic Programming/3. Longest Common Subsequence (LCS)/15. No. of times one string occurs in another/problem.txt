@@ -1,0 +1,1 @@
+Count the number of times string 2 occurs in string 1
