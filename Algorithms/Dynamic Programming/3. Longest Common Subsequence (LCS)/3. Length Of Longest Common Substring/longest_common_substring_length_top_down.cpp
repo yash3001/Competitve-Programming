@@ -17,6 +17,9 @@ int main(){
 }
 
 int longest_common_substring_length(string &s1, string &s2, int m, int n){
+
+    int ans = 0;
+    
     for(int i=0; i<m+1; i++){
         dp[i][0] = 0;
     }
@@ -31,9 +34,10 @@ int longest_common_substring_length(string &s1, string &s2, int m, int n){
             else{
                 dp[i][j] = 0;
             }
+            ans = max(ans, dp[i][j]);
         }
     }
-    int ans = 0;
+    // int ans = 0;
     for(int i=1; i<m+1; i++){
         for(int j=1; j<n+1; j++){
             ans = max(ans, dp[i][j]);
