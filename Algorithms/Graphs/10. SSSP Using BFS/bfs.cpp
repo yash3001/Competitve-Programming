@@ -7,6 +7,7 @@ void bfs(vector<vector<int>> adjacency_list, int n){
     queue<int> q;
     q.push(1);
     vector<int> visited(n+1);
+    visited.at(1) = 1;
     while(!q.empty()){
         int node = q.front();
         q.pop();
