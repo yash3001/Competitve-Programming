@@ -1,6 +1,5 @@
 /* @author -> gamma30 */
 #include <bits/stdc++.h>
-#include <exception>
 
 #define pb push_back
 #define eb emplace_back
@@ -47,45 +46,17 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll v;
-    vll num;
-    forf(ll, i, n){
-        vll t(m);
-        forf(ll, j, m){
-            cin>>t.at(j);
-            num.pb(t.at(j));
-        }
-        v.pb(t);
+    ll n; cin>>n;
+    if(n%3 == 0){
+        cout<<n/3<<" "<<n/3;
     }
-    for(const auto &e: v){
-        sort(all(e));
+    else if(n%3 == 1){
+        cout<<n/3+1<<" "<<n/3;
     }
-    ll ans[n][m];
-    umll mp;
-    sort(all(num));
-    forf(ll, i, m){
-        mp[num.at(i)]++;    
+    else{
+        cout<<n/3<<" "<<n/3+1;
     }
-    forf(ll, i, m){
-        ll min=0;
-        forf(ll, j, n){
-            if(!min){
-                if(mp[v.at(i).at(0)]){
-                    min=1;
-                    ans[j][i] = v.at(i).at(0);
-                    v.at(i).at(j) == 0;
-                }
-                else{
-                    ans[j][i] = v.at(i).at(0);
-                }
-            }
-            else{
-                ans[j][i] = v.at(i).at(v.at(i).size()-1);
-                v.at(i).pop_back();
-            }
-        }
-    }
+    cout<<endl;
 }
 
 int main(){

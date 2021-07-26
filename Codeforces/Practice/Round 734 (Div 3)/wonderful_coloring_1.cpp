@@ -1,6 +1,5 @@
 /* @author -> gamma30 */
 #include <bits/stdc++.h>
-#include <limits>
 
 #define pb push_back
 #define eb emplace_back
@@ -46,35 +45,17 @@ void swap_(T &a, T &b){
     a = a^b;
 }
 
-ll count(ll n){
-    ll c{};
-    while(n>0){
-        c++;
-        n /= 10;
-    }
-    return c;
-}
-
 void solve(){
-    ll n; cin>>n;
-    ll ans{};
-    while(n>0){
-        ll c = count(n);
-        if(c<4)
-            break;
-        ll m = 2050*pow(10, c-4);
-        if(m>n){
-            m = 2050*pow(10, c-5);
+    string s; cin>>s;
+    int n = s.size();
+    unordered_map<char, int> mp;
+    for(int i=0; i<s.size(); i++){
+        mp[s[i]]++;
+        if(mp[s[i]] > 2){
+            n--;
         }
-        n -= m;
-        ans++;
     }
-    if(n != 0){
-        cout<<-1<<endl;
-    }
-    else{
-        cout<<ans<<endl;
-    }
+    cout<<n/2<<endl;
 }
 
 int main(){
