@@ -48,22 +48,7 @@ void swap_(T &a, T &b){
 void solve(){
     ll x1,x2, y1, y2; cin>>x1>>y1>>x2>>y2;
     x1--; x2--; y1--; y2--;
-    // vector<vector<int>> matrix(x2+y2+1, vector<int>(x2+y2+1, 0));
-    // ll count = 2;
-    // matrix[0][0] = 1;
-    // for(ll i=1; i<x2+y2+1; i++){
-    //     int x = 0, y=i;
-    //     while(y >= 0){
-    //         matrix[x][y] = count++;
-    //         x++; y--;
-    //     }
-    // }
-    // for(int i=0; i<x2+y2-1; i++){
-    //     for(int j=0; j<x2+y2-1; j++){
-    //         cout<<matrix[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
+
     vll sumarr(2001);
     sumarr[0] = 1;
     ll sum=0;
