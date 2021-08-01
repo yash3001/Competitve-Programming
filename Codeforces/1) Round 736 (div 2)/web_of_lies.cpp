@@ -46,27 +46,56 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    ll a, b, n; cin>>a>>b>>n;
-    if(a % b == 0){
-        cout<<a;
-        for(int i=0; i<n; i++){
-            cout<<0;
+    ll n, m; cin>>n>>m;
+
+    vll outdeg1(n+1, 0), outdeg2;
+    ll count1{}, count2{};
+
+    while(m--){
+        ll a, b; cin>>a>>b;
+        ll x = min(a, b);
+        ll y = max(a, b);
+
+        if(outdeg1[x]++ == 0){
+            count1++;
         }
-        cout<<endl;
-        return;
     }
-    for(int i=0; i<10; i++){
-        int new_num = a*10 + i;
-        if(new_num % b == 0){
-            cout<<new_num;
-            for(int i=0; i<n-1; i++){
-                cout<<0;
+
+    ll q; cin>>q;
+
+    outdeg2 = outdeg1;
+    count1 = n-count1;
+    count2 = count1;
+    while(q--){
+        ll a, b, c;
+        cin>>a;
+        if(a == 3){
+            cout<<count2<<endl;
+            count2 = count1;
+            outdeg2 = outdeg1; 
+        }
+        else{
+            cin>>b>>c;
+            if(a == 1){
+                ll x, y;
+                x = min(b, c);
+                y = max(b, c);
+
+                if(outdeg2[x]++ == 0){
+                    count2--;
+                }
             }
-            cout<<endl;
-            return;
+            if(a == 2){
+                ll x, y;
+                x = min(b, c);
+                y = max(b, c);
+
+                if(--outdeg2[x] == 0){
+                    count2++;
+                }
+            }
         }
     }
-    cout<<-1<<endl;
 }
 
 int main(){

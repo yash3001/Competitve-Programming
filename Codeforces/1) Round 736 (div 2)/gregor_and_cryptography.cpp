@@ -46,27 +46,12 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    ll a, b, n; cin>>a>>b>>n;
-    if(a % b == 0){
-        cout<<a;
-        for(int i=0; i<n; i++){
-            cout<<0;
-        }
-        cout<<endl;
+    ll p; cin>>p;
+    if(p == 5){
+        cout<<2<<" "<<4<<endl;
         return;
     }
-    for(int i=0; i<10; i++){
-        int new_num = a*10 + i;
-        if(new_num % b == 0){
-            cout<<new_num;
-            for(int i=0; i<n-1; i++){
-                cout<<0;
-            }
-            cout<<endl;
-            return;
-        }
-    }
-    cout<<-1<<endl;
+    cout<<2<<" "<<(p-1)/2<<endl;
 }
 
 int main(){
@@ -79,7 +64,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t{1};
+    ll t; cin >> t;
     while(t--){
         solve();
     }

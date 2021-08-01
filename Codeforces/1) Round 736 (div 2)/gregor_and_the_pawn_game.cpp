@@ -46,27 +46,35 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    ll a, b, n; cin>>a>>b>>n;
-    if(a % b == 0){
-        cout<<a;
-        for(int i=0; i<n; i++){
-            cout<<0;
-        }
-        cout<<endl;
-        return;
-    }
-    for(int i=0; i<10; i++){
-        int new_num = a*10 + i;
-        if(new_num % b == 0){
-            cout<<new_num;
-            for(int i=0; i<n-1; i++){
-                cout<<0;
+    ll n; cin>>n;
+    string enemy, gregor; cin>>enemy>>gregor;
+
+    vll line(n, 0);
+    ll ans{};
+    for(int i=0; i<n; i++){
+        if(gregor[i] == '1'){
+            if(enemy[i] == '0'){
+                line.at(i) = 1;
+                ans++;
+                continue;
             }
-            cout<<endl;
-            return;
+            if(i-1 >= 0){
+                if(enemy[i-1] == '1' && line[i-1] == 0){
+                    line.at(i-1) = 1;
+                    ans++;
+                    continue;
+                }
+            }
+            if(i+1 < n){
+                if(enemy[i+1] == '1' && line[i+1] == 0){
+                    line.at(i+1) = 1;
+                    ans++;
+                    continue;
+                }
+            }
         }
     }
-    cout<<-1<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){
@@ -79,7 +87,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t{1};
+    ll t; cin >> t;
     while(t--){
         solve();
     }
