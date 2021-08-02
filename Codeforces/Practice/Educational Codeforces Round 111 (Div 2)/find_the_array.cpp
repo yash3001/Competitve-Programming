@@ -46,35 +46,8 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    ll n; cin>>n;
-    vll v;
-    umll mp, mp1;
-    vector<pair<int, int>> btls;
-    forf(ll, i, n){
-        ll a, b; cin>>a>>b;
-        btls.pb({a, b});
-        v.pb(a);
-        mp1[a]++;
-    }
-    ll count{};
-    for(const auto &p: btls){
-        ll a = p.first;
-        ll b = p.second;
-        if(a != b){
-            mp[b]++;
-        }
-        else{
-            if(mp1[a]>1){
-                mp[b]++;
-            }
-        }
-    }
-    for(const auto &n: v){
-        if(!mp[n]){
-            count++;
-        }
-    }
-    cout<<count<<endl;
+    ll s; cin>>s;
+    cout<<ceil(sqrt(s*1.0))<<endl;
 }
 
 int main(){
@@ -87,7 +60,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t{1};
+    ll t; cin >> t;
     while(t--){
         solve();
     }
