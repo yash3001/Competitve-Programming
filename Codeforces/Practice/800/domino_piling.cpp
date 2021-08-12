@@ -46,13 +46,8 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    string s; cin>>s;
-
-    if(s.size() > 10){
-        cout<<s.front()<<s.size()-2<<s.back()<<endl;
-        return;
-    }
-    cout<<s<<endl;
+    ll m, n; cin>>m>>n;
+    cout<<(m*n)/2<<endl; 
 }
 
 int main(){
@@ -65,7 +60,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t; cin >> t;
+    ll t{1};
     while(t--){
         solve();
     }
