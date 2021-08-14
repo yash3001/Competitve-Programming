@@ -45,47 +45,32 @@ void swap_(T &a, T &b){
     a = a^b;
 }
 
+template<typename T>
+T modpow(T a, T b, T m){
+    if(b == 0){
+        return 1;
+    }
+    T c = modpow(a, b/2, m);
+    c = (c * c)%m;
+    if(b%2 == 1){
+        c = (c * a)%m;
+    }
+    return c;
+}
+
 void solve(){
-    ll n; cin>>n;
-    vll a, b;
-    forf(ll, i, n){
-        ll t; cin>>t;
-        a.push_back(t);
-        b.push_back(t);
-    }
-    sort(all(b));
-    umll mp;
-    forf(ll, i, n){
-        mp[b[i]] = i;
-    }
-    ll l=-1, r=-1;
-    for(ll i=0; i<n; i++){
-        if(mp[a[i]] != i){
-            l = i;
-            break;
+    ll n, t; cin>>n>>t;
+    string s; cin>>s;
+    string z = s;
+    while(t--){
+        for(int i=1; i<s.size(); i++){
+            if(z[i-1] == 'B' && z[i] == 'G'){
+                swap(s[i-1], s[i]);
+            }
         }
+        z = s;
     }
-    for(ll i=n-1; i>=0; i--){
-        if(mp[a[i]] != i){
-            r = i;
-            break;
-        }
-    }
-
-    if(l == -1 && r == -1){
-        cout<<"yes"<<endl<<"1 1";
-        return;
-    }
-
-    reverse(a.begin()+l, a.begin()+r+1);
-    for(ll i=0; i<n; i++){
-        if(mp[a[i]] != i){
-            cout<<"no";
-            return;
-        }
-    }
-
-    cout<<"yes"<<endl<<l+1<<" "<<r+1;
+    cout<<s;
 }
 
 int main(){
