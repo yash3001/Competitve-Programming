@@ -7,7 +7,7 @@
 #define ss second
 #define endl "\n"
 #define EPS 1e-9
-#define MOD 1000000007
+#define MOD 1e9+7
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define forf(t,i,n) for(t i=0;i<n;i++)
@@ -60,23 +60,41 @@ T modpow(T a, T b, T m){
 }
 
 void solve(){
-    int a,b;
-    cin >> a >> b;
-    int n;
-    cin >> n;
-    int arr[7]={0};
+    string s; cin>>s;
+    string t;
+    for(const auto &c: s){
+        if(c != 'a'){
+            t.pb(c);
+        }
+    }
 
-    arr[1] = (a+MOD)%MOD;
-    arr[2] = (b+MOD)%MOD;
-    arr[3] = (b-a+MOD)%MOD;
-    arr[4] = (-a+MOD)%MOD;
-    arr[5] = (-b+MOD)%MOD;
-    arr[6] = (a-b+MOD)%MOD;
+    if(t.size() == 0){
+        cout<<s;
+        return;
+    }
 
-    int k = n%6;
-    if(k==0)
-    k=6;
-    cout << (arr[k]+MOD)%MOD << "\n";
+    if(t.size()&1){
+        cout<<":(";
+        return;
+    }
+
+
+    for(int i=0, j=t.size()/2; j<t.size(); i++, j++){
+        if(t[i] != t[j]){
+            cout<<":(";
+            return;
+        }
+    }
+
+    string check = t.substr(0, t.size()/2);
+    for(int i=s.size()-1, j=check.size()-1; j>=0; i--, j--){
+        if(s[i] != check[j]){
+            cout<<":(";
+            return;
+        }
+    }
+
+    cout<<s.substr(0, s.size()-check.size());
 }
 
 int main(){

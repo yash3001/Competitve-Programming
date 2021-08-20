@@ -7,7 +7,7 @@
 #define ss second
 #define endl "\n"
 #define EPS 1e-9
-#define MOD 1000000007
+#define MOD 1e9+7
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define forf(t,i,n) for(t i=0;i<n;i++)
@@ -60,23 +60,19 @@ T modpow(T a, T b, T m){
 }
 
 void solve(){
-    int a,b;
-    cin >> a >> b;
-    int n;
-    cin >> n;
-    int arr[7]={0};
+    ll n; cin>>n;
 
-    arr[1] = (a+MOD)%MOD;
-    arr[2] = (b+MOD)%MOD;
-    arr[3] = (b-a+MOD)%MOD;
-    arr[4] = (-a+MOD)%MOD;
-    arr[5] = (-b+MOD)%MOD;
-    arr[6] = (a-b+MOD)%MOD;
+    if((n&1) == 0 || n == 1 || n == 3){
+        cout<<"NO";
+        return;
+    }
 
-    int k = n%6;
-    if(k==0)
-    k=6;
-    cout << (arr[k]+MOD)%MOD << "\n";
+    if(n == 1){
+        cout<<"NO";
+        return;
+    }
+
+    cout<<"1 "<<((n-3)/2);
 }
 
 int main(){
