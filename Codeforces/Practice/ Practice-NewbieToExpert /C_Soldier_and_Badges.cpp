@@ -61,33 +61,29 @@ T modpow(T a, T b, T m){
 
 void solve(){
     ll n; cin>>n;
-    vll nums;
+    umll mp;
+    vll dups;
     forf(ll, i, n){
         ll t; cin>>t;
-        nums.pb(t);
-    }
-
-    ll ans = 0;
-
-    while(!is_sorted(all(nums))){
-        if((ans&1)==0){
-            for(ll i = 0; i<=n-2; i+=2){
-                if(nums[i] > nums[i+1]){
-                    swap(nums[i], nums[i+1]);
-                }
-            }
+        if(mp[t]){
+            dups.pb(t);
         }
-        else{
-            for(ll i = 1; i<=n-1; i+=2){
-                if(nums[i] > nums[i+1]){
-                    swap(nums[i], nums[i+1]);
-                }
-            }
-        }
-        ans++;
+        mp[t]++;
     }
-
-    cout<<ans<<endl;
+    ll ans=0;
+    for(const auto &n: dups){
+        int i = n;
+        while(true){
+            if(mp[i]){
+                i++;
+                ans++;
+                continue;
+            }
+            mp[i]++;
+            break;
+        }
+    }
+    cout<<ans;
 }
 
 int main(){
@@ -102,7 +98,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t; cin >> t;
+    ll t{1};
     while(t--){
         solve();
     }

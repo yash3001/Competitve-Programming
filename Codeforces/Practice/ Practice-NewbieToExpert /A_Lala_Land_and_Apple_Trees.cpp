@@ -59,35 +59,52 @@ T modpow(T a, T b, T m){
     return c;
 }
 
+bool comp(pair<ll, ll> p1, pair<ll, ll> p2){
+    return p1.first < p2.first;
+}
+
+bool ncomp(pair<ll, ll> p1, pair<ll, ll> p2){
+    return p1.first > p2.first;
+}
+
 void solve(){
-    ll n; cin>>n;
-    vll nums;
-    forf(ll, i, n){
-        ll t; cin>>t;
-        nums.pb(t);
-    }
-
-    ll ans = 0;
-
-    while(!is_sorted(all(nums))){
-        if((ans&1)==0){
-            for(ll i = 0; i<=n-2; i+=2){
-                if(nums[i] > nums[i+1]){
-                    swap(nums[i], nums[i+1]);
-                }
-            }
+    ll n=0, p=0;
+    ll nt, ans=0, sumn=0, sump=0; cin>>nt;
+    vector<pair<ll, ll>> neg, pos;
+    for(ll i=0; i<nt; i++){
+        ll a, b; cin>>a>>b;
+        if(a<0){
+            n++;
+            neg.pb({a, b});
+            sumn += b;
         }
         else{
-            for(ll i = 1; i<=n-1; i+=2){
-                if(nums[i] > nums[i+1]){
-                    swap(nums[i], nums[i+1]);
-                }
-            }
+            p++;
+            pos.pb({a, b});
+            sump += b;
         }
-        ans++;
+    }
+    if(abs(p-n) <= 1){
+        ans = sumn + sump;
+        cout<<ans<<endl;
+        return;
     }
 
-    cout<<ans<<endl;
+    if(p > n){
+        sort(all(pos), comp);
+        sump = 0;
+        for(int i=0; i<n+1; i++){
+            sump += pos[i].second;
+        }
+    }
+    else{
+        sort(all(neg), ncomp);
+        sumn = 0;
+        for(int i=0; i<p+1; i++){
+            sumn += neg[i].second;
+        }
+    }
+    cout<<sumn+sump;
 }
 
 int main(){
@@ -102,7 +119,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t; cin >> t;
+    ll t{1};
     while(t--){
         solve();
     }

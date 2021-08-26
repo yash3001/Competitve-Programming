@@ -60,34 +60,24 @@ T modpow(T a, T b, T m){
 }
 
 void solve(){
-    ll n; cin>>n;
-    vll nums;
-    forf(ll, i, n){
-        ll t; cin>>t;
-        nums.pb(t);
+    string s; cin>>s;
+    ll k; cin>>k;
+    if(s.size()%k != 0){
+        cout<<"NO";
+        return;
     }
-
-    ll ans = 0;
-
-    while(!is_sorted(all(nums))){
-        if((ans&1)==0){
-            for(ll i = 0; i<=n-2; i+=2){
-                if(nums[i] > nums[i+1]){
-                    swap(nums[i], nums[i+1]);
-                }
-            }
+    int i=0;
+    for(int j=0; j < k; j++){
+        
+        string t = s.substr(i, s.size()/k);
+        reverse(all(t));
+        if(t != s.substr(i, s.size()/k)){
+            cout<<"NO";
+            return;
         }
-        else{
-            for(ll i = 1; i<=n-1; i+=2){
-                if(nums[i] > nums[i+1]){
-                    swap(nums[i], nums[i+1]);
-                }
-            }
-        }
-        ans++;
+        i += s.size()/k;
     }
-
-    cout<<ans<<endl;
+    cout<<"YES";
 }
 
 int main(){
@@ -102,7 +92,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t; cin >> t;
+    ll t{1};
     while(t--){
         solve();
     }
