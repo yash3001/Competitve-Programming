@@ -60,9 +60,15 @@ T modpow(T a, T b, T m){
 }
 
 void solve(){
-    ll n; cin>>n;
-    string s; cin>>s;
-        
+    int n; cin>>n;
+    int a, b; cin>>a;
+    ll ans = 0;
+    for(int i=0; i<n-1; i++){
+        cin>>b;
+        ans = max(ans, (ll)a*b);
+        a = b;
+    }
+    cout<<ans<<endl;
 }
 
 int main(){
