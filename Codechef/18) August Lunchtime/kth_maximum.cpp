@@ -77,15 +77,15 @@ void solve(){
         }
     }
     
-    if(k == n){
-        if(arr[k-1] == max_num){
-            cout<<1<<endl;
-        }
-        else{
-            cout<<0<<endl;
-        }
-        return;
-    }
+    // if(k == n){
+    //     if(arr[k-1] == max_num){
+    //         cout<<1<<endl;
+    //     }
+    //     else{
+    //         cout<<0<<endl;
+    //     }
+    //     return;
+    // }
 
     ll ans = 0;
     for(const auto &i: pos){
