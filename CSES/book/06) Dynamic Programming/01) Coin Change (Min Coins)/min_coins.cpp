@@ -7,7 +7,7 @@ int minSum(int sum, vector<int> coins, int n){
     int dp[sum+1];
     dp[0] = 0;
     for(int i=1; i<=sum; i++){
-        dp[i] = INT_MAX;
+        dp[i] = INT_MAX-1;
         for(const auto &c: coins){
             if(i-c >= 0){
                 dp[i] = min(dp[i], dp[i-c]+1);
