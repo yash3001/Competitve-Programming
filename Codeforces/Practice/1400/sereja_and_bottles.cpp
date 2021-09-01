@@ -46,42 +46,33 @@ void swap_(T &a, T &b){
 }
 
 void solve(){
-    ll n; cin>>n;
-    vll v;
-    umll mp, mp1;
-    vector<pair<int, int>> btls;
-    forf(ll, i, n){
-        ll a, b; cin>>a>>b;
-        btls.pb({a, b});
-        v.pb(a);
-        mp1[a]++;
+    int n; cin>>n;
+    vector<int> open(n);
+    vector<int> bottle(n);
+    for(int i=0; i<n; i++){
+        cin>>bottle[i]>>open[i];
     }
-    ll count{};
-    for(const auto &p: btls){
-        ll a = p.first;
-        ll b = p.second;
-        if(a != b){
-            mp[b]++;
-        }
-        else{
-            if(mp1[a]>1){
-                mp[b]++;
+    int count = 0;
+    for(int i=0; i<n; i++){
+        bool flag = 0;
+        for(int j=0; j<n; j++){
+            if(i != j && open[j] == bottle[i]){
+                flag = 1;
+                break;
             }
         }
-    }
-    for(const auto &n: v){
-        if(!mp[n]){
+        if(!flag){
             count++;
         }
     }
-    cout<<count<<endl;
+    cout<<count;
 }
 
 int main(){
-    #ifndef ONLINE_JUDGE
-        freopen("input.txt", "r", stdin);
-        freopen("output.txt", "w", stdout);
-    #endif
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    //     freopen("output.txt", "w", stdout);
+    // #endif
 
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
