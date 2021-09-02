@@ -62,7 +62,23 @@ T modpow(T a, T b, T m){
 void solve(){
     ll n; cin>>n;
     string s; cin>>s;
-        
+    ll pos = -1;
+    for(int i=0; i<s.size(); i++){
+        if(s[i]=='0'){
+            pos = i;
+            break;
+        }
+    }
+
+    if(pos == -1){
+        cout<<1<<" "<<n-1<<" "<<2<<" "<<n<<endl;
+    }
+    else if(pos >= n/2){
+        cout<<1<<" "<<pos+1<<" "<<1<<" "<<pos<<endl;
+    }
+    else{
+        cout<<pos+1<<" "<<n<<" "<<pos+2<<" "<<n<<endl;
+    }
 }
 
 int main(){
