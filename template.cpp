@@ -1,4 +1,8 @@
 /* @author -> gamma30 */
+
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+
 #include <bits/stdc++.h>
 
 #define pb push_back
