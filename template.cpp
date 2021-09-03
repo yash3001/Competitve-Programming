@@ -39,7 +39,9 @@ typedef vector<vector<string>> vvs;
 typedef unordered_map<int, int> umi;
 typedef unordered_map<long long, long long> umll;
 typedef unordered_map<char, int> umci;
-typedef unordered_map<char, long long> umcl;
+typedef unordered_map<char, long long> umcll;
+typedef unordered_map<string, int> umsi;
+typedef unordered_map<string, long long> umsll;
 
 template<typename T>
 T gcd(T a, T b){
