@@ -78,7 +78,45 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
+    int n, m; cin>>n>>m;
     
+    vvi dp(n, vi(m+1, 0));
+
+    int first; cin>>first;
+    if(first == 0){
+        for(int i=1; i<=m; i++){
+            dp[0][i] = 1;
+        }
+        // fill(all(dp[0]), 1);
+    }
+    else{
+        dp[0][first] = 1;
+    }
+    for(int i=1; i<n; i++){
+        int x; cin>>x;
+        if(x == 0){
+            for(int j=1; j<=m; j++){
+                for(auto n: {j-1, j, j+1}){
+                    if(n >= 1 && n <= m){
+                        (dp[i][j] += dp[i-1][n]) %= 1000000007;
+                    }
+                }
+            }
+        }
+        else{
+            for(auto n: {x-1, x, x+1}){
+                if(n >= 1 && n <= m){
+                    (dp[i][x] += dp[i-1][n]) %= 1000000007;
+                }
+            }
+        }
+    }
+
+    int ans = 0;
+    for(int i=1; i<=m; i++){
+        (ans += dp[n-1][i]) %= 1000000007;
+    }
+    cout<<ans;
 }
 
 int main(){
@@ -94,7 +132,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
         solve();
     }
