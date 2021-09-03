@@ -75,7 +75,15 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n; cin>>n;
+    vll dp(n+1, 1e9);
+    dp[0] = 0;
+    for(int i=1; i<=n; i++){
+        for(const auto &c: to_string(i)){
+            dp[i] = min(dp[i], dp[i-(c-'0')]+1);
+        }
+    }
+    cout<<dp[n];
 }
 
 int main(){
@@ -91,7 +99,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
         solve();
     }

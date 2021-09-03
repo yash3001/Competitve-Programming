@@ -1,8 +1,4 @@
 /* @author -> gamma30 */
-
-#pragma GCC optimize("Ofast")
-#pragma GCC target("avx,avx2,fma")
-
 #include <bits/stdc++.h>
 
 #define pb push_back
@@ -14,12 +10,8 @@
 #define MOD 1e9+7
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
-// #define forf(t,i,n) for(t i=0;i<n;i++)
-// #define forr(t,i,n) for(t i=n-1;i>=0;i--)
-#define forf(i,a,b) for(ll i=a;i<b;i++)
-#define forr(i,a,b) for(ll i=a;i>=b;i--)
-#define ceach(a,x) for(const auto &a: x)
-#define each(a,x) for(auto &a: x)
+#define forf(t,i,n) for(t i=0;i<n;i++)
+#define forr(t,i,n) for(t i=n-1;i>=0;i--)
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
 
 using namespace std;
@@ -33,10 +25,7 @@ typedef vector<long long> vll;
 typedef vector<vector<int>> vvi;
 typedef vector<vector<long long>> vvll;
 typedef vector<string> vs;
-typedef unordered_map<int, int> umi;
 typedef unordered_map<long long, long long> umll;
-typedef unordered_map<char, int> umci;
-typedef unordered_map<char, long long> umcl;
 
 template<typename T>
 T gcd(T a, T b){
@@ -70,12 +59,24 @@ T modpow(T a, T b, T m){
     return c;
 }
 
-/* ----------STRING AND INTEGER CONVERSIONS---------- */
-// 1) number to string -> to_string(num)
-// 2) string to number -> stoi(str)
-
 void solve(){
-    
+    ll n; cin>>n;
+    vll nums(n);
+    for(auto &t: nums){
+        cin>>t;
+    }
+    vll ans; ans.pb(nums[0]);
+    for(ll i=1; i<n-1; i++){
+        if(nums[i] > nums[i-1] && nums[i] > nums[i+1]){
+            ans.pb(nums[i]);
+        }
+        else if(nums[i] < nums[i-1] && nums[i] < nums[i+1]){
+            ans.pb(nums[i]);
+        }
+    }
+    ans.pb(nums[n-1]);
+    cout<<ans.size()<<endl;
+    print(ans);
 }
 
 int main(){
@@ -90,11 +91,10 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    ll t=1;
-    cin >> t;
+    ll t; cin >> t;
     while(t--){
         solve();
     }
-
+    
     return 0;
 }
