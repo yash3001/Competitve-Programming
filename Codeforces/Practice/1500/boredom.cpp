@@ -1,7 +1,10 @@
 /* @author -> gamma30 */
 
-#pragma GCC optimize("Ofast")
-#pragma GCC target("avx,avx2,fma")
+// #pragma GCC optimize("Ofast")
+// #pragma GCC target("avx,avx2,fma")
+#pragma GCC optimize("O3")
+#pragma GCC target("avx,avx2,sse,sse2,sse3,sse4,popcnt,fma")
+#pragma GCC optimize("unroll-loops")
 
 #include <bits/stdc++.h>
 
@@ -81,16 +84,6 @@ T modpow(T a, T b, T m){
 
 void solve(){
     ll n; cin>>n;
-    string a, b;
-    while(n>0){
-        a = (char)(n%10+'0') + a;
-        n /= 10;
-        b = (char)(n%10+'0') + b;
-        n /= 10;
-    }
-    ll x = stoi(a);
-    ll y = stoi(b);
-    cout<<(x+1)*(y+1)-2<<endl;
 }
 
 int main(){
@@ -106,7 +99,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
         solve();
     }
