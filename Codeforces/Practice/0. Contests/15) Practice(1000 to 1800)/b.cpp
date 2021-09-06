@@ -83,7 +83,19 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n; cin>>n;
+    vll nums(n);
+    each(x, nums){
+        cin>>x;
+    }
+    for(ll i=0; i<n-1; i++){
+        if(abs(nums[i]-nums[i+1]) >= 2){
+            cout<<"YES"<<endl;
+            cout<<i+1<<" "<<i+2<<endl;
+            return;
+        }
+    }
+    cout<<"NO"<<endl;
 }
 
 int main(){

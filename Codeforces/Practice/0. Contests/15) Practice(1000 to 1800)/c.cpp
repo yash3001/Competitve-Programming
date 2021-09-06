@@ -82,8 +82,65 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
+ll lcs(string s1, string s2){
+    ll m = s1.size();
+    ll n = s2.size();
+
+    vvll dp(m+1, vll(n+1, 0));
+
+    for(ll i=0; i<m+1; i++){
+        dp[i][0] = 0;
+    }
+    for(ll i=1; i<n+1; i++){
+        dp[0][i] = 0;
+    }
+
+    for(ll i=1; i<m+1; i++){
+        for(ll j=1; j<n+1; j++){
+            if(s1[i-1] == s2[j-1]){
+                dp[i][j] = 1+dp[i-1][j-1];
+            }
+            else{
+                dp[i][j] = max(dp[i][j-1], dp[i-1][j]);
+            }
+        }
+    }
+
+    return dp[m][n];
+}
+
 void solve(){
-    
+    string s, t, p; cin>>s>>t>>p;
+    ll le = lcs(t, s);
+    if(le != s.size()){
+        cout<<"NO"<<endl;
+        return;
+    }
+    umcll a, b, c;
+    each(x, p){
+        c[x]++;
+    }
+    each(x, t){
+        b[x]++;
+    }
+    each(x, s){
+        a[x]++;
+    }
+    each(x, t){
+        if(!a[x]){
+            if(!c[x]){
+                cout<<"NO"<<endl;
+                return;
+            }
+            else{
+                c[x]--;
+            }
+        }
+        else{
+            a[x]--;
+        }
+    }
+    cout<<"YES"<<endl;
 }
 
 int main(){

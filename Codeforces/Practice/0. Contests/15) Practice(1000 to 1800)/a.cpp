@@ -83,7 +83,34 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n; cin>>n;
+    while(n--){
+        string t; cin>>t;
+        ll sum = 0;
+        ll has_zero = 0;
+        bool div_2 = false;
+        for(const auto &c: t){
+            if(c == '0'){
+                has_zero++;
+            }
+            else if((c-'0')%2 == 0){
+                div_2 = true;
+            }
+            sum += (c-'0');
+        }
+        // cout<<sum<<endl;
+        if(has_zero>0 && sum%3 == 0){
+            if(has_zero == 1 && !div_2){
+                cout<<"cyan"<<endl;
+            }
+            else{
+                cout<<"red"<<endl;
+            }
+        }
+        else{
+            cout<<"cyan"<<endl;
+        }
+    }
 }
 
 int main(){
@@ -99,7 +126,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
         solve();
     }

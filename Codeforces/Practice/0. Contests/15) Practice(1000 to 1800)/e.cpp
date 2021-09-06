@@ -83,6 +83,7 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
+    ll n; cin>>n;
     
 }
 
@@ -99,7 +100,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
         solve();
     }

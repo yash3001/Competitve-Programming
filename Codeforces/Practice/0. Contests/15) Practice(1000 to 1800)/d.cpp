@@ -83,7 +83,48 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n; cin>>n;
+    vll nums(n);
+    each(x, nums){
+        cin>>x;
+    }
+    vc ans;
+    ll count = 0, i=0, j=n-1, prev = 0;
+    while(i <= j && (nums[i] > prev || nums[j] > prev)){
+        if(nums[i] > prev && nums[j] > prev){
+            if(nums[i]<=nums[j]){
+                prev = nums[i];
+                ans.pb('L');
+                i++;
+                count++;
+                continue;
+            }
+            else{
+                prev = nums[j];
+                ans.pb('R');
+                j--;
+                count++;
+                continue;
+            }
+        }
+        if(nums[i]>prev){
+            prev = nums[i];
+            ans.pb('L');
+            i++;
+            count++;
+            continue;
+        }
+        if(nums[j]>prev){
+            prev = nums[j];
+            ans.pb('R');
+            j--;
+            count++;
+        }
+    }
+    cout<<count<<endl;
+    each(c, ans){
+        cout<<c;
+    }
 }
 
 int main(){
@@ -99,7 +140,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
         solve();
     }
