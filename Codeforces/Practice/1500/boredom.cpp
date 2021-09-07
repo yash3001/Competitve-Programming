@@ -14,7 +14,7 @@
 #define ss second
 #define endl "\n"
 #define EPS 1e-9
-#define MOD 1e9+7
+#define MOD 1000000007
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 // #define forf(t,i,n) for(t i=0;i<n;i++)
@@ -45,6 +45,41 @@ typedef unordered_map<char, int> umci;
 typedef unordered_map<char, long long> umcll;
 typedef unordered_map<string, int> umsi;
 typedef unordered_map<string, long long> umsll;
+
+
+#ifndef ONLINE_JUDGE
+    #define deb(x) cerr << #x << " : "; _print(x); cerr << endl;
+#else
+    #define deb(x) ;
+#endif
+
+void _print(unsigned short t){ cerr << t; }
+void _print(short t){ cerr << t; }
+void _print(unsigned int t){ cerr << t; }
+void _print(int t){ cerr << t; }
+void _print(unsigned long t){ cerr << t; }
+void _print(long t){ cerr << t; }
+void _print(unsigned long long t){ cerr << t; }
+void _print(long long t){ cerr << t; }
+void _print(float t){ cerr << t; }
+void _print(double t){ cerr << t; }
+void _print(long double t){ cerr << t; }
+void _print(unsigned char t){ cerr << t; }
+void _print(char t){ cerr << t; }
+void _print(string t){ cerr << t; }
+
+template<typename A> void _print(vector<A> v){ cerr << "[ "; for(auto it=v.begin(); it!=(v.end()-1); it++){ _print(*it); cerr <<", "; } _print(v[v.size()-1]); cerr << " ]"; }
+template<typename A, typename B> void _print(pair<A, B> p){ cerr << "{ "; _print(p.first); cerr << ", "; _print(p.second); cerr << " }"; }
+template<typename A> void _print(set<A> s){ cerr << "{ "; for(auto it=s.begin(), lit=next(it); lit!=(s.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*(s.rbegin())); cerr << " }"; }
+template<typename A, typename B> void _print(map<A, B> mp){ cerr << "[ "; for(auto it=mp.begin(), lit=next(it); lit!=(mp.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*(mp.rbegin())); cerr << " ]"; }
+template<typename A> void _print(multiset<A> s){ cerr << "{ "; for(auto it=s.begin(), lit=next(it); lit!=(s.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*(s.rbegin())); cerr << " }"; }
+template<typename A, typename B> void _print(multimap<A, B> mp){ cerr << "[ "; for(auto it=mp.begin(), lit=next(it); lit!=(mp.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*(mp.rbegin())); cerr << " ]"; }
+template<typename A> void _print(unordered_set<A> s){ cerr << "{ "; auto it = s.begin(); for(auto lit=next(it); lit!=(s.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*it); cerr << " }"; }
+template<typename A, typename B> void _print(unordered_map<A, B> mp){ cerr << "[ "; auto it = mp.begin(); for(auto lit=next(it); lit!=(mp.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*it); cerr << " ]"; }
+template<typename A> void _print(unordered_multiset<A> s){ cerr << "{ "; auto it=s.begin(); for(auto lit=next(it); lit!=(s.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*it); cerr << " }"; }
+template<typename A, typename B> void _print(unordered_multimap<A, B> mp){ cerr << "[ "; auto it=mp.begin(); for(auto lit=next(it); lit!=(mp.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*it); cerr << " ]"; }
+template<typename A> void _print(stack<A> s){ stack<A> t; cerr << "T[ "; while(s.size() != 1){ _print(s.top()); cerr << ", "; t.push(s.top()); s.pop(); } _print(s.top()); cerr << " ]B"; t.push(s.top()); s.pop(); while(!t.empty()){ s.push(t.top()); t.pop(); } }
+template<typename A> void _print(queue<A> q){ queue<A> t; cerr << "F[ "; while(q.size() != 1){ _print(q.front()); cerr << ", "; t.push(q.front()); q.pop(); } _print(q.front()); cerr << " ]B"; t.push(q.front()); q.pop(); while(!t.empty()){ q.push(t.front()); t.pop(); } }
 
 template<typename T>
 T gcd(T a, T b){
@@ -84,6 +119,12 @@ T modpow(T a, T b, T m){
 
 void solve(){
     ll n; cin>>n;
+    vll seq(n);
+    each(x, seq){
+        cin>>x;
+    }
+    deb(seq);
+    
 }
 
 int main(){
@@ -92,6 +133,7 @@ int main(){
     // #ifndef ONLINE_JUDGE
     //     freopen("input.txt", "r", stdin);
     //     freopen("output.txt", "w", stdout);
+    //     freopen("error.txt", "w", stderr);
     // #endif
 
     ios_base::sync_with_stdio(false);
