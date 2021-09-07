@@ -120,7 +120,15 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll x; cin>>x;
+    ll s = 0;
+    while(s*(s+1) < 2*x){
+        s++;
+    }
+    if(s*(s+1)/2 == x+1){
+        s++;
+    }
+    cout<<s<<endl;
 }
 
 int main(){
@@ -137,7 +145,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     while(t--){
         solve();
     }

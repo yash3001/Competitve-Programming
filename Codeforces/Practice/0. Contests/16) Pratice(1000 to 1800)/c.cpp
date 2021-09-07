@@ -120,7 +120,54 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n; cin>>n;
+    string a, b; cin>>a>>b;
+    vll ans;
+    ll count = 0;
+    ll k = n;
+    ll i=0, j=n-1;
+    bool flag = 0;
+    ll bit_flips = 0;
+    while(k--){
+        if(flag == 0){
+            if(bit_flips%2 != 0){
+                a[j] = (a[j] == '0' ? '1' : '0');
+            }
+            if(a[i] == b[k]){
+                count += 2;
+                ans.pb(1);
+                ans.pb(k+1);
+            }
+            else{
+                count+=1;
+                ans.pb(k+1);
+            }
+            i++;
+            bit_flips++;
+        }
+        else{
+            if(bit_flips%2 != 0){
+                a[j] = (a[j] == '0' ? '1' : '0');
+            }
+            if(a[j] == b[k]){
+                count += 2;
+                ans.pb(1);
+                ans.pb(k+1);
+            }
+            else{
+                count+=1;
+                ans.pb(k+1);
+            }
+            j--;
+            bit_flips++;
+        }
+        flag = !flag;
+    }
+    cout<<count<<" ";
+    each(x, ans){
+        cout<<x<<" ";
+    }
+    cout<<endl;
 }
 
 int main(){
@@ -137,7 +184,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     while(t--){
         solve();
     }

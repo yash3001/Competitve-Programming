@@ -49,8 +49,10 @@ typedef unordered_map<string, long long> umsll;
 
 #ifndef ONLINE_JUDGE
     #define deb(x) cerr << #x << " : "; _print(x); cerr << endl;
+    #define pt(x) cerr << "---------Testcase " << x << "---------" << endl;
 #else
     #define deb(x) ;
+    #define pt(x) ;
 #endif
 
 void _print(unsigned short t){ cerr << t; }
@@ -138,7 +140,8 @@ int main(){
 
     ll t=1;
     // cin >> t;
-    while(t--){
+    for(ll i=1; i<=t; i++){
+        pt(i);
         solve();
     }
 

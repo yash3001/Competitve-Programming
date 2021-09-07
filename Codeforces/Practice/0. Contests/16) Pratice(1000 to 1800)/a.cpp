@@ -120,7 +120,16 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll l, r, d; cin>>l>>r>>d;
+    deb(l);
+    deb(r);
+    deb(d);
+    if(d < l){
+        cout<<d<<endl;
+    }
+    else{
+        cout<<((r/d)+1)*d<<endl;
+    }
 }
 
 int main(){
@@ -137,7 +146,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     while(t--){
         solve();
     }
