@@ -121,11 +121,44 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-void helper(){
-
-}
-
 void solve(){
+    ll n; cin>>n;
+    vll nums(n);
+    ll check = 0;
+    ll pos = -1;
+    ll z = 0;
+    each(x, nums){
+        z++;
+        cin>>x;
+        if(x == 1 && !check){
+            check = 1;
+            pos = z;
+        }
+    }
+    if(!check || nums[n-1]==0){
+        forf(i, 1, n+2){
+            cout<<i<<" ";
+        }
+        cout<<endl;
+        return;
+    }
+
+    if(pos == 1){
+        cout<<n+1<<" ";
+        forf(i, 1, n+1){
+            cout<<i<<" ";
+        }
+        cout<<endl;
+        return;
+    }
+
+    forf(i, 1, pos){
+        cout<<i<<" ";
+    }
+    cout<<n+1<<" ";
+    forf(i, pos, n+1){
+        cout<<i<<" ";
+    }
 }
 
 int main(){
@@ -142,7 +175,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

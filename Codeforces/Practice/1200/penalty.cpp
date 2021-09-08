@@ -49,7 +49,7 @@ typedef unordered_map<string, long long> umsll;
 
 #ifndef ONLINE_JUDGE
     #define deb(x) cerr << #x << " : "; _print(x); cerr << endl;
-    #define pt(x) cerr << "---------Testcase " << x << "---------" << endl;
+    #define pt(x) cerr << "\n---------Testcase " << x << "---------\n" << endl;
 #else
     #define deb(x) ;
     #define pt(x) ;
@@ -121,44 +121,110 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-void dfs(ll n, vector<vector<ll>> &adj, vector<ll> &visited, vector<ll> &ans){
-    visited[n] = 1;
-    ans.pb(n);
-    for(const auto &c: adj[n]){
-        if(!visited[c]){
-            dfs(c, adj, visited, ans);
-        }
-    }
-}
-
 void solve(){
-    ll n; cin>>n;
-    vector<vector<ll>> adj(n+2);
-    for(ll i=1; i<n; i++){
-        adj[i].pb(i+1);
-    }
-    
-    for(ll i=1; i<=n; i++){
-        ll t; cin>>t;
-        if(t == 0){
-            adj[i].pb(n+1);
+    string s; cin>>s;
+    umci mp;
+    vll q;
+    ll z = 0;
+    each(x, s){
+        mp[x]++;
+        if(x == '?'){
+            q.pb(z);
         }
-        else{
-            adj[n+1].pb(i);
-        }
+        z++;
     }
-    for(ll i=1; i<=n+1; i++){
-        vector<ll> visited(n+2, 0), ans;
-        dfs(i, adj, visited, ans);
-        if(ans.size() == n+1){
-            for(const auto &n: ans){
-                cout<<n<<" ";
+    if(mp['?'] == 10){
+        cout<<6<<endl;
+        return;
+    }
+    if(mp['1'] == 10 || mp['0'] == 10){
+        cout<<10<<endl;
+        return;
+    }
+
+    int ans = 10;
+
+    if(mp['?'] == 0){
+        int score_a = 0, score_b = 0;
+        for(int i=0; i<10; i++){
+            if(i%2 == 0){
+                if(s[i] == '1'){
+                    score_a++;
+                    if(score_a > (10-i)/2 + score_b){
+                        ans = min(ans, i+1);
+                        break;
+                    }
+                }
+                else{
+                    if(score_b > (10-i-2)/2 + score_a){
+                        ans = min(ans, i+1);
+                        break;
+                    }
+                }
             }
-            cout<<endl;
-            return;
+            else{
+                if(s[i] == '1'){
+                    score_b++;
+                    if(score_b > (10-i-1)/2 + score_a){
+                        ans = min(ans, i+1);
+                        break;
+                    }
+                }
+                else{
+                    if(score_a > (10-i-1)/2 + score_b){
+                        ans = min(ans, i+1);
+                        break;
+                    }
+                }   
+            }
         }
     }
-    cout<<-1<<endl;
+    else{
+        for(int i=0; i<(1<<(q.size())); i++){
+            for(int j=0; j<(q.size()); j++){
+                if((i>>j)&1 == 1){
+                    s[q[j]] = '1';
+                }
+                else{
+                    s[q[j]] = '0';
+                }
+            }
+            int score_a = 0, score_b = 0;
+            for(int i=0; i<10; i++){
+                if(i%2 == 0){
+                    if(s[i] == '1'){
+                        score_a++;
+                        if(score_a > (10-i)/2 + score_b){
+                            ans = min(ans, i+1);
+                            break;
+                        }
+                    }
+                    else{
+                        if(score_b > (10-i-2)/2 + score_a){
+                            ans = min(ans, i+1);
+                            break;
+                        }
+                    }
+                }
+                else{
+                    if(s[i] == '1'){
+                        score_b++;
+                        if(score_b > (10-i-1)/2 + score_a){
+                            ans = min(ans, i+1);
+                            break;
+                        }
+                    }
+                    else{
+                        if(score_a > (10-i-1)/2 + score_b){
+                            ans = min(ans, i+1);
+                            break;
+                        }
+                    }
+                }   
+            }
+        }
+    }
+    cout<<ans<<endl;
 }
 
 int main(){

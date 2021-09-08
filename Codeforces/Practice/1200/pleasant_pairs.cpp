@@ -49,7 +49,7 @@ typedef unordered_map<string, long long> umsll;
 
 #ifndef ONLINE_JUDGE
     #define deb(x) cerr << #x << " : "; _print(x); cerr << endl;
-    #define pt(x) cerr << "---------Testcase " << x << "---------" << endl;
+    #define pt(x) cerr << "\n---------Testcase " << x << "---------\n" << endl;
 #else
     #define deb(x) ;
     #define pt(x) ;
@@ -121,44 +121,21 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-void dfs(ll n, vector<vector<ll>> &adj, vector<ll> &visited, vector<ll> &ans){
-    visited[n] = 1;
-    ans.pb(n);
-    for(const auto &c: adj[n]){
-        if(!visited[c]){
-            dfs(c, adj, visited, ans);
-        }
-    }
-}
-
 void solve(){
     ll n; cin>>n;
-    vector<vector<ll>> adj(n+2);
-    for(ll i=1; i<n; i++){
-        adj[i].pb(i+1);
+    vll nums(n);
+    each(x, nums){
+        cin>>x;
     }
-    
-    for(ll i=1; i<=n; i++){
-        ll t; cin>>t;
-        if(t == 0){
-            adj[i].pb(n+1);
-        }
-        else{
-            adj[n+1].pb(i);
-        }
-    }
-    for(ll i=1; i<=n+1; i++){
-        vector<ll> visited(n+2, 0), ans;
-        dfs(i, adj, visited, ans);
-        if(ans.size() == n+1){
-            for(const auto &n: ans){
-                cout<<n<<" ";
+    ll ans = 0;
+    forf(i, 0, n-1){
+        forf(j, i+1, n){
+            if(nums[i]*nums[j] == i+j+2){
+                ans++;
             }
-            cout<<endl;
-            return;
         }
     }
-    cout<<-1<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){

@@ -49,7 +49,7 @@ typedef unordered_map<string, long long> umsll;
 
 #ifndef ONLINE_JUDGE
     #define deb(x) cerr << #x << " : "; _print(x); cerr << endl;
-    #define pt(x) cerr << "---------Testcase " << x << "---------" << endl;
+    #define pt(x) cerr << "\n---------Testcase " << x << "---------\n" << endl;
 #else
     #define deb(x) ;
     #define pt(x) ;
@@ -121,44 +121,56 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-void dfs(ll n, vector<vector<ll>> &adj, vector<ll> &visited, vector<ll> &ans){
-    visited[n] = 1;
-    ans.pb(n);
-    for(const auto &c: adj[n]){
-        if(!visited[c]){
-            dfs(c, adj, visited, ans);
-        }
-    }
-}
-
 void solve(){
     ll n; cin>>n;
-    vector<vector<ll>> adj(n+2);
-    for(ll i=1; i<n; i++){
-        adj[i].pb(i+1);
-    }
-    
-    for(ll i=1; i<=n; i++){
-        ll t; cin>>t;
-        if(t == 0){
-            adj[i].pb(n+1);
-        }
-        else{
-            adj[n+1].pb(i);
-        }
-    }
-    for(ll i=1; i<=n+1; i++){
-        vector<ll> visited(n+2, 0), ans;
-        dfs(i, adj, visited, ans);
-        if(ans.size() == n+1){
-            for(const auto &n: ans){
-                cout<<n<<" ";
+    string s; cin>>s;
+    vector<vc> mat(n, vc(n, 'X'));
+    for(int i=0; i<n; i++){
+        if(s[i] == '1'){
+            for(int j=0; j<n; j++){
+                if(i != j){
+                    mat[i][j] = '=';
+                    mat[j][i] = '=';
+                }
             }
-            cout<<endl;
-            return;
         }
     }
-    cout<<-1<<endl;
+    deb(mat);
+    for(int i=0; i<n; i++){
+        if(s[i] == '2'){
+            bool found = false;
+            for(int j=0; j<n; j++){
+                if(i != j){
+                    if(mat[i][j] == 'X'){
+                        found = 1;
+                        mat[i][j] = '+';
+                        mat[j][i] = '-';
+                        break;
+                    }
+                }
+            }
+            deb(mat);
+            if(!found){
+                cout<<"NO"<<endl;
+                return;
+            }
+        }
+    }
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(i != j && mat[i][j] == 'X'){
+                mat[i][j] = '=';
+                mat[j][i] = '=';
+            }
+        }
+    }
+    cout<<"YES"<<endl;
+    each(x,mat){
+        each(y, x){
+            cout<<y;
+        }
+        cout<<endl;
+    }
 }
 
 int main(){
