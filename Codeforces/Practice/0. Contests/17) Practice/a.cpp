@@ -122,13 +122,39 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    stack<int> st;
-    st.push(10);
-    st.push(0);
-    st.push(110);
-    st.push(1);
-    st.push(100);
-    deb(st);
+    ll n; cin>>n;
+    vll negs, pos;
+    ll ans = 0;
+    while(n--){
+        ll t; cin>>t;
+        if(t > 0){
+            ans += t-1;
+        }
+        else{
+            negs.pb(t);
+        }
+    }
+    sort(all(negs));
+    if(negs.size() % 2 == 1){
+        ans += 1 - *(negs.end()-1);
+        for(ll i=0; i<negs.size()-1; i++){
+            if(negs[i] == 0){
+                ans += 1;
+                continue;
+            }
+            ans += -1 - negs[i];
+        }
+    }
+    else{
+        each(x, negs){
+            if(x == 0){
+                ans += 1;
+                continue;
+            }
+            ans += -1 - x;
+        }
+    }
+    cout<<ans;
 }
 
 int main(){
@@ -145,7 +171,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

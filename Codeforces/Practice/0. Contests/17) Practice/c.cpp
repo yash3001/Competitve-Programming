@@ -122,13 +122,60 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    stack<int> st;
-    st.push(10);
-    st.push(0);
-    st.push(110);
-    st.push(1);
-    st.push(100);
-    deb(st);
+    ll n; cin>>n;
+    vll nums(n);
+    each(x, nums){
+        cin>>x;
+    }
+    ll ans=0;
+    vll events;
+    ll people = 0;
+    vll employes((ll)1e6+1, 0);
+    vll check((ll)1e6+1, 0);
+    for(ll i=0; i<n; i++){
+        if(nums[i] > 0){
+            if(check[nums[i]]){
+                cout<<-1;
+                return;
+            }
+            else{
+                if(employes[nums[i]]){
+                    if(people == 0){
+                        ans++;
+                        if(events.size() == 0){
+                            events.pb(i+1);
+                        }
+                        else{
+                            events.pb(i+1-events[events.size()-1]);
+                        }
+                        fill(all(employes), 0);
+                    }
+                    else{
+                        cout<<-1<<endl;
+                        return;
+                    }
+                }
+                else{
+                    employes[nums[i]] = 1;
+                    check[nums[i]] = 1;
+                }
+            }
+        }
+        else{
+            if(check[nums[i]] == 0){
+                cout<<-1;
+                return;
+            }
+            else{
+                check[nums[i]] = 0;
+            }
+        }
+    }
+
+    cout<<ans<<endl;
+    each(x, events){
+        cout<<x<<" ";
+    }
 }
 
 int main(){
@@ -145,7 +192,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

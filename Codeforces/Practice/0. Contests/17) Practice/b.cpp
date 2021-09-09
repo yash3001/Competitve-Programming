@@ -122,13 +122,14 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    stack<int> st;
-    st.push(10);
-    st.push(0);
-    st.push(110);
-    st.push(1);
-    st.push(100);
-    deb(st);
+    ll n; cin>>n;
+    vll fact(n+1, 1);
+    for(ll i=1; i<=n; i++){
+        fact[i] = fact[i-1]*i;
+    }
+    deb(fact);
+    ll ans = (fact[n]/(2*fact[n/2]*fact[n/2]))*fact[n/2-1]*fact[n/2-1];
+    cout<<ans;
 }
 
 int main(){
@@ -145,7 +146,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

@@ -122,13 +122,103 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    stack<int> st;
-    st.push(10);
-    st.push(0);
-    st.push(110);
-    st.push(1);
-    st.push(100);
-    deb(st);
+    ll n, m; cin>>n>>m;
+    vvll mines(m);
+    for(int i=0; i<m; i++){
+        ll a, b; cin>>a>>b;
+        mines[i].pb(a);
+        mines[i].pb(b);
+    }
+
+
+    if(n == 1){
+        cout<<0<<endl;
+    }
+    if(mines.size() == n*n){
+        cout<<0<<endl;
+    }
+    
+    vector<vector<int>> mat(n, vector<int>(n, 1));
+    for(const auto &p: mines){
+        mat[p[0]][p[1]] = 0;
+    }
+    vector<int> diag(n);
+    int count = 0;
+    if(n%2 == 0){
+        for(int i=0; i<n; i++){
+            if(i >= n/2){
+                diag[i] = --count;
+            }
+            else{
+                diag[i] = count++;
+            } 
+        }
+    }
+    else{
+        for(int i=0; i<n; i++){
+            if(i > n/2){
+                diag[i] = --count;
+            }
+            else{
+                diag[i] = count++;
+            }
+            if(i == n/2){
+                count--;
+            }
+        }
+    } 
+    int ans = 0;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(mat[i][j] == 1){
+                bool check = 1;
+                int k;
+                //up
+                for(k=1; k<=min(diag[i], diag[j]); k++){
+                    if(mat[i-k][j] == 0){
+                        check = 0;
+                        break;
+                    }
+                }
+                if(!check){
+                    continue;
+                }
+                //down
+                for(k=1; k<=min(diag[i], diag[j]); k++){
+                    if(mat[i+k][j] == 0){
+                        check = 0;
+                        break;
+                    }
+                }
+                if(!check){
+                    continue;
+                }
+                //left
+                for(k=1; k<=min(diag[i], diag[j]); k++){
+                    if(mat[i][j-k] == 0){
+                        check = 0;
+                        break;
+                    }
+                }
+                if(!check){
+                    continue;
+                }
+                //right
+                for(k=1; k<=min(diag[i], diag[j]); k++){
+                    if(mat[i][j+k] == 0){
+                        check = 0;
+                        break;
+                    }
+                }
+                if(!check){
+                    continue;
+                }
+
+                ans = max(ans, min(diag[i], diag[j])+1);
+            }
+        }
+    }
+    cout<<ans;
 }
 
 int main(){
@@ -145,7 +235,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
