@@ -122,79 +122,33 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    ll n; cin>>n;
-    vll nums(n);
-    each(x, nums){
-        cin>>x;
+    ll a, b; cin>>a>>b;
+    if(a > b){
+        swap(a, b);
     }
-    ll ans=0;
-    vll events;
-    ll people = 0;
-    umll employes;
-    umll check;
 
-    for(ll i=0; i<n; i++){
-        deb(i);
-        if(nums[i] > 0){
-            if(check[nums[i]]){
-                cout<<-1;
-                return;
-            }
-            else{
-                if(employes[nums[i]]){
-                    if(people == 0){
-                        ans++;
-                        if(events.size() == 0){
-                            events.pb(i);
-                        }
-                        else{
-                            events.pb(i+1-events[events.size()-1]);
-                        }
-                        employes.clear();
-                        employes[nums[i]] = 1;
-                        check[nums[i]] = 1;
-                        people++;
-                    }
-                    else{
-                        cout<<-1<<endl;
-                        return;
-                    }
-                }
-                else{
-                    employes[nums[i]] = 1;
-                    check[nums[i]] = 1;
-                    people++;
-                }
-            }
-        }
-        else{
-            if(check[-1*nums[i]] == 0){
-                cout<<-1;
-                return;
-            }
-            else{
-                check[-1*nums[i]] = 0;
-                people--;
-            }
-        }
-        deb(check);
-        deb(employes);
-        deb(people);
-    }
-    if(people != 0){
-        cout<<-1;
-        return;
-    }
-    ans++;
-    if(events.size() == 0){
-        events.pb(n);
+    if((a+b)%3 == 0 && a*2 >= b){
+        cout<<"YES"<<endl;
     }
     else{
-        events.pb(n - events[events.size()-1]);
+        cout<<"NO"<<endl;
     }
-    cout<<ans<<endl;
-    each(x, events){
-        cout<<x<<" ";
+    return;
+
+    deb(a);
+    deb(b);
+    
+    a -= b/2;
+    b -= (b/2)*2;
+
+    deb(a);
+    deb(b);
+
+    if(a == 0 && b == 0 || (max(a, b) == 2 && min(a, b) == 1)){
+        cout<<"YES"<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
     }
 }
 
@@ -212,7 +166,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

@@ -123,79 +123,21 @@ T modpow(T a, T b, T m){
 
 void solve(){
     ll n; cin>>n;
-    vll nums(n);
-    each(x, nums){
-        cin>>x;
+    set<ll> s;
+    forf(i, 0, n){
+        ll x; cin>>x;
+        if(x%2 == 0)
+            s.insert(x);
     }
-    ll ans=0;
-    vll events;
-    ll people = 0;
-    umll employes;
-    umll check;
-
-    for(ll i=0; i<n; i++){
-        deb(i);
-        if(nums[i] > 0){
-            if(check[nums[i]]){
-                cout<<-1;
-                return;
-            }
-            else{
-                if(employes[nums[i]]){
-                    if(people == 0){
-                        ans++;
-                        if(events.size() == 0){
-                            events.pb(i);
-                        }
-                        else{
-                            events.pb(i+1-events[events.size()-1]);
-                        }
-                        employes.clear();
-                        employes[nums[i]] = 1;
-                        check[nums[i]] = 1;
-                        people++;
-                    }
-                    else{
-                        cout<<-1<<endl;
-                        return;
-                    }
-                }
-                else{
-                    employes[nums[i]] = 1;
-                    check[nums[i]] = 1;
-                    people++;
-                }
-            }
+    ll ans = 0;
+    while(!s.empty()){
+        if((*s.rbegin()/2)%2 == 0){
+            s.insert(*s.rbegin()/2);
         }
-        else{
-            if(check[-1*nums[i]] == 0){
-                cout<<-1;
-                return;
-            }
-            else{
-                check[-1*nums[i]] = 0;
-                people--;
-            }
-        }
-        deb(check);
-        deb(employes);
-        deb(people);
-    }
-    if(people != 0){
-        cout<<-1;
-        return;
-    }
-    ans++;
-    if(events.size() == 0){
-        events.pb(n);
-    }
-    else{
-        events.pb(n - events[events.size()-1]);
+        s.erase(*s.rbegin());
+        ans++;
     }
     cout<<ans<<endl;
-    each(x, events){
-        cout<<x<<" ";
-    }
 }
 
 int main(){
@@ -212,7 +154,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

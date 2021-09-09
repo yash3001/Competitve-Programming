@@ -122,80 +122,37 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    ll n; cin>>n;
-    vll nums(n);
-    each(x, nums){
+    ll n, s, k; cin>>n>>s>>k;
+    vll closed(k);
+    umll cl;
+    each(x, closed){
         cin>>x;
+        cl[x]++;
     }
-    ll ans=0;
-    vll events;
-    ll people = 0;
-    umll employes;
-    umll check;
-
-    for(ll i=0; i<n; i++){
-        deb(i);
-        if(nums[i] > 0){
-            if(check[nums[i]]){
-                cout<<-1;
-                return;
-            }
-            else{
-                if(employes[nums[i]]){
-                    if(people == 0){
-                        ans++;
-                        if(events.size() == 0){
-                            events.pb(i);
-                        }
-                        else{
-                            events.pb(i+1-events[events.size()-1]);
-                        }
-                        employes.clear();
-                        employes[nums[i]] = 1;
-                        check[nums[i]] = 1;
-                        people++;
-                    }
-                    else{
-                        cout<<-1<<endl;
-                        return;
-                    }
-                }
-                else{
-                    employes[nums[i]] = 1;
-                    check[nums[i]] = 1;
-                    people++;
-                }
-            }
+    ll count1 = 0;
+    int i;
+    for(i=s; i<=n; i++){
+        if(!cl[i]){
+            break;
         }
-        else{
-            if(check[-1*nums[i]] == 0){
-                cout<<-1;
-                return;
-            }
-            else{
-                check[-1*nums[i]] = 0;
-                people--;
-            }
+        count1++;
+    }
+    if(i > n){
+        count1 = INT_MAX;
+    }
+    deb(count1);
+    ll count2 = 0;
+    for(i=s; i>=1; i--){
+        if(!cl[i]){
+            break;
         }
-        deb(check);
-        deb(employes);
-        deb(people);
+        count2++;
     }
-    if(people != 0){
-        cout<<-1;
-        return;
+    if(i < 1){
+        count2 = INT_MAX;
     }
-    ans++;
-    if(events.size() == 0){
-        events.pb(n);
-    }
-    else{
-        events.pb(n - events[events.size()-1]);
-    }
-    cout<<ans<<endl;
-    each(x, events){
-        cout<<x<<" ";
-    }
+    deb(count2);
+    cout<<min(count1, count2)<<endl;
 }
 
 int main(){
@@ -212,7 +169,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

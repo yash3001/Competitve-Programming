@@ -123,78 +123,49 @@ T modpow(T a, T b, T m){
 
 void solve(){
     ll n; cin>>n;
-    vll nums(n);
-    each(x, nums){
+    vll arr(n);
+    ll y = 0;
+    each(x, arr){
         cin>>x;
+        y += x;
     }
-    ll ans=0;
-    vll events;
-    ll people = 0;
-    umll employes;
-    umll check;
-
-    for(ll i=0; i<n; i++){
-        deb(i);
-        if(nums[i] > 0){
-            if(check[nums[i]]){
-                cout<<-1;
-                return;
-            }
-            else{
-                if(employes[nums[i]]){
-                    if(people == 0){
-                        ans++;
-                        if(events.size() == 0){
-                            events.pb(i);
-                        }
-                        else{
-                            events.pb(i+1-events[events.size()-1]);
-                        }
-                        employes.clear();
-                        employes[nums[i]] = 1;
-                        check[nums[i]] = 1;
-                        people++;
-                    }
-                    else{
-                        cout<<-1<<endl;
-                        return;
-                    }
-                }
-                else{
-                    employes[nums[i]] = 1;
-                    check[nums[i]] = 1;
-                    people++;
-                }
-            }
+    ll sum = 0, best = 0;
+    ll i=0, j=0, bi = 0, bj = 0;
+    for(int k=0; k<n; k++){
+        if(arr[k]>=sum+arr[k]){
+            i = j = k;
+            sum = arr[k];
         }
         else{
-            if(check[-1*nums[i]] == 0){
-                cout<<-1;
-                return;
-            }
-            else{
-                check[-1*nums[i]] = 0;
-                people--;
-            }
+            sum += arr[k];
+            j = k;
         }
-        deb(check);
-        deb(employes);
-        deb(people);
+        if(sum >= best){
+            bi = i;
+            bj = j;
+            best = sum;
+        }
+        if(best >= y && (bj<n-1 || bi>0)){
+            cout<<"NO"<<endl;
+            return;
+        }
     }
-    if(people != 0){
-        cout<<-1;
+    deb(best);
+    deb(y);
+    if(best > y){
+        cout<<"NO"<<endl;
         return;
     }
-    ans++;
-    if(events.size() == 0){
-        events.pb(n);
+    if(best == y){
+        if(bi == 0 && bj == n-1){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
     }
     else{
-        events.pb(n - events[events.size()-1]);
-    }
-    cout<<ans<<endl;
-    each(x, events){
-        cout<<x<<" ";
+        cout<<"YES"<<endl;
     }
 }
 
@@ -212,7 +183,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
