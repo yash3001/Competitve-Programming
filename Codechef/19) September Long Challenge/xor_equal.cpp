@@ -137,17 +137,18 @@ void solve(){
 
     ll ans = max_f;
     ll times = 0;
-    each(e, uniq){
-        if(mp[e^x]){
-            if(mp[e]+mp[e^x] > ans){
-                ans = mp[e]+mp[e^x];
-                times = mp[e];
-            }
-            else if(mp[e]+mp[e^x] == ans){
-                times = min(times, mp[e]);
+    if(x != 0)
+        each(e, uniq){
+            if(mp[e^x]){
+                if(mp[e]+mp[e^x] > ans){
+                    ans = mp[e]+mp[e^x];
+                    times = mp[e];
+                }
+                else if(mp[e]+mp[e^x] == ans){
+                    times = min(times, mp[e]);
+                }
             }
         }
-    }
     cout<<ans<<" "<<times<<endl;
 }
 
