@@ -139,8 +139,8 @@ void solve(){
     deb(vp);
     ll ans = 0;
     for(ll i=0; i<n; i++){
-        for(ll j=i*(m-1)+1; j<m; j++){
-            for(ll k=i*(m-1); k<j; k++){
+        for(ll j=(i*m)+1; j<m; j++){
+            for(ll k=i*m; k<j; k++){
                 if(vp[j].second > vp[k].second){
                     ans++;
                 }

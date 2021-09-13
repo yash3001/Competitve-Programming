@@ -70,8 +70,24 @@ void _print(unsigned char t){ cerr << t; }
 void _print(char t){ cerr << t; }
 void _print(string t){ cerr << t; }
 
-template<typename A> void _print(vector<A> v){ if(!v.empty()){ cerr << "[ "; for(auto it=v.begin(); it!=(v.end()-1); it++){ _print(*it); cerr <<", "; } _print(*(v.end()-1)); cerr << " ]"; } else{ cerr << "[]"; } }
+
+template<typename A, typename B> void _print(pair<A, B> p);
+template<typename A> void _print(vector<A> v);
+template<typename A> void _print(set<A> s);
+template<typename A, typename B> void _print(map<A, B> mp);
+template<typename A> void _print(multiset<A> s);
+template<typename A, typename B> void _print(multimap<A, B> mp);
+template<typename A> void _print(unordered_set<A> s);
+template<typename A, typename B> void _print(unordered_map<A, B> mp);
+template<typename A> void _print(unordered_multiset<A> s);
+template<typename A, typename B> void _print(unordered_multimap<A, B> mp);
+template<typename A> void _print(stack<A> s);
+template<typename A> void _print(queue<A> q);
+template<typename A> void _print(priority_queue<A> pq);
+template<typename A> void _print(priority_queue<A, vector<A>, greater<A>> pq);
+
 template<typename A, typename B> void _print(pair<A, B> p){ cerr << "{ "; _print(p.first); cerr << ", "; _print(p.second); cerr << " }"; }
+template<typename A> void _print(vector<A> v){ if(!v.empty()){ cerr << "[ "; for(auto it=v.begin(); it!=(v.end()-1); it++){ _print(*it); cerr <<", "; } _print(*(v.end()-1)); cerr << " ]"; } else{ cerr << "[]"; } }
 template<typename A> void _print(set<A> s){ if(!s.empty()){ cerr << "{ "; for(auto it=s.begin(), lit=next(it); lit!=(s.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*(s.rbegin())); cerr << " }"; } else{ cerr << "{}"; } }
 template<typename A, typename B> void _print(map<A, B> mp){ if(!mp.empty()){ cerr << "[ "; for(auto it=mp.begin(), lit=next(it); lit!=(mp.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*(mp.rbegin())); cerr << " ]"; } else{ cerr << "[]"; } }
 template<typename A> void _print(multiset<A> s){ if(!s.empty()){ cerr << "{ "; for(auto it=s.begin(), lit=next(it); lit!=(s.end()); it++, lit++){ _print(*it); cerr <<", "; } _print(*(s.rbegin())); cerr << " }"; } else{ cerr << "{}"; } }
@@ -122,13 +138,7 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    stack<int> st;
-    st.push(10);
-    st.push(0);
-    st.push(110);
-    st.push(1);
-    st.push(100);
-    deb(st);
+    
 }
 
 int main(){
