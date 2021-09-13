@@ -134,12 +134,12 @@ void solve(){
         cin>>vp[i].first;
         vp[i].second = i;
     }
-    deb(vp);
+    // deb(vp);
     sort(all(vp), comp);
     deb(vp);
     ll ans = 0;
     for(ll i=0; i<n; i++){
-        for(ll j=(i*m)+1; j<m; j++){
+        for(ll j=(i*m)+1; j<(i*m)+m; j++){
             for(ll k=i*m; k<j; k++){
                 if(vp[j].second > vp[k].second){
                     ans++;
