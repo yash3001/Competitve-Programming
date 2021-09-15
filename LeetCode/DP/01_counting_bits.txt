@@ -1,5 +1,5 @@
 Consider two numbers a and b. a = 2*b or a/2 = b.
 
-Now since b = a/2 (b = right shifted a), if 'a' is even then the last bit is '0' and when we right shift 'a' the '0' bit will get lost so bits in a and b will remain same. But if 'a' is odd, when we right shift 'a', '1' will get lost and the number of bits in b will be 1 less than in a.
+Now since b = a/2 (b = right shifted a), if 'a' is even then the last bit is '0' and when we right shift 'a' the '0' bit will get lost so set bits in 'a' and 'b' will remain same. But if 'a' is odd, when we right shift 'a', '1' will get lost and the number of bits in 'b' will be 1 less than in 'a'.
 
 General formula -> if a/2 = b, then (bits in a) - (bits in b) <= 1
