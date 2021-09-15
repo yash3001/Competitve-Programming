@@ -136,38 +136,14 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-vector<int> subs;
-
-void generateSubsets(int i, int n){
-    if(i > n){
-        cout<<"[ ";
-        each(x, subs){
-            cout<<x<<" ";
-        }
-        cout<<"]";
-        cout<<endl;
+void solve(){
+    ll a, b; cin>>a>>b;
+    if(a-b == 1){
+        cout<<"NO"<<endl;
     }
     else{
-        subs.pb(i);
-        generateSubsets(i+1, n);
-        subs.pop_back();
-        generateSubsets(i+1, n);
+        cout<<"YES"<<endl;
     }
-}
-
-void solve(){
-    ll n; cin>>n;
-    // generateSubsets(1, n);
-    vll nums(n);
-    for(int i=1; i<=n; i++){
-        nums[i-1] = i;
-    }
-    do{
-        each(x, nums){
-            cout<<x<<" ";
-        }
-        cout<<endl;
-    }while(next_permutation(all(nums)));
 }
 
 int main(){
@@ -184,7 +160,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

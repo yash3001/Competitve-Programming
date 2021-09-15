@@ -136,38 +136,44 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-vector<int> subs;
-
-void generateSubsets(int i, int n){
-    if(i > n){
-        cout<<"[ ";
-        each(x, subs){
-            cout<<x<<" ";
-        }
-        cout<<"]";
-        cout<<endl;
-    }
-    else{
-        subs.pb(i);
-        generateSubsets(i+1, n);
-        subs.pop_back();
-        generateSubsets(i+1, n);
-    }
-}
-
 void solve(){
     ll n; cin>>n;
-    // generateSubsets(1, n);
-    vll nums(n);
-    for(int i=1; i<=n; i++){
-        nums[i-1] = i;
-    }
-    do{
-        each(x, nums){
-            cout<<x<<" ";
+    vll nums(4*n), uniq;
+    umll mp;
+    each(x, nums){
+        cin>>x;
+        if(mp[x]++ == 0){
+            uniq.pb(x);
         }
-        cout<<endl;
-    }while(next_permutation(all(nums)));
+    }
+
+    sort(all(uniq));
+    ll i = 0, j = uniq.size()-1;
+    ll a = uniq[i]*uniq[j];
+
+    while(i<=j){
+        if(mp[uniq[i]] != mp[uniq[j]]){
+            cout<<"NO"<<endl;
+            return;
+        }
+        else{
+            if(mp[uniq[i]]%2){
+                cout<<"NO"<<endl;
+                return;
+            }
+        }
+
+        if(uniq[i]*uniq[j] == a){
+            i++;
+            j--;
+        }
+        else{
+            cout<<"NO"<<endl;
+            return;
+        }
+    }
+
+    cout<<"YES"<<endl;
 }
 
 int main(){
@@ -184,7 +190,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

@@ -1,4 +1,12 @@
-/* @author -> gamma30 */
+// @author ↓
+//
+//  ▄████  ▄▄▄       ███▄ ▄███▓ ███▄ ▄███▓ ▄▄▄
+// ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓██▒▀█▀ ██▒▒████▄
+//▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▓██    ▓██░▒██  ▀█▄
+//░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒██    ▒██ ░██▄▄▄▄██
+//░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒▒██▒   ░██▒ ▓█   ▓██▒
+// ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░ ▒░   ░  ░ ▒▒   ▓▒█░
+//  ░   ░   ▒   ▒▒ ░░  ░      ░░  ░      ░  ▒   ▒▒ ░
 
 // #pragma GCC optimize("Ofast")
 // #pragma GCC target("avx,avx2,fma")
@@ -136,38 +144,43 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-vector<int> subs;
-
-void generateSubsets(int i, int n){
-    if(i > n){
-        cout<<"[ ";
-        each(x, subs){
-            cout<<x<<" ";
-        }
-        cout<<"]";
-        cout<<endl;
-    }
-    else{
-        subs.pb(i);
-        generateSubsets(i+1, n);
-        subs.pop_back();
-        generateSubsets(i+1, n);
-    }
-}
-
 void solve(){
-    ll n; cin>>n;
-    // generateSubsets(1, n);
+        ll n; cin>>n;
+    ll sum = 0;
     vll nums(n);
-    for(int i=1; i<=n; i++){
-        nums[i-1] = i;
-    }
-    do{
-        each(x, nums){
-            cout<<x<<" ";
+    unordered_map<ll, vll> mp;
+    ll i = 0;
+    each(x, nums){
+        cin>>x;
+        sum += x;
+        if(mp.count(x) == 0){
+            mp[x] = vll();
+            mp[x].pb(i++);
         }
-        cout<<endl;
-    }while(next_permutation(all(nums)));
+        else{
+            mp[x].pb(i++);
+        }
+    }
+    deb(mp);
+    umll ansmp;
+    vll ans;
+    for(ll i=0; i<n; i++){
+        ll check = sum - 2*nums[i];
+        deb(i);
+        deb(check);
+        if(check > 0){
+            each(x, mp[check]){
+                if(x != i)
+                    if(ansmp[x+1]++ == 0)
+                        ans.pb(x+1);
+            }
+        }
+    }
+    deb(ans);
+    cout<<ans.size()<<endl;
+    each(x, ans){
+        cout<<x<<" ";
+    }
 }
 
 int main(){
