@@ -145,7 +145,22 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n, l; cin>>n>>l;
+    vll nums(n);
+    each(x, nums){
+        cin>>x;
+    }
+
+    sort(all(nums));
+
+    ld max_r = max(nums[0]-0, l-nums.back());
+    for(int i=1; i<n; i++){
+        if((nums[i]-nums[i-1])/2.0 > max_r){
+            max_r = (nums[i]-nums[i-1])/2.0;
+        }
+    }
+
+    cout<<fixed<<setprecision(10)<<max_r<<endl;
 }
 
 int main(){
@@ -162,7 +177,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

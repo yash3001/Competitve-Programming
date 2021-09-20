@@ -145,7 +145,30 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n; cin>>n;
+    vll nums(n);
+    each(x, nums){
+        cin>>x;
+    }
+    umll mp;
+    int e,o;
+    for(int i=0; i<n; i++){
+        if((nums[i])&1){
+            mp[1]++;
+            o = i+1;
+        }
+        else{
+            mp[2]++;
+            e  = i+1;
+        }
+    }
+
+    if(mp[1] > mp[2]){
+        cout<<e<<endl;
+    }
+    else{
+        cout<<o<<endl;
+    }
 }
 
 int main(){
@@ -162,7 +185,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
