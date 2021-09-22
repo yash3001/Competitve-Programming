@@ -145,76 +145,48 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    ll n; cin>>n;
-    vvll adj(n+1);
-    umll mp;
-    for(ll i=1; i<=n; i++){
-        ll k; cin>>k;
-        while(k--){
-            ll x; cin>>x;
-            adj[x].pb(i);
-            mp[i]++;
-        }
-    }
-
-    queue<int> q;
-    vll temp;
-    for(int i=1; i<=n; i++){
-        if(mp[i] == 0){
-            q.push(i);
-        }
-    }
-    q.push(-1);
-
-    if(q.size() == 0){
-        cout<<-1<<endl;
+    ll m, s; cin>>m>>s;
+    string max_num, min_num;
+    if((m > 1 && s == 0) || s > m*9){
+        cout<<"-1 -1"<<endl;
         return;
     }
-    vll ans;
-    while(!q.empty()){
-        if(q.front() == -1){
-            sort(all(temp));
-            each(x, temp){
-                ans.pb(x);
-            }
-            ans.pb(-1);
-            temp.clear();
-            q.pop();
-            if(q.size() == 0){
-                break;
-            }
-            q.push(-1);
-            continue;
+    ll t = s;
+    for(int i=0; i<m; i++){
+        if(t > 9){
+            max_num.pb('9');
+            t -= 9;
         }
-        int n = q.front();
-        temp.pb(n);
-        q.pop();
-        for(const auto &c: adj[n]){
-            if(--mp[c] == 0){
-                q.push(c);
-            }
+        else{
+            max_num.pb(t+'0');
+            t = 0;
         }
     }
-
-    deb(mp);
-
-    for(int i=1; i<=n; i++){
-        if(mp[i] > 0){
-            cout<<-1<<endl;
-            return;
+    t = s;
+    for(int i=0; i<m; i++){
+        if(t > 9){
+            min_num.pb('9');
+            t -= 9;
+        }
+        else{
+            min_num.pb(t-1+'0');
+            t = 1;
         }
     }
-    deb(ans);
-    ll c = 1;
-    ll imax = ans[0];
-    each(x, ans){
-        if(x < imax){
-            c++;
-        }
-        imax = x;
+    if(min_num.back() == '0'){
+        min_num.pop_back();
+        min_num.pb('1');
+        deb(min_num);
     }
-
-    cout<<c<<endl;
+    else{
+        char c = min_num.back();
+        min_num.pop_back();
+        min_num.pb(c+1);
+    }
+    reverse(all(min_num));
+    deb(max_num);
+    deb(min_num);
+    cout<<min_num<<" "<<max_num<<endl;
 }
 
 int main(){
@@ -231,7 +203,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

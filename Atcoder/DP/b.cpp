@@ -151,8 +151,9 @@ void solve(){
         cin>>x;
     }
 
-    vll dp(n, 0);
-
+    // simple, filling the back elements
+    vll dp(n, LLONG_MAX);
+    dp[0] = 0;
     for(int i=1; i<n; i++){
         dp[i] = LLONG_MAX;
         for(int j=1; j<=k; j++){
@@ -160,6 +161,16 @@ void solve(){
                 break;
             }
             dp[i] = min(dp[i], dp[i-j]+abs(height[i]-height[i-j]));
+        }
+    }
+    
+    // another approach, filling the forward elements
+    for(int i=0; i<n; i++){
+        for(int j=i+1; j<=i+k; j++){
+            if(j==n){
+                break;
+            }
+            dp[j] = min(dp[j], dp[i]+abs(height[i]-height[j]));
         }
     }
     deb(dp);

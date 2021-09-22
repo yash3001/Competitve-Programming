@@ -146,20 +146,20 @@ T modpow(T a, T b, T m){
 
 void solve(){
     ll a, b, c, m; cin>>a>>b>>c>>m;
-    if(m > a+b+c-3){
-        cout<<"NO"<<endl;
+    vll v(3);
+    v[0] = a;
+    v[1] = b;
+    v[2] = c;
+    sort(all(v));
+    a = v[0];
+    b = v[1];
+    c = v[2];
+
+    if(m >= c-1-(a+b) && m <= (a+b+c-3)){
+        cout<<"YES"<<endl;
     }
     else{
-        vll v(3);
-        v[0] = a;
-        v[1] = b;
-        v[2] = c;
-        sort(all(v));
-        a = v[0];
-        b = v[1];
-        c = v[2];
-
-        
+        cout<<"NO"<<endl;
     }
 }
 

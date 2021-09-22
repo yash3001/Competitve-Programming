@@ -145,76 +145,38 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    ll n; cin>>n;
-    vvll adj(n+1);
-    umll mp;
-    for(ll i=1; i<=n; i++){
-        ll k; cin>>k;
-        while(k--){
-            ll x; cin>>x;
-            adj[x].pb(i);
-            mp[i]++;
-        }
+    ll n, k; cin>>n>>k;
+    string a, b; cin>>a>>b;
+    umll mpa, mpb;
+    each(x, a){
+        mpa[x]++;
+    }
+    each(x, b){
+        mpb[x]++;
     }
 
-    queue<int> q;
-    vll temp;
-    for(int i=1; i<=n; i++){
-        if(mp[i] == 0){
-            q.push(i);
-        }
-    }
-    q.push(-1);
-
-    if(q.size() == 0){
-        cout<<-1<<endl;
-        return;
-    }
-    vll ans;
-    while(!q.empty()){
-        if(q.front() == -1){
-            sort(all(temp));
-            each(x, temp){
-                ans.pb(x);
+    for(int i=0; i<25; i++){
+        char c = 'a'+i;
+        if(mpa[c] >= mpb[c]){
+            if((mpa[c]-mpb[c])%k == 0){
+                mpa[c+1] += mpa[c]-mpb[c];
             }
-            ans.pb(-1);
-            temp.clear();
-            q.pop();
-            if(q.size() == 0){
-                break;
-            }
-            q.push(-1);
-            continue;
-        }
-        int n = q.front();
-        temp.pb(n);
-        q.pop();
-        for(const auto &c: adj[n]){
-            if(--mp[c] == 0){
-                q.push(c);
+            else{
+                cout<<"NO"<<endl;
+                return;
             }
         }
-    }
-
-    deb(mp);
-
-    for(int i=1; i<=n; i++){
-        if(mp[i] > 0){
-            cout<<-1<<endl;
+        else{
+            cout<<"NO"<<endl;
             return;
         }
     }
-    deb(ans);
-    ll c = 1;
-    ll imax = ans[0];
-    each(x, ans){
-        if(x < imax){
-            c++;
-        }
-        imax = x;
-    }
 
-    cout<<c<<endl;
+    if(mpb['z'] != mpa['z']){
+        cout<<"NO"<<endl;
+        return;
+    }
+    cout<<"YES"<<endl;
 }
 
 int main(){

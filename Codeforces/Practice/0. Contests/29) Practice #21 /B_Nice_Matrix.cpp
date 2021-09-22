@@ -145,76 +145,39 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    ll n; cin>>n;
-    vvll adj(n+1);
-    umll mp;
-    for(ll i=1; i<=n; i++){
-        ll k; cin>>k;
-        while(k--){
-            ll x; cin>>x;
-            adj[x].pb(i);
-            mp[i]++;
+    ll n, m; cin>>n>>m;
+    vvll mat(n, vll(m));
+    each(r, mat){
+        each(c, r){
+            cin>>c;
         }
     }
 
-    queue<int> q;
-    vll temp;
-    for(int i=1; i<=n; i++){
-        if(mp[i] == 0){
-            q.push(i);
-        }
-    }
-    q.push(-1);
+    deb(mat);
 
-    if(q.size() == 0){
-        cout<<-1<<endl;
-        return;
-    }
-    vll ans;
-    while(!q.empty()){
-        if(q.front() == -1){
-            sort(all(temp));
-            each(x, temp){
-                ans.pb(x);
+    ll ans = 0;
+
+    for(ll i=0; i<ceil(n/2.0); i++){
+        for(ll j=0; j<ceil(m/2.0); j++){
+            ll ct = 4;
+            vll choices = {mat[i][j] , mat[n-i-1][j] , mat[i][m-j-1] ,mat[n-i-1][m-j-1]};
+            ll avg=0;
+            sort(all(choices));
+            avg = choices[1];
+            ans += abs(avg-mat[i][j]);
+            if(i != n-i-1){
+                ans += abs(avg-mat[n-i-1][j]);
             }
-            ans.pb(-1);
-            temp.clear();
-            q.pop();
-            if(q.size() == 0){
-                break;
+            if(j != m-j-1){
+                ans += abs(avg-mat[i][m-j-1]);
             }
-            q.push(-1);
-            continue;
-        }
-        int n = q.front();
-        temp.pb(n);
-        q.pop();
-        for(const auto &c: adj[n]){
-            if(--mp[c] == 0){
-                q.push(c);
+            if(i != n-i-1 && j != m-j-1){
+                ans += abs(avg-mat[n-i-1][m-j-1]);
             }
         }
     }
 
-    deb(mp);
-
-    for(int i=1; i<=n; i++){
-        if(mp[i] > 0){
-            cout<<-1<<endl;
-            return;
-        }
-    }
-    deb(ans);
-    ll c = 1;
-    ll imax = ans[0];
-    each(x, ans){
-        if(x < imax){
-            c++;
-        }
-        imax = x;
-    }
-
-    cout<<c<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){

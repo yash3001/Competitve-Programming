@@ -146,75 +146,37 @@ T modpow(T a, T b, T m){
 
 void solve(){
     ll n; cin>>n;
-    vvll adj(n+1);
-    umll mp;
-    for(ll i=1; i<=n; i++){
-        ll k; cin>>k;
-        while(k--){
-            ll x; cin>>x;
-            adj[x].pb(i);
-            mp[i]++;
-        }
+    vll nums(n);
+    each(x, nums){
+        cin>>x;
     }
-
-    queue<int> q;
-    vll temp;
-    for(int i=1; i<=n; i++){
-        if(mp[i] == 0){
-            q.push(i);
-        }
-    }
-    q.push(-1);
-
-    if(q.size() == 0){
-        cout<<-1<<endl;
-        return;
-    }
-    vll ans;
-    while(!q.empty()){
-        if(q.front() == -1){
-            sort(all(temp));
-            each(x, temp){
-                ans.pb(x);
+    ll ans = 0;
+    for(int i=0; i<n; i++){
+        if(nums[i]>0){
+            ll m1 = 0;
+            while(nums[i]>0 && i < n){
+                m1 = max(m1, nums[i]);
+                i++;
             }
-            ans.pb(-1);
-            temp.clear();
-            q.pop();
-            if(q.size() == 0){
-                break;
+            ans += m1;
+            deb(m1);
+        }
+        if(i == n){
+            break;
+        }
+        if(nums[i]<0){
+            ll m2 = LLONG_MIN;
+            while(nums[i]<0 && i < n){
+                m2 = max(m2, nums[i]);
+                i++;
             }
-            q.push(-1);
-            continue;
+            ans += m2;
+            deb(m2);
         }
-        int n = q.front();
-        temp.pb(n);
-        q.pop();
-        for(const auto &c: adj[n]){
-            if(--mp[c] == 0){
-                q.push(c);
-            }
-        }
+        if(i != n)
+            i--;
     }
-
-    deb(mp);
-
-    for(int i=1; i<=n; i++){
-        if(mp[i] > 0){
-            cout<<-1<<endl;
-            return;
-        }
-    }
-    deb(ans);
-    ll c = 1;
-    ll imax = ans[0];
-    each(x, ans){
-        if(x < imax){
-            c++;
-        }
-        imax = x;
-    }
-
-    cout<<c<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){

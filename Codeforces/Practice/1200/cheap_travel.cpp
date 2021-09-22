@@ -145,76 +145,13 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    ll n; cin>>n;
-    vvll adj(n+1);
-    umll mp;
-    for(ll i=1; i<=n; i++){
-        ll k; cin>>k;
-        while(k--){
-            ll x; cin>>x;
-            adj[x].pb(i);
-            mp[i]++;
-        }
+    ll n, m, a, b; cin>>n>>m>>a>>b;
+    if(a <= b/m){
+        cout<<(n*a)<<endl;
     }
-
-    queue<int> q;
-    vll temp;
-    for(int i=1; i<=n; i++){
-        if(mp[i] == 0){
-            q.push(i);
-        }
+    else{
+        cout<<((n/m)*b+(min((n%m)*a, b)))<<endl;
     }
-    q.push(-1);
-
-    if(q.size() == 0){
-        cout<<-1<<endl;
-        return;
-    }
-    vll ans;
-    while(!q.empty()){
-        if(q.front() == -1){
-            sort(all(temp));
-            each(x, temp){
-                ans.pb(x);
-            }
-            ans.pb(-1);
-            temp.clear();
-            q.pop();
-            if(q.size() == 0){
-                break;
-            }
-            q.push(-1);
-            continue;
-        }
-        int n = q.front();
-        temp.pb(n);
-        q.pop();
-        for(const auto &c: adj[n]){
-            if(--mp[c] == 0){
-                q.push(c);
-            }
-        }
-    }
-
-    deb(mp);
-
-    for(int i=1; i<=n; i++){
-        if(mp[i] > 0){
-            cout<<-1<<endl;
-            return;
-        }
-    }
-    deb(ans);
-    ll c = 1;
-    ll imax = ans[0];
-    each(x, ans){
-        if(x < imax){
-            c++;
-        }
-        imax = x;
-    }
-
-    cout<<c<<endl;
 }
 
 int main(){
@@ -231,7 +168,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
