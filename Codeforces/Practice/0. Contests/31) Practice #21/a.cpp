@@ -144,11 +144,49 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-/* ----------Decimal Precision---------- */
-// cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
-// cout<<setprecision(n) -> without fixing
-
 void solve(){
+    ll n, k; cin>>n>>k;
+    if(k > n){
+        cout<<"NO"<<endl;
+        return;
+    }
+
+    if(n%k == 0){
+        cout<<"YES"<<endl;
+        for(ll i=0; i<k; i++){
+            cout<<n/k<<" ";
+        }
+        cout<<endl;
+        return;
+    }
+
+    if(k == 2){
+        cout<<"NO"<<endl;
+        return;
+    }
+
+    if((n - k + 1)%2 == 0 && (k-1)%2 == 0){
+        if(n-k+1 > k-1){
+            cout<<"YES"<<endl;
+            for(ll i=0; i<k-1; i++){
+                cout<<2<<" ";
+            }
+            cout<<(n - 2*(k-1))<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
+    }
+    else if((n-k+1)%2 != 0){
+        cout<<"YES"<<endl;
+        for(ll i=0; i<k-1; i++){
+            cout<<1<<" ";
+        }
+        cout<<(n-(k-1))<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
+    }
     
 }
 

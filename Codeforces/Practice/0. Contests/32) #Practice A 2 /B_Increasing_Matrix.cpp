@@ -144,12 +144,47 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-/* ----------Decimal Precision---------- */
-// cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
-// cout<<setprecision(n) -> without fixing
-
 void solve(){
-    
+    ll n, m; cin>>n>>m;
+    vvll mat(n, vll(m));
+    ll sum = 0;
+    each(r, mat){
+        each(c, r){
+            cin>>c;
+            sum += c;
+        }
+    }
+    deb(mat);
+    deb(sum);
+
+    for(ll i=n-1; i>=0; i--){
+        for(ll j=m-1; j>=0; j--){
+            if(mat[i][j] == 0){
+                mat[i][j] = min(mat[i+1][j], mat[i][j+1])-1;
+                if((mat[i][j] <= mat[i][j-1] && mat[i][j-1] != 0) || (mat[i][j] <= mat[i-1][j] && mat[i-1][j] != 0)){
+                    cout<<-1<<endl;
+                    return;
+                }
+                sum += mat[i][j];
+            }
+            else{
+                if(i > 0){
+                    if(mat[i][j] <= mat[i-1][j] && mat[i-1][j] != 0){
+                        cout<<-1<<endl;
+                        return;
+                    }
+                }
+                if(j > 0){
+                    if(mat[i][j] <= mat[i][j-1] && mat[i][j-1] != 0){
+                        cout<<-1<<endl;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    cout<<sum<<endl;
 }
 
 int main(){
@@ -166,7 +201,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

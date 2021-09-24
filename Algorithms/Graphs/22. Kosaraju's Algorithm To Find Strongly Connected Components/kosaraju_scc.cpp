@@ -41,9 +41,7 @@ int main(){
             first_dfs(i, adj, visited, order);
         }
     }
-    for(int i=1; i<n+1; i++){
-        visited.at(i) = 0;
-    }
+    fill(visited.begin(), visited.end(), 0);
     int count{};
     for(int i=order.size()-1; i>=0; i--){
         if(!visited.at(order.at(i))){

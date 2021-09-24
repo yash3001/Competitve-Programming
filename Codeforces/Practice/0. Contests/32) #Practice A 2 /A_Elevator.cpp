@@ -144,21 +144,34 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-/* ----------Decimal Precision---------- */
-// cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
-// cout<<setprecision(n) -> without fixing
-
 void solve(){
-    
+    string s; cin>>s;
+    int i; cin>>i;
+    if(s == "front"){
+        if(i == 1){
+            cout<<"L";
+        }
+        else{
+            cout<<"R";
+        }
+    }
+    else{
+        if(i == 1){
+            cout<<"R";
+        }
+        else{
+            cout<<"L";
+        }
+    }
 }
 
 int main(){
 
     // cfh - ctrl+alt+b
     // #ifndef ONLINE_JUDGE
-    //     freopen("input.txt", "r", stdin);
-    //     freopen("output.txt", "w", stdout);
-    //     freopen("error.txt", "w", stderr);
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+        // freopen("error.txt", "w", stderr);
     // #endif
 
     ios_base::sync_with_stdio(false);
@@ -166,7 +179,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

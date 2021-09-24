@@ -144,12 +144,57 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-/* ----------Decimal Precision---------- */
-// cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
-// cout<<setprecision(n) -> without fixing
-
 void solve(){
-    
+    ll n, m, k; cin>>n>>m>>k;
+    vvll mat(n, vll(m));
+    each(r, mat){
+        each(c, r){
+            cin>>c;
+        }
+    }
+    // deb(mat);
+
+    vector<pair<ll, ll>> sent(k);
+    each(p, sent){
+        cin>>p.first>>p.second;
+    }
+    // deb(sent);
+
+    vvll call(m);
+    vvll person(m);
+    each(p, sent){
+        call[p.second-1].pb(p.first);
+    }
+    for(ll i=0; i<n; i++){
+        for(ll j=0; j<m; j++){
+            if(mat[i][j] == 1){
+                person[j].pb(i+1);
+            }
+        }
+    }
+    deb(call);
+    deb(person);
+
+    vll ans(n);
+
+    for(ll i=0; i<m; i++){
+        umll mp;
+        each(x, call[i]){
+            mp[x]++;
+        }
+        each(p, person[i]){
+            ans[p-1]+=call[i].size();
+            if(mp[p]){
+                ans[p-1] -= mp[p];
+            }
+        }
+    }
+
+    deb(ans);
+    for(ll i=0; i<n-1; i++){
+        cout<<ans[i]<<" ";
+    }
+    cout<<ans[n-1];
 }
 
 int main(){
@@ -166,7 +211,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

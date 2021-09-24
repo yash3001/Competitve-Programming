@@ -144,12 +144,34 @@ T modpow(T a, T b, T m){
 // 1) number to string -> to_string(num)
 // 2) string to number -> stoi(str)
 
-/* ----------Decimal Precision---------- */
-// cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
-// cout<<setprecision(n) -> without fixing
-
 void solve(){
-    
+    ll h, w; cin>>h>>w;
+    vvll dp(h, vll(w, 0));
+    dp[0][0] = 1;
+    vvc mat(h, vc(w));
+    each(r, mat){
+        each(c, r){
+            cin>>c;
+        }
+    }
+    deb(mat);
+
+    for(ll i=0; i<h; i++){
+        for(ll j=0; j<w; j++){
+            if(i-1>=0){
+                if(mat[i-1][j] == '.'){
+                    (dp[i][j] += dp[i-1][j]) %= MOD;
+                }
+            }
+            if(j-1>=0){
+                if(mat[i][j-1] == '.'){
+                    (dp[i][j] += dp[i][j-1]) %= MOD;
+                }
+            }
+        }
+    }
+
+    cout<<dp[h-1][w-1];
 }
 
 int main(){
@@ -166,7 +188,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
