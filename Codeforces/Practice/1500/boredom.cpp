@@ -120,7 +120,22 @@ T modpow(T a, T b, T m){
 // 2) string to number -> stoi(str)
 
 void solve(){
-    
+    ll n; cin>>n;
+    umll mp;
+    vll arr(n);
+    each(x, arr){
+        cin>>x;
+        mp[x]++;
+    }
+    deb(arr);
+
+    vll dp(100001);
+    dp[0] = 0;
+    dp[1] = mp[1];
+    for(ll i=2; i<100001; i++){
+        dp[i] = max(dp[i-1], dp[i-2]+mp[i]*i);
+    }
+    cout<<dp[1e5];
 }
 
 int main(){
