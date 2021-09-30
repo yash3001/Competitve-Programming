@@ -149,18 +149,45 @@ T modpow(T a, T b, T m){
 // cout<<setprecision(n) -> without fixing
 
 void solve(){
-    string s; cin>>s;
-    vll mp(3, 0);
-    for(ll i=0; i<s.size(); i++){
-        mp[s[i]-'A']++;
+    ll n; cin>>n;
+    vll uniqM, uniqS;
+    umll mpM1, mpS1;
+    umll mpM2, mpS2;
+    string a; cin>>a;
+    string b; cin>>b;
+    each(c, a){
+        if(mpS1[c-'0']++ == 0){
+            uniqS.pb(c-'0');
+        }
+        mpS2[c-'0']++;
     }
-    deb(mp);
-    if(mp[0] + mp[2] == mp[1]){
-        cout<<"YES"<<endl;
+    each(c, b){
+        if(mpM1[c-'0']++ == 0){
+            uniqM.pb(c-'0');
+        }
+        mpM2[c-'0']++;
     }
-    else{
-        cout<<"NO"<<endl;
+    sort(all(uniqM));
+    sort(all(uniqS));
+    deb(uniqS);
+    deb(uniqM);
+    deb(mpS1);
+    deb(mpM1);
+
+    ll ans=0;
+    for(ll i=0; i<uniqS.size(); i++){
+        ll a = mpS1[uniqS[i]];
+        ll b = mpM1[uniqS[i]];
+        mpS1[uniqS[i]] -= min(a, b);
+        mpM1[uniqS[i]] -= min(a, b);
     }
+    for(ll i=0; i<uniqS.size(); i++){
+        if(mpS1[uniqS[i]] != 0){
+            for
+        }
+    }
+    deb(mpS1);
+    deb(mpM1);
 }
 
 int main(){
@@ -177,7 +204,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

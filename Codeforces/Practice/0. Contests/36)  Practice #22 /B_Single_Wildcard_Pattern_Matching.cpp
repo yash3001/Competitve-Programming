@@ -149,18 +149,47 @@ T modpow(T a, T b, T m){
 // cout<<setprecision(n) -> without fixing
 
 void solve(){
+    ll n, m; cin>>n>>m;
     string s; cin>>s;
-    vll mp(3, 0);
-    for(ll i=0; i<s.size(); i++){
-        mp[s[i]-'A']++;
+    string t; cin>>t;
+    ll k = -1;
+    for(ll i=0; i<n; i++){
+        if(s[i] == '*'){
+            k = i;
+            break;
+        }
     }
-    deb(mp);
-    if(mp[0] + mp[2] == mp[1]){
-        cout<<"YES"<<endl;
+    if(k == -1){
+        if(s == t){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
+        return;
     }
-    else{
+    if(s.size()-1 > t.size()){
         cout<<"NO"<<endl;
+        return;
     }
+    string first = s.substr(0, k);
+    string second = s.substr(k+1, n-k-1);
+    deb(first);
+    deb(second);
+    for(ll i=0; i<first.size(); i++){
+        if(first[i] != t[i]){
+            cout<<"NO"<<endl;
+            return;
+        }
+    }
+    ll j = second.size()-1;
+    for(ll i=m-1; i>=m-second.size(); i--){
+        if(second[j--] != t[i]){
+            cout<<"NO"<<endl;
+            return;
+        }
+    }
+    cout<<"YES"<<endl;
 }
 
 int main(){
@@ -177,7 +206,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

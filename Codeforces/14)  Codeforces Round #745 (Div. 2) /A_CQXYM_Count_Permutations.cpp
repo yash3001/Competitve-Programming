@@ -15,6 +15,10 @@
 #pragma GCC optimize("unroll-loops")
 
 #include <bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+
+using namespace __gnu_pbds;
 
 #define pb push_back
 #define eb emplace_back
@@ -108,6 +112,10 @@ template<typename A> void _print(queue<A> q){ if(!q.empty()){ queue<A> t; cerr <
 template<typename A> void _print(priority_queue<A> pq){ if(!pq.empty()){ queue<A> t; cerr << "T[ "; while(pq.size() != 1){ _print(pq.top()); cerr << ", "; t.push(pq.top()); pq.pop(); } _print(pq.top()); cerr << " ]B"; t.push(pq.top()); pq.pop(); while(!t.empty()){ pq.push(t.front()); t.pop(); } } else{ cerr << "F[]B"; } }
 template<typename A> void _print(priority_queue<A, vector<A>, greater<A>> pq){ if(!pq.empty()){ queue<A> t; cerr << "T[ "; while(pq.size() != 1){ _print(pq.top()); cerr << ", "; t.push(pq.top()); pq.pop(); } _print(pq.top()); cerr << " ]B"; t.push(pq.top()); pq.pop(); while(!t.empty()){ pq.push(t.front()); t.pop(); } } else{ cerr << "F[]B"; } }
 
+template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+template<typename T> using pbds_dec = tree<T, null_type, greater<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
 template<typename T>
 T gcd(T a, T b){
     if(b == 0)
@@ -148,19 +156,11 @@ T modpow(T a, T b, T m){
 // cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
 // cout<<setprecision(n) -> without fixing
 
-void solve(){
-    string s; cin>>s;
-    vll mp(3, 0);
-    for(ll i=0; i<s.size(); i++){
-        mp[s[i]-'A']++;
-    }
-    deb(mp);
-    if(mp[0] + mp[2] == mp[1]){
-        cout<<"YES"<<endl;
-    }
-    else{
-        cout<<"NO"<<endl;
-    }
+
+
+void solve(vll &fact, vll &ans){
+    ll n; cin>>n;
+    cout<<ans[2*n]<<endl;
 }
 
 int main(){
@@ -178,9 +178,19 @@ int main(){
 
     ll t=1;
     cin >> t;
+    vll ans(200001, 1);
+    vll fact(200001, 1);
+    for(ll i=1; i<200001; i++){
+        fact[i] = fact[i-1]*i;
+        ans[i] = fact[i];
+        ans[i] /= 2;
+        ans[i] %= (ll)1e9+7;
+        fact[i] %= (ll)1e9+7;
+    }
+
     for(ll i=1; i<=t; i++){
         pt(i);
-        solve();
+        solve(fact, ans);
     }
 
     return 0;

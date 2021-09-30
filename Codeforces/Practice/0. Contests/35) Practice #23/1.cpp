@@ -148,19 +148,39 @@ T modpow(T a, T b, T m){
 // cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
 // cout<<setprecision(n) -> without fixing
 
+
+int s(){
+    int n; cin>>n;
+    vector<int> sales(n);
+    for(int i=0; i<n; i++){
+        cin>>sales[i];
+    }
+
+    vector<int> pre(n), suf(n);
+    int cnt = 0;
+    for(ll i=0; i<n; i++){
+        cnt += sales[i];
+        pre[i] = cnt;
+    }
+    deb(pre);
+
+    cnt = 0;
+    for(ll i=n-1; i>=0; i--){
+        cnt += sales[i];
+        suf[i] = cnt;
+    }
+    deb(suf);
+
+    for(ll i=1; i<n-1; i++){
+        if(pre[i-1] == suf[i+1]){
+            return i;
+        }
+    }
+    return -1;
+}
+
 void solve(){
-    string s; cin>>s;
-    vll mp(3, 0);
-    for(ll i=0; i<s.size(); i++){
-        mp[s[i]-'A']++;
-    }
-    deb(mp);
-    if(mp[0] + mp[2] == mp[1]){
-        cout<<"YES"<<endl;
-    }
-    else{
-        cout<<"NO"<<endl;
-    }
+    cout<<s();
 }
 
 int main(){
@@ -177,7 +197,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

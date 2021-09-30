@@ -149,18 +149,19 @@ T modpow(T a, T b, T m){
 // cout<<setprecision(n) -> without fixing
 
 void solve(){
-    string s; cin>>s;
-    vll mp(3, 0);
-    for(ll i=0; i<s.size(); i++){
-        mp[s[i]-'A']++;
+    ll n, k; cin>>n>>k;
+    vll favd(n);
+    umll mp;
+    vector<pair<ll, ll>> vec;
+    each(x, favd){
+        cin>>x;
+        mp[x]++;
     }
-    deb(mp);
-    if(mp[0] + mp[2] == mp[1]){
-        cout<<"YES"<<endl;
+    ll d = 0;
+    for(ll i=1; i<=k; i++){
+        d += (mp[i])&1;
     }
-    else{
-        cout<<"NO"<<endl;
-    }
+    cout<<(n-d/2)<<endl;
 }
 
 int main(){
@@ -177,7 +178,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;pp
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
