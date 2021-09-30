@@ -156,7 +156,10 @@ T modpow(T a, T b, T m){
 // cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
 // cout<<setprecision(n) -> without fixing
 
-
+/* ----------Policy Bases Data Structures---------- */
+// pbds<ll> s; (almost same as set)
+// s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
+// s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
 void solve(vll &fact, vll &ans){
     ll n; cin>>n;
