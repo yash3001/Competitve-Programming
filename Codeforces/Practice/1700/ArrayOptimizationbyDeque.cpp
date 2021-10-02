@@ -163,7 +163,51 @@ T modpow(T a, T b, T m){
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
 void solve(){
-    
+    ll n; cin>>n;
+    deque<ll> dq;
+    ordered_multiset<ll> pbds;
+    ll t; cin>>t;
+    n--;
+    map<ll, ll> mp;
+    dq.push_back(t);
+    pbds.insert(t);
+    mp[t]++;
+    ll ans = 0;
+    while(n--){
+        cin>>t;
+        mp[t]++;
+        if(t <= dq.front()){
+            dq.push_front(t);
+            pbds.insert(t);
+            ll small = pbds.order_of_key(t);
+            ans += small;
+        }
+        else if(t >= dq.back()){
+            dq.push_back(t);
+            pbds.insert(t);
+            ll small = pbds.order_of_key(t);
+            ll big = pbds.size()-small;
+            big -= mp[t];
+            ans += big;
+        }
+        else{
+            pbds.insert(t);
+            ll small = pbds.order_of_key(t);
+            ll big = pbds.size()-small;
+            big -= mp[t];
+            if(small < big){
+                dq.push_front(t);
+                ans += small;
+            }
+            else{
+                dq.push_back(t);
+                ans += big;
+            }
+            deb(small);
+            deb(big);
+        }
+    }
+    cout<<ans<<endl;
 }
 
 int main(){

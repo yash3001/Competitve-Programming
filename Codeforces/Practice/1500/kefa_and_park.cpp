@@ -162,8 +162,54 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
+void dfs(ll n, vvll &adj, vector<bool> &vis, vector<bool> &cat, ll &m, ll &ans, ll count){
+    vis[n] = 1;
+    if(count > m){
+        return;
+    }
+    ll cnt = 0;
+    for(const auto &c: adj[n]){
+        if(!vis[c]){
+            cnt++;
+            if(cat[c]){
+                dfs(c, adj, vis, cat, m, ans, count+1);
+            }
+            else{
+                dfs(c, adj, vis, cat, m, ans, 0);
+            }
+        }
+    }
+    if(cnt == 0){
+        ans++;
+    }
+}
+
 void solve(){
-    
+    ll n, m; cin>>n>>m;
+    vector<bool> cat(n, 0);
+    for(int i=0; i<n; i++){
+        ll t; cin>>t;
+        if(t){
+            cat[i] = 1;
+        }
+    }
+    deb(cat);
+
+    vvll adj(n);
+    for(ll i=0; i<n-1; i++){
+        ll a, b; cin>>a>>b;
+        a--; b--;
+        adj[a].pb(b);
+        adj[b].pb(a);
+    }
+    deb(adj);
+
+    ll ans = 0;
+    ll count = 0;
+    vector<bool> vis(n, 0);
+    if(cat[0])  count = 1;
+    dfs(0, adj, vis, cat, m, ans, count);
+    cout<<ans<<endl;
 }
 
 int main(){
@@ -180,7 +226,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
