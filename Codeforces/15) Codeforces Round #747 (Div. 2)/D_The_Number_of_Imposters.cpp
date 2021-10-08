@@ -162,58 +162,27 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, vector<vector<ll>> &adj, vector<ll> &vis, vector<ll> &dist){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dist[c] = dist[n]+1;
-            dfs(c, adj, vis, dist);
-        }
+ll find(ll a, vll &parent){
+    if(parent[a] == -1){
+        return a;
+    }
+    else{
+        return parent[a] = find(parent[a], parent);
     }
 }
 
+void merge(ll a, ll b, vll &parent){
+    parent[a] = b;
+}
+
 void solve(){
-    ll n, k; cin>>n>>k;
-
-    vector<ll> hide(k);
-    unordered_map<ll, ll> isHide;
-    each(x, hide){
-        cin>>x;
-        isHide[x]++;
-    }
-
-    vector<vector<ll>> adj(n+1);
-    for(int i=0; i<n-1; i++){
-        ll a, b; cin>>a>>b;
-        adj[a].pb(b);
-        adj[b].pb(a);
-    }
-    vector<pair<ll, pair<ll, ll>>> pairDist;
-    map<pair<ll, ll>, ll> check;
-    for(ll i=1; i<=n; i++){
-        if(isHide[i]){
-            vector<ll> vis(n+1, 0), dist(n+1, 0);
-            dfs(i, adj, vis, dist);
-            each(h, hide){
-                if(!check[{i,h}] && !check[{h,i}]){
-                    pairDist.pb({dist[h], {i, h}});
-                    check[{i,h}] = check[{h,i}] = 1;
-                }
-            }
-        }
-    }
-    sort(all(pairDist), greater<pair<ll, pair<ll, ll>>>());
-    deb(pairDist);
-
-    ll ans = 0;
+    ll n; cin>>n;
+    ll m; cin>>m;
     unordered_map<ll, ll> mp;
-    each(p, pairDist){
-        if(!mp[p.second.first] && !mp[p.second.second]){
-            ans += p.first;
-            mp[p.second.second] = mp[p.second.first] = 1;
-        }
+    while(m--){
+        ll a, b; cin>>a>>b;
+        string s; cin>>s;
     }
-    cout<<ans;
 }
 
 int main(){
@@ -230,7 +199,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

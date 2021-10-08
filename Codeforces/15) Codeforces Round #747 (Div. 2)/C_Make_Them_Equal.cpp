@@ -162,59 +162,51 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, vector<vector<ll>> &adj, vector<ll> &vis, vector<ll> &dist){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dist[c] = dist[n]+1;
-            dfs(c, adj, vis, dist);
+map<ll,ll> mp1;
+void fact(ll n){
+
+    for(ll i=2;i<=sqrt(n);i++){
+        if(n%i==0){
+            mp1[i]=1;
         }
     }
+    mp1[1]=1;
+    mp1[n]=1;
 }
 
 void solve(){
-    ll n, k; cin>>n>>k;
+    mp1.clear();
+   ll n;
+   char c;
+   cin>>n>>c;
 
-    vector<ll> hide(k);
-    unordered_map<ll, ll> isHide;
-    each(x, hide){
-        cin>>x;
-        isHide[x]++;
-    }
+   string s;
+   cin>>s;
+   s=" "+s;
+  
+   for(ll i=1;i<=n;i++){
+      if(s[i]!=c){
+        //mp1[i]=1;
+        fact(i);
+      }
+   }
+   if(mp1.size()==0){
+     cout<<0<<endl;
+     return;
+   }
+   for(ll i=2;i<=n;i++){
+      if(mp1.find(i)==mp1.end()){
+        cout<<1<<endl;
+        cout<<i<<endl;
+        return;
+      }
+   }
 
-    vector<vector<ll>> adj(n+1);
-    for(int i=0; i<n-1; i++){
-        ll a, b; cin>>a>>b;
-        adj[a].pb(b);
-        adj[b].pb(a);
-    }
-    vector<pair<ll, pair<ll, ll>>> pairDist;
-    map<pair<ll, ll>, ll> check;
-    for(ll i=1; i<=n; i++){
-        if(isHide[i]){
-            vector<ll> vis(n+1, 0), dist(n+1, 0);
-            dfs(i, adj, vis, dist);
-            each(h, hide){
-                if(!check[{i,h}] && !check[{h,i}]){
-                    pairDist.pb({dist[h], {i, h}});
-                    check[{i,h}] = check[{h,i}] = 1;
-                }
-            }
-        }
-    }
-    sort(all(pairDist), greater<pair<ll, pair<ll, ll>>>());
-    deb(pairDist);
+   cout<<2<<endl;
+   cout<<n-1<<" "<<n<<endl;
+        
+}   
 
-    ll ans = 0;
-    unordered_map<ll, ll> mp;
-    each(p, pairDist){
-        if(!mp[p.second.first] && !mp[p.second.second]){
-            ans += p.first;
-            mp[p.second.second] = mp[p.second.first] = 1;
-        }
-    }
-    cout<<ans;
-}
 
 int main(){
 
@@ -230,7 +222,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    // cin >> t;
+    cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
