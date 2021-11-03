@@ -163,43 +163,35 @@ T modpow(T a, T b, T m){
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
 void solve(){
-    ll n; cin>>n;
-    vll nums(n);
-    each(x, nums){
-        cin>>x;
-    }
+    ll n, m; cin>>n>>m;
     string s; cin>>s;
-    vll blue, red;
-    for(ll i=0; i<n; i++){
-        if(s[i] == 'R'){
-            red.pb(nums[i]);
+    ll x=0, y=0;
+    ll max_x=0, max_y=0, min_x=0, min_y=0;
+    ll ans_x=1, ans_y=1;
+    each(c, s){
+        if(c == 'L'){
+            x--;
         }
-        else{
-            blue.pb(nums[i]);
+        if(c == 'R'){
+            x++;
         }
-    }
-    sort(all(red));
-    sort(all(blue));
-    ll k=1;
-    for(ll i=0; i<blue.size(); i++){
-        if(blue[i]>=k){
-            k++;
+        if(c == 'U'){
+            y--;
         }
-        else{
-            cout<<"NO"<<endl;
-            return;
+        if(c == 'D'){
+            y++ ;
         }
-    }
-    for(ll i=0; i<red.size(); i++){
-        if(red[i]<=k){
-            k++;
-        }
-        else{
-            cout<<"NO"<<endl;
-            return;
+        max_x = max(x, max_x);
+        min_x = min(x, min_x);
+        max_y = max(y, max_y);
+        min_y = min(y, min_y);
+
+        if(max_x - min_x < m && max_y - min_y < n){
+            ans_x = 1-min_y;
+            ans_y = 1-min_x;
         }
     }
-    cout<<"YES"<<endl;
+    cout<<ans_x<<" "<<ans_y<<endl;
 }
 
 int main(){

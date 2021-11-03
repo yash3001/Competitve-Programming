@@ -163,43 +163,17 @@ T modpow(T a, T b, T m){
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
 void solve(){
-    ll n; cin>>n;
-    vll nums(n);
-    each(x, nums){
-        cin>>x;
+    string k; cin>>k;
+    umcll mp;
+    for(ll i=0; i<26; i++){
+        mp[k[i]] = i;
     }
     string s; cin>>s;
-    vll blue, red;
-    for(ll i=0; i<n; i++){
-        if(s[i] == 'R'){
-            red.pb(nums[i]);
-        }
-        else{
-            blue.pb(nums[i]);
-        }
+    ll ans = 0;
+    for(ll i=0; i<s.size()-1; i++){
+        ans += abs(mp[s[i]]-mp[s[i+1]]);
     }
-    sort(all(red));
-    sort(all(blue));
-    ll k=1;
-    for(ll i=0; i<blue.size(); i++){
-        if(blue[i]>=k){
-            k++;
-        }
-        else{
-            cout<<"NO"<<endl;
-            return;
-        }
-    }
-    for(ll i=0; i<red.size(); i++){
-        if(red[i]<=k){
-            k++;
-        }
-        else{
-            cout<<"NO"<<endl;
-            return;
-        }
-    }
-    cout<<"YES"<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){

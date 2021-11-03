@@ -180,10 +180,10 @@ void solve(){
         ans += flag*(y++);
     }
     if(x%2 == 0){
-        cout<<(n-ans)<<endl;
+        cout<<(x-ans)<<endl;
     }
     else{
-        cout<<(n+ans)<<endl;
+        cout<<(x+ans)<<endl;
     }
 }
 
