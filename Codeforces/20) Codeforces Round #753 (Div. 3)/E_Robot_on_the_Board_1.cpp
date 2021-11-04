@@ -190,6 +190,9 @@ void solve(){
             ans_x = 1-min_y;
             ans_y = 1-min_x;
         }
+        else{
+            break;
+        }
     }
     cout<<ans_x<<" "<<ans_y<<endl;
 }
