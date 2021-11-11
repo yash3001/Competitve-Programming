@@ -10,16 +10,16 @@ int knapsack(vector<int> weight, vector<int> value, int w, int n);
 int dp[10001][10001];
 
 int main(){
-    cout<<"Enter the capacity of the knapsack: ";
+    // cout<<"Enter the capacity of the knapsack: ";
     int w; cin>>w;
-    cout<<"Enter the number of elements: ";
+    // cout<<"Enter the number of elements: ";
     int n; cin>>n;
     vector<int> weight(n), value(n);
-    cout<<"Enter the weight of the elements:"<<endl;
+    // cout<<"Enter the weight of the elements:"<<endl;
     for(int i=0; i<n; i++){
         cin>>weight[i];
     }
-    cout<<"Enter the value of the elements:"<<endl;
+    // cout<<"Enter the value of the elements:"<<endl;
     for(int i=0; i<n; i++){
         cin>>value[i];
     }
