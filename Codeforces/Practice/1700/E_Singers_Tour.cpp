@@ -162,44 +162,45 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
+    ll n; cin>>n;
+    vll a(n);
+    ll sum = 0;
+    each(x, a){
+        cin>>x;
+        sum += x;
+    }
+    if(n == 1){
+        cout<<"YES"<<endl;
+        cout<<a[0]<<endl;
+        return;
+    }
+    if((sum%((n*(n+1))/2)) != 0){
+        cout<<"NO"<<endl;
+        return;
+    }
+    sum /= (n*(n+1))/2;
+    vll ans(n);
+    ll j = 1;
+    for(ll i=0; i<n; i++){
+        ll d = a[(i+1)%n] - a[i];
+        d = sum - d;
+        if(d%n == 0 && d/n > 0){
+            d /= n;
+            ans[j] = d;
         }
         else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
+            cout<<"NO"<<endl;
+            return;
         }
+        j++;
+        j %= n;
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
-        }
+    cout<<"YES"<<endl;
+    each(x, ans){
+        cout<<x<<" ";
     }
-    cout<<ans<<endl;
+    cout<<endl;
 }
 
 int main(){

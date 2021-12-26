@@ -35,6 +35,7 @@ using namespace __gnu_pbds;
 #define forr(i,a,b) for(ll i=a;i>=b;i--)
 #define ceach(a,x) for(const auto &a: x)
 #define each(a,x) for(auto &a: x)
+#define bharo(a) each(x, a) { cin>>x; }
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
 
 using namespace std;
@@ -162,44 +163,84 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
+    ll n; cin>>n;
+    vll a(n), b(n);
+    each(x, a){
+        cin>>x;
+    }
+    each(x, b){
+        cin>>x;
+    }
+    vector<pair<pair<ll, ll>, ll>> vp1, vp2;
+    for(ll i=0; i<n; i++){
+        vp1.pb({{a[i], b[i]}, i});
+    }
+    for(ll i=0; i<n; i++){
+        vp2.pb({{b[i], a[i]}, i});
+    }
+    sort(all(vp1));
+    sort(all(vp2));
+    deb(vp1);
+    deb(vp2);
+    map<ll, ll> mp1, mp2;
+    set<ll, greater<ll>> s1, s2;
+    for(ll i=0; i<n; i++){
+        s1.insert(vp1[i].first.second);
+        mp1[vp1[i].first.second] = i;
+    }
+    vll ans(n, 0);
+    for(ll i=n-1; i>=0; i--){
+        if(s2.empty()){
+            ans[vp1[i].second] = 1;
         }
         else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
+            ll right = *s2.begin();
+            ll left = *s1.begin();
+
+            // if(left > right){
+            //     ans[vp1[i].second] = 1;
+            // }
+            for(ll j = mp1[right]; j<n; j++){
+                if(left > vp1[j].first.second){
+                    ans[vp1[i].second] = 1;
+                    break;
+                }
+            }
         }
+        s2.insert(vp1[i].first.second);
+        s1.erase(vp1[i].first.second);
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
+    s1.clear();
+    s2.clear();
+    for(ll i=0; i<n; i++){
+        s1.insert(vp2[i].first.second);
+        mp2[vp2[i].first.second] = i;
+    }
+    for(ll i=n-1; i>=0; i--){
+        if(s2.empty()){
+            ans[vp2[i].second] = 1;
         }
+        else{
+            ll right = *s2.begin();
+            ll left = *s1.begin();
+            // if(left > right || left > vp2[n-1].first.second){
+            //     ans[vp2[i].second] = 1;
+            // }
+            for(ll j = mp2[right]; j<n; j++){
+                if(left > vp2[j].first.second){
+                    ans[vp2[i].second] = 1;
+                    break;
+                }
+            }
+        }
+        s2.insert(vp2[i].first.second);
+        s1.erase(vp2[i].first.second);
     }
-    cout<<ans<<endl;
+    each(x, ans){
+        cout<<x;
+    }
+    cout<<endl;
 }
 
 int main(){

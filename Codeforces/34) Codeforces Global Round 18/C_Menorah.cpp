@@ -36,6 +36,7 @@ using namespace __gnu_pbds;
 #define ceach(a,x) for(const auto &a: x)
 #define each(a,x) for(auto &a: x)
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
+#define daalo(a) each(x, a) { cin>>x; }
 
 using namespace std;
 
@@ -162,41 +163,47 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
+    ll n; cin>>n;
+    string a, b; cin>>a>>b;
+    ll cnt = 0;
+    ll cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0;
+    if(a == b){
+        cout<<0<<endl;
+        return;
+    }
+    for(ll i=0; i<n; i++){
+        if(a[i] == '1' && b[i] == '1'){
+            cnt++;
         }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
+        if(a[i] == '1'){
+            cnt1++;
+            if(b[i] == '0'){
+                cnt3++;
+            }
+        }
+        if(b[i] == '1'){
+            cnt2++;
+            if(a[i] == '0'){
+                cnt4++;
+            }
         }
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
+    if(cnt1 != cnt2 && n-cnt1+1 != cnt2){
+        cout<<-1<<endl;
+        return;
+    }
+    ll ans;
+    if(cnt > 1){
+        ans = min(2*(cnt-1)+1, 2*cnt3);
+        if(cnt3 == 0){
+            ans = 1;
+        }
+    }
+    else{
+        ans = 2*cnt3;
+        if(cnt3 == 0){
+            ans = 1;
         }
     }
     cout<<ans<<endl;

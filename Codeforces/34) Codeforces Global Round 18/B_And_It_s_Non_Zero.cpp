@@ -36,6 +36,7 @@ using namespace __gnu_pbds;
 #define ceach(a,x) for(const auto &a: x)
 #define each(a,x) for(auto &a: x)
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
+#define daalo(a) each(x, a) { cin>>x; }
 
 using namespace std;
 
@@ -162,42 +163,11 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
-void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
-        }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
-        }
-    }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
-        }
+void solve(vvll &mat){
+    ll a, b; cin>>a>>b;
+    ll ans = LLONG_MAX;
+    for(ll i=0; i<32; i++){
+        ans = min(ans, b-a+1-(mat[b][i] - mat[a-1][i]));
     }
     cout<<ans<<endl;
 }
@@ -211,6 +181,16 @@ int main(){
     //     freopen("error.txt", "w", stderr);
     // #endif
 
+    vvll mat(200001, vll(32, 0));
+    for(ll j=0; j<32; j++){
+        ll cnt = 0;
+        for(ll i=1; i<=200000; i++){
+            cnt += ((i>>j)&1);
+            mat[i][j] = cnt;
+        }
+    }
+    // deb(mat);
+
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
@@ -219,7 +199,7 @@ int main(){
     cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
-        solve();
+        solve(mat);
     }
 
     return 0;

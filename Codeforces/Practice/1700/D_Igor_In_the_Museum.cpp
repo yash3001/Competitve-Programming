@@ -36,6 +36,7 @@ using namespace __gnu_pbds;
 #define ceach(a,x) for(const auto &a: x)
 #define each(a,x) for(auto &a: x)
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
+#define daalo(a) each(x, a) { cin>>x; }
 
 using namespace std;
 
@@ -162,44 +163,103 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
+ll n, m, k;
+
+vll xadd = {-1, 0, 1, 0};
+vll yadd = {0, 1, 0, -1};
+
+void dfs(ll x, ll y, vvll &vis, vvc &mat, queue<pair<ll, ll>> &q, ll &cnt){
+    vis[x][y] = 1;
+    q.push({x, y});
+    for(ll i=0; i<4; i++){
+        ll nx = x+xadd[i];
+        ll ny = y+yadd[i];
+        if(nx >= 0 && nx < n && ny >= 0 && ny < m){
+            if(mat[nx][ny] == '*'){
+                cnt++;
+            }
+            else{
+                if(!vis[nx][ny])
+                    dfs(nx, ny, vis, mat, q, cnt);
+            }
         }
     }
 }
 
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
+    n, m, k; cin>>n>>m>>k;
+    vvc mat(n, vc(m));
+    each(r, mat){
+        daalo(r);
+    }
+    deb(mat);
+    vvll vis(n, vll(m, 0)), ans(n, vll(m));
+    // for(ll i=0; i<n; i++){
+    //     for(ll j=0; j<m; j++){
+    //         if(mat[i][j] == '.' && !vis[i][j]){
+    //             vvll vis2(n, vll(m, 0));
+    //             ll cnt = 0;
+    //             queue<pair<ll, ll>> q;
+    //             q.push({i, j});
+    //             vis[i][j] = 1;
+    //             while(!q.empty()){
+    //                 ll x = q.front().first;
+    //                 ll y = q.front().second;
+    //                 q.pop();
+    //                 for(ll k=0; k<4; k++){
+    //                     ll nx = x+xadd[k];
+    //                     ll ny = y+yadd[k];
+    //                     if(nx >= 0 && nx < n && ny >= 0 && ny < m){
+    //                         if(mat[nx][ny] == '*'){
+    //                             cnt++;
+    //                         }
+    //                         if(mat[nx][ny] == '.' && !vis[nx][ny]){
+    //                             q.push({nx, ny});
+    //                             vis[nx][ny] = 1;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             q.push({i, j});
+    //             vis2[i][j] = 1;
+    //             while(!q.empty()){
+    //                 ll x = q.front().first;
+    //                 ll y = q.front().second;
+    //                 q.pop();
+    //                 ans[x][y] = cnt;
+    //                 for(ll k=0; k<4; k++){
+    //                     ll nx = x+xadd[k];
+    //                     ll ny = y+yadd[k];
+    //                     if(nx >= 0 && nx < n && ny >= 0 && ny < m){
+    //                         if(mat[nx][ny] == '.' && !vis2[nx][ny]){
+    //                             q.push({nx, ny});
+    //                             vis2[nx][ny] = 1;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }   
+    //     }
+    // }
+    queue<pair<ll, ll>> q;
+    for(ll i=0; i<n; i++){
+        for(ll j=0; j<m; j++){
+            if(mat[i][j] == '.' && !vis[i][j]){
+                ll cnt = 0;
+                dfs(i, j, vis, mat, q, cnt);
+                while(!q.empty()){
+                    ll x = q.front().first;
+                    ll y = q.front().second;
+                    q.pop();
+                    ans[x][y] = cnt;
+                }
+            }
+        }
+    }
+    while(k--){
         ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
-        }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
-        }
+        cout<<ans[x-1][y-1]<<endl;
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
-        }
-    }
-    cout<<ans<<endl;
 }
 
 int main(){
@@ -216,7 +276,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

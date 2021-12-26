@@ -36,6 +36,7 @@ using namespace __gnu_pbds;
 #define ceach(a,x) for(const auto &a: x)
 #define each(a,x) for(auto &a: x)
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
+#define daalo(a) each(x, a) { cin>>x; }
 
 using namespace std;
 
@@ -162,44 +163,20 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
-        }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
-        }
+    ll n; cin>>n;
+    vll v(n);
+    daalo(v);
+    ll sum = 0;
+    for(ll i=0; i<n; i++){
+        sum += v[i];
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
-        }
+    if(sum % n == 0){
+        cout<<0<<endl;
     }
-    cout<<ans<<endl;
+    else{
+        cout<<1<<endl;
+    }
 }
 
 int main(){

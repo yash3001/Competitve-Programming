@@ -162,44 +162,57 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
+    ll n; cin>>n;
+    string s; cin>>s;
+    umcll mp;
+    each(x, s){
+        mp[x]++;
+    }
+    if(mp['R'] && mp['G'] && mp['B']){
+        cout<<"BGR";
+    }
+    else if( (mp['R'] >= 2 && mp['G'] >= 2) || (mp['G'] >= 2 && mp['B'] >= 2) || (mp['B'] >= 2 && mp['R'] >= 2)){
+        cout<<"BGR";
+    }
+    else{
+        if(mp['R'] && !mp['G'] && !mp['B']){
+            cout<<"R";
         }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
+        if(mp['G'] && !mp['R'] && !mp['B']){
+            cout<<"G";
+        }
+        if(mp['B'] && !mp['G'] && !mp['R']){
+            cout<<"B";
+        }
+        if(mp['R'] == 1 && mp['G'] == 1 && !mp['B']){
+            cout<<"B";
+        }
+        if(mp['G'] == 1 && !mp['R'] && mp['B'] == 1){
+            cout<<"R";
+        }
+        if(mp['B'] == 1 && !mp['G'] && mp['R'] == 1){
+            cout<<"G";
+        }
+        if(mp['R'] == 1 && mp['G'] == 2 && !mp['B']){
+            cout<<"BR";
+        }
+        if(mp['R'] == 2 && mp['G'] == 1 && !mp['B']){
+            cout<<"BG";
+        }
+        if(mp['G'] == 1 && !mp['R'] && mp['B'] == 2){
+            cout<<"RG";
+        }
+        if(mp['G'] == 2 && !mp['R'] && mp['B'] == 1){
+            cout<<"RB";
+        }
+        if(mp['B'] == 1 && !mp['G'] && mp['R'] == 2){
+            cout<<"GB";
+        }
+        if(mp['B'] == 2 && !mp['G'] && mp['R'] == 1){
+            cout<<"GR";
         }
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
-        }
-    }
-    cout<<ans<<endl;
 }
 
 int main(){
@@ -216,7 +229,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

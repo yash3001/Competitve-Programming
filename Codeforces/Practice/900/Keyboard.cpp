@@ -36,6 +36,7 @@ using namespace __gnu_pbds;
 #define ceach(a,x) for(const auto &a: x)
 #define each(a,x) for(auto &a: x)
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
+#define daalo(a) each(x, a) { cin>>x; }
 
 using namespace std;
 
@@ -162,44 +163,28 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
-        }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
-        }
+    char ch; cin>>ch;
+    string s; cin>>s;
+    vc v;
+    for(auto &c: "qwertyuiopasdfghjkl;zxcvbnm,./"){
+        v.push_back(c);
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
-        }
+    umcll mp;
+    for(ll i=0; i<v.size(); i++){
+        mp[v[i]] = i;
     }
-    cout<<ans<<endl;
+    ll t;
+    deb(v);
+    if(ch == 'R'){
+        t = -1;
+    }
+    else{
+        t = 1;
+    }
+    for(ll i=0; i<s.size(); i++){
+        cout<<v[mp[s[i]]+t];
+    }
 }
 
 int main(){
@@ -216,7 +201,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

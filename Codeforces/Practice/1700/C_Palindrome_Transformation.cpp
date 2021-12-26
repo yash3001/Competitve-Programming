@@ -162,42 +162,261 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
-    }
-}
-
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
+    ll n, p; cin>>n>>p;
+    string s; cin>>s;
+    ll j = p-1;
+    ll ans = 0;
+    if(n/2 >= p){
+        // left first
+        ll ans1 = 0;
+        ll end = j;
+        for(ll i=j; i>=0; i--){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans1 += end-i;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans1 += min(left, right);
+            }
         }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
+        ans1 += j-end;
+        deb(ans1);
+        end = j;
+        for(ll i=j+1; i<n/2; i++){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans1 += i-end;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans1 += min(left, right);
+            }
         }
+
+        // right first
+        ll ans2 = 0;
+        end = j;
+        for(ll i=j+1; i<n/2; i++){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans2 += i-end;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans2 += min(left, right);
+            }
+        }
+        ans2 += end-j;
+        end = j;
+        for(ll i=j; i>=0; i--){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans2 += end-i;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans2 += min(left, right);
+            }
+        }
+        deb(ans1);
+        deb(ans2);
+        ans += min(ans1, ans2);
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
-            ans++;
+    else{
+        ll ans1 = 0;
+        // left first
+        ll end = j;
+        for(ll i=j; i>=n/2; i--){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans1 += end-i;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans1 += min(left, right);
+            }
         }
+        ans1 += j-end;
+        deb(ans1);
+        end = j;
+        for(ll i=j+1; i<n; i++){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans1 += i-end;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans1 += min(left, right);
+            }
+        }
+        deb(ans1);
+
+        // right first
+        ll ans2 = 0;
+        end = j;
+        for(ll i=j+1; i<n; i++){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans2 += i-end;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans2 += min(left, right);
+            }
+        }
+        ans2 += end-j;
+        end = j;
+        for(ll i=j; i>=n/2; i--){
+            ll k = n-i-1;
+            if(s[i] != s[k]){
+                ans2 += end-i;
+                end = i;
+                ll left = 0, right = 0;
+                char ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    right++;
+                    if(ch1 == 'z'){
+                        ch1 = 'a';
+                        continue;
+                    }
+                    ch1++;
+                }
+                ch1 = s[i], ch2 = s[k];
+                while(ch1 != ch2){
+                    left++;
+                    if(ch1 == 'a'){
+                        ch1 = 'z';
+                        continue;
+                    }
+                    ch1--;
+                }
+                ans2 += min(left, right);
+            }
+        }
+        deb(ans2);
+        ans += min(ans1, ans2);
+        
     }
     cout<<ans<<endl;
 }
@@ -216,7 +435,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

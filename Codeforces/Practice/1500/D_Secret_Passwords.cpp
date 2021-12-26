@@ -36,6 +36,7 @@ using namespace __gnu_pbds;
 #define ceach(a,x) for(const auto &a: x)
 #define each(a,x) for(auto &a: x)
 #define print(x) for(const auto &e: (x)) { cout<<e<<" "; } cout<<endl
+#define daalo(a) each(x, a) { cin>>x; }
 
 using namespace std;
 
@@ -162,40 +163,58 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-void dfs(ll n, ll p, vvll &adj, vll &vis, bool &ans){
-    vis[n] = 1;
-    for(const auto &c: adj[n]){
-        if(!vis[c]){
-            dfs(c, n, adj, vis, ans);
-        }
-        else{
-            if(c != p)
-                ans = true;
-        }
+vll parent(200001, -1);
+
+ll find(ll a){
+    if(parent[a] == -1){
+        return a;
     }
+    return parent[a] = find(parent[a]);
+}
+
+void merge(ll a, ll b){
+    parent[b] = a;
 }
 
 void solve(){
-    ll n, m; cin>>n>>m;
-    vvll adj(n+1);
-    ll ans = m;
-    for(ll i=0; i<m; i++){
-        ll x, y; cin>>x>>y;
-        if(x == y){
-            ans--;
-        }
-        else{
-            adj[x].push_back(y);
-            adj[y].push_back(x);
+    ll n; cin>>n;
+    vs v(n);
+    daalo(v);
+    deb(v);
+    vvll pre(n, vll(26, 0));
+    for(ll i=0; i<n; i++){
+        for(ll j=0; j<v[i].size(); j++){
+            pre[i][v[i][j]-'a'] = 1;
         }
     }
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        bool an = false;
-        if(!vis[i])
-        dfs(i, -1, adj, vis, an);
-        if(an){
-            deb(i)
+    // deb(pre);
+    for(ll i=0; i<26; i++){
+        ll j;
+        for(j=0; j<n; j++){
+            if(pre[j][i]){
+                break;
+            }
+        }
+        if(j != n){
+            for(ll k=j+1; k<n; k++){
+                if(pre[k][i]){
+                    ll x = find(j);
+                    ll y = find(k);
+                    if(x != y){
+                        merge(x, y);
+                    }
+                }
+            }
+        }
+    }
+    umll mp;
+    ll ans = 0;
+    // for(ll i=0; i<n; i++){
+    //     cout<<parent[i]<<" ";
+    // }
+    cout<<endl;
+    for(ll i=0; i<n; i++){
+        if(mp[find(i)]++ == 0){
             ans++;
         }
     }
@@ -216,7 +235,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
