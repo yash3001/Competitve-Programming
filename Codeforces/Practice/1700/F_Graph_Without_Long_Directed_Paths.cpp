@@ -163,33 +163,17 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-bool dfs(ll n, vector<vector<pair<ll, ll>>> &adj, vll &vis, vll &color, ll col, ll &one, ll &zero){
+bool dfs(ll n, vvll &adj, vll &vis, ll c, vll &color){
     vis[n] = 1;
-    color[n] = col;
-    if(col == 1){
-        one++;
-    }
-    else{
-        zero++;
-    }
+    color[n] = c;
     for(const auto &p: adj[n]){
-        if(!vis[p.first]){
-            if(p.second == 1){
-                if(!dfs(p.first, adj, vis, color, col, one, zero)){
-                    return false;
-                }
-            }
-            else{
-                if(!dfs(p.first, adj, vis, color, (col^1), one, zero)){
-                    return false;
-                }
+        if(!vis[p]){
+            if(!dfs(p, adj, vis, c^1, color)){
+                return false;
             }
         }
         else{
-            if(color[p.first] == col && p.second == 0){
-                return false;
-            }
-            if(color[p.first] != col && p.second == 1){
+            if(color[p] == color[n]){
                 return false;
             }
         }
@@ -199,32 +183,67 @@ bool dfs(ll n, vector<vector<pair<ll, ll>>> &adj, vll &vis, vll &color, ll col, 
 
 void solve(){
     ll n, m; cin>>n>>m;
-    vector<vector<pair<ll, ll>>> adj(n+1);
-    while(m--){
+    vvll adj(n+1);
+    map<pair<ll, ll>, ll> mp;
+    umll mp1;
+    string ans;
+    for(ll i=1; i<=m; i++){
         ll a, b; cin>>a>>b;
-        string s; cin>>s;
-        if(s == "crewmate"){
-            adj[a].push_back({b, 1});
-            adj[b].push_back({a, 1});
-        }
-        else{
-            adj[a].push_back({b, 0});
-            adj[b].push_back({a, 0});
-        }
+        adj[a].pb(b);
+        adj[b].pb(a);
+        mp[{a, b}] = i;
+        ans += '0';
     }
-    ll ans = 0;
     vll color(n+1);
     vll vis(n+1, 0);
+    if(!dfs(1, adj, vis, 1, color)){
+        cout<<"NO"<<endl;
+        return;
+    }
+    deb(color);
     for(ll i=1; i<=n; i++){
-        if(!vis[i]){
-            ll one = 0, zero = 0;
-            if(!dfs(i, adj, vis, color, 1, one, zero)){
-                cout<<-1<<endl;
-                return;
-            }
-            ans += max(one, zero);
+        vis[i] = 0;
+        if(color[i] == 0){
+            mp1[i]++;
         }
     }
+    each(p, mp){
+        if(!mp1[p.first.first]){
+            ans[p.second-1] = '1';
+        }
+    }
+    // queue<ll> q;
+    // q.push(1);
+    // vis[1] = 1;
+    // while(!q.empty()){
+    //     ll n = q.front();
+    //     q.pop();
+    //     for(const auto &c: adj[n]){
+    //         if(!vis[c]){
+    //             q.push(c);
+    //             vis[c] = 1;
+    //             if(mp[{n, c}]){
+    //                 if(color[n] == 0){
+    //                     ans[mp[{n, c}]-1] = '1';
+    //                 }
+    //                 else{
+    //                     ans[mp[{n, c}]-1] = '0';
+    //                 }
+    //             }
+    //             else{
+    //                 if(color[n] == 0){
+    //                     ans[mp[{c, n}]-1] = '0';
+    //                 }
+    //                 else{
+    //                     ans[mp[{c, n}]-1] = '1';
+    //                 }
+
+    //             }
+    //         }
+    //     }
+    //     // deb(n);
+    // }
+    cout<<"YES"<<endl;
     cout<<ans<<endl;
 }
 
@@ -242,7 +261,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

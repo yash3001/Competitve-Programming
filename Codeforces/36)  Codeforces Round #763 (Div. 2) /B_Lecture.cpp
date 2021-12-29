@@ -163,69 +163,15 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-bool dfs(ll n, vector<vector<pair<ll, ll>>> &adj, vll &vis, vll &color, ll col, ll &one, ll &zero){
-    vis[n] = 1;
-    color[n] = col;
-    if(col == 1){
-        one++;
-    }
-    else{
-        zero++;
-    }
-    for(const auto &p: adj[n]){
-        if(!vis[p.first]){
-            if(p.second == 1){
-                if(!dfs(p.first, adj, vis, color, col, one, zero)){
-                    return false;
-                }
-            }
-            else{
-                if(!dfs(p.first, adj, vis, color, (col^1), one, zero)){
-                    return false;
-                }
-            }
-        }
-        else{
-            if(color[p.first] == col && p.second == 0){
-                return false;
-            }
-            if(color[p.first] != col && p.second == 1){
-                return false;
-            }
-        }
-    }
-    return true;
-}
+int n,m;
 
 void solve(){
-    ll n, m; cin>>n>>m;
-    vector<vector<pair<ll, ll>>> adj(n+1);
-    while(m--){
-        ll a, b; cin>>a>>b;
-        string s; cin>>s;
-        if(s == "crewmate"){
-            adj[a].push_back({b, 1});
-            adj[b].push_back({a, 1});
-        }
-        else{
-            adj[a].push_back({b, 0});
-            adj[b].push_back({a, 0});
-        }
-    }
-    ll ans = 0;
-    vll color(n+1);
-    vll vis(n+1, 0);
-    for(ll i=1; i<=n; i++){
-        if(!vis[i]){
-            ll one = 0, zero = 0;
-            if(!dfs(i, adj, vis, color, 1, one, zero)){
-                cout<<-1<<endl;
-                return;
-            }
-            ans += max(one, zero);
-        }
-    }
-    cout<<ans<<endl;
+    map<t,t>f;
+    t s,S;
+    for(cin>>n>>m;m--;f[s]=S)
+    cin>>s>>S;
+    for(;n--;cout<<(s.size()>f[s].size()?f[s]:s)<<' ')
+    cin>>s;
 }
 
 int main(){
