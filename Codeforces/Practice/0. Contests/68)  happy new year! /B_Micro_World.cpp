@@ -163,120 +163,29 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
-ll check(vll &a, ll i){
-    ll n = a.size();
-    if(i == 0 || i  == n-1){
-        return 0;
-    }
-    if(a[i] > a[i-1] && a[i] > a[i+1]){
-        return 1;
-    }
-    if(a[i] < a[i-1] && a[i] < a[i+1]){
-        return 1;
-    }
-    return 0;
-}
-
 void solve(){
-    ll n; cin>>n;
-    ll cnt = 0;
-    vll a(n), t(n);
+    ll n, k; cin>>n>>k;
+    vll a(n), v;
     daalo(a);
-    ll mm = 0;
-    for(ll i=1; i<n-1; i++){
-        if(a[i] > a[i-1] && a[i] > a[i+1]){
-            t[i] = 1;
-            cnt++;
-        }
-        if(a[i] < a[i-1] && a[i] < a[i+1]){
-            t[i] = 1;
-            cnt++;
-        }
-    }
-    // for(ll i=1; i<n-1; i++){
-    //     if(a[i] > a[i-1] && a[i] > a[i+1]){
-    //         if(t[i-1] == 1 && t[i+1] == 1){
-    //             mm = max(mm, 3LL);
-    //         }
-    //         else if(t[i-1] == 1){
-    //             if(a[i-1] >= a[i+1]){
-    //                 mm = max(mm, 2LL);
-    //             }
-    //             else{
-    //                 if(i+1 == n-1){
-    //                     mm = max(mm, 2LL);
-    //                 }
-    //                 else{
-    //                     mm = max(mm, 1LL);
-    //                 }
-    //             }
-    //         }
-    //         else if(t[i+1] == 1){
-    //             if(a[i+1] >= a[i-1]){
-    //                 mm = max(mm, 2LL);
-    //             }
-    //             else{
-    //                 if(i == 1){
-    //                     mm = max(mm, 2LL);
-    //                 }
-    //                 else{
-    //                     mm = max(mm, 1LL);
-    //                 }
-    //             }
-    //         }
-    //         else{
-    //             mm = max(mm, 1LL);
-    //         }
+    sort(all(a));
+    // ll ans = n;
+    // for(ll i=0; i<n; i++){
+    //     auto it = lower_bound(all(a), a[i]+k);
+    //     if(it == a.end()){
+    //         it--;
     //     }
-    //     if(a[i] < a[i-1] && a[i] < a[i+1]){
-    //         if(t[i-1] == 1 && t[i+1] == 1){
-    //             mm = max(mm, 3LL);
-    //         }
-    //         else if(t[i-1] == 1){
-    //             if(a[i-1] > a[i+1]){
-    //                 if(i+1 == n-1){
-    //                     mm = max(mm, 2LL);
-    //                 }
-    //                 else{
-    //                     mm = max(mm, 1LL);
-    //                 }
-    //             }
-    //             else{
-    //                 mm = max(mm, 2LL);
-    //             }
-    //         }
-    //         else if(t[i+1] == 1){
-    //             if(a[i+1] > a[i-1]){
-    //                 if(i == 1){
-    //                     mm = max(mm, 2LL);
-    //                 }
-    //                 else{
-    //                     mm = max(mm, 1LL);
-    //                 }
-    //             }
-    //             else{
-    //                 mm = max(mm, 2LL);
-    //             }
-    //         }
-    //         else{
-    //             mm = max(mm, 1LL);
-    //         }
+    //     if(a[i] != *it && *it-a[i] <= k){
+    //         ans--;
     //     }
     // }
-
-    for(ll i=1; i<n-1; i++){
-        if(t[i] == 1){
-            ll cnt1 = t[i-1]+t[i]+t[i+1];
-            ll tmp = a[i];
-            a[i] = a[i-1];
-            ll cnt2 = check(a, i-1) + check(a, i) + check(a, i+1);
-            a[i] = a[i+1];
-            ll cnt3 = check(a, i-1) + check(a, i) + check(a, i+1);
-            a[i] = tmp;
-            mm = max(mm, max(cnt1-cnt2, cnt1-cnt3));
+    // cout<<ans<<endl;
+    for(int i=0;i<n;i++){
+        while(v.size() && v.back() < a[i] && v.back() + k >= a[i]){
+            v.pop_back();
         }
+        v.pb(a[i]);
     }
-    cout<<cnt-mm<<endl;
+    cout<<v.size()<<endl;
 }
 
 int main(){
@@ -293,7 +202,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();
