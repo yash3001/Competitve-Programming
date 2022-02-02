@@ -164,41 +164,60 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
+/* ------------------Binary Search------------------ */
+// 1) Lower Bound -> returns iterator to the first element greater than or equal to the given element or returns end() if no such element exists
+// 2) Upper Bound -> returns iterator to the first element greater than the given element or returns end() if no such element exists
+
+
 void solve(){
     ll n; cin>>n;
-    vll a(2*n);
-    daalo(a);
-    vll uniq;
+    vs v(n);
+    daalo(v);
+    vvll adj(26);
     umll mp;
-    each(x, a){
-        mp[x]++;
-        if(mp[x] > 2){
-            cout<<"NO"<<endl;
-            return;
-        }
-        if(mp[x] == 2){
-            uniq.pb(x);
+    for(ll i=0; i<n-1; i++){
+        string a = v[i];
+        for(ll j=i+1; j<n; j++){
+            string b = v[j];
+            bool flag = true;
+            for(ll k=0; k<min(a.size(), b.size()); k++){
+                if(a[k] != b[k]){
+                    adj[a[k]-'a'].pb(b[k]-'a');
+                    mp[b[k]-'a']++;
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                if(a.size() > b.size()){
+                    cout<<"Impossible"<<endl;
+                    return;
+                }
+            }
         }
     }
-    if(uniq.size() != n){
-        cout<<"NO"<<endl;
+    queue<ll> q;
+    for(ll i=0; i<26; i++){
+        if(mp[i] == 0){
+            q.push(i);
+        }
+    }
+    string ans;
+    while(!q.empty()){
+        ll n = q.front();
+        q.pop();
+        ans.pb(n+'a');
+        for(const auto &c: adj[n]){
+            if(--mp[c] == 0){
+                q.push(c);
+            }
+        }
+    }
+    if(ans.size() != 26){
+        cout<<"Impossible"<<endl;
         return;
     }
-    sort(all(uniq));
-    umll mp1;
-    deb(uniq);
-    ll sum = 0;
-    for(ll i=n-1; i>=0; i--){
-        uniq[i] -= sum;
-        if(uniq[i] <= 0 || (uniq[i])%(2*(i+1)) != 0){
-            cout<<"NO"<<endl;
-            return;
-        }
-        uniq[i] /= 2*(i+1);
-        sum += 2*uniq[i];
-    }
-    deb(uniq);
-    cout<<"YES"<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){
@@ -215,7 +234,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

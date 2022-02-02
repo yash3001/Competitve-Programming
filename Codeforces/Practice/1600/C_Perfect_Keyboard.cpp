@@ -164,41 +164,55 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
+/* ------------------Binary Search------------------ */
+// 1) Lower Bound -> returns iterator to the first element greater than or equal to the given element or returns end() if no such element exists
+// 2) Upper Bound -> returns iterator to the first element greater than the given element or returns end() if no such element exists
+
 void solve(){
-    ll n; cin>>n;
-    vll a(2*n);
-    daalo(a);
-    vll uniq;
-    umll mp;
-    each(x, a){
-        mp[x]++;
-        if(mp[x] > 2){
-            cout<<"NO"<<endl;
-            return;
+    string s; cin>>s;
+    map<char, ll> mp;
+    map<ll, char> mp1;
+    mp[s[0]] = 30;
+    vector<bool> loc (100, 0);
+    loc[30] = 1;
+    mp1[30] = s[0];
+    for(ll i=1; i<s.size(); i++){
+        char prev = s[i-1];
+        if(!mp[s[i]]){
+            if(loc[mp[prev]-1] == 0){
+                mp[s[i]] = mp[prev]-1;
+                loc[mp[prev]-1] = 1;
+                mp1[mp[prev]-1] = s[i];
+            }
+            else if(loc[mp[prev]+1] == 0){
+                mp[s[i]] = mp[prev]+1;
+                loc[mp[prev]+1] = 1;
+                mp1[mp[prev]+1] = s[i];
+            }
+            else{
+                cout<<"NO"<<endl;
+                return;
+            }
         }
-        if(mp[x] == 2){
-            uniq.pb(x);
+        else{
+            if(abs(mp[prev]-mp[s[i]]) != 1){
+                cout<<"NO"<<endl;
+                return;
+            }
         }
     }
-    if(uniq.size() != n){
-        cout<<"NO"<<endl;
-        return;
+    string ans;
+    each(p, mp1){
+        ans.pb(p.second);
     }
-    sort(all(uniq));
-    umll mp1;
-    deb(uniq);
-    ll sum = 0;
-    for(ll i=n-1; i>=0; i--){
-        uniq[i] -= sum;
-        if(uniq[i] <= 0 || (uniq[i])%(2*(i+1)) != 0){
-            cout<<"NO"<<endl;
-            return;
+    deb(mp);
+    for(ll i=0; i<26; i++){
+        if(!mp[i+'a']){
+            ans.pb(i+'a');
         }
-        uniq[i] /= 2*(i+1);
-        sum += 2*uniq[i];
     }
-    deb(uniq);
     cout<<"YES"<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){

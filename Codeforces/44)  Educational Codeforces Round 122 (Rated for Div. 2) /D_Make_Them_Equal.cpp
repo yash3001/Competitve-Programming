@@ -164,41 +164,126 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
+/* ------------------Binary Search------------------ */
+// 1) Lower Bound -> returns iterator to the first element greater than or equal to the given element or returns end() if no such element exists
+// 2) Upper Bound -> returns iterator to the first element greater than the given element or returns end() if no such element exists
+
+#define V_SUM_MAX 1001
+#define N_MAX 1001
+#define W_MAX 10000000
+ 
+// To store the states of DP
+ll dp[V_SUM_MAX + 1][N_MAX];
+bool v[V_SUM_MAX + 1][N_MAX];
+ 
+// Function to solve the recurrence relation
+ll solveDp(ll r, ll i, vector<ll>& w, vector<ll>& val, ll n)
+{
+    // Base cases
+    if (r <= 0)
+        return 0;
+    if (i == n)
+        return W_MAX;
+    if (v[r][i])
+        return dp[r][i];
+ 
+    // Marking state as solved
+    v[r][i] = 1;
+ 
+    // Recurrence relation
+    dp[r][i]
+        = min(solveDp(r, i + 1, w, val, n),
+              w[i] + solveDp(r - val[i],
+                             i + 1, w, val, n));
+    return dp[r][i];
+}
+ 
+// Function to return the maximum weight
+ll maxWeight(vector<ll>& w, vector<ll>& val, int n, int c)
+{
+ 
+    // Iterating through all possible values
+    // to find the the largest value that can
+    // be represented by the given weights
+    for (int i = V_SUM_MAX; i >= 0; i--) {
+        if (solveDp(i, 0, w, val, n) <= c) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+ll moves(ll n){
+    ll ans=0,x=1;
+    if(n==1) return 0;
+    if(n==2) return 1;
+
+    while(x<n){
+        ans++;
+        x*=2;
+    }
+
+    x/=2;
+    ans--;
+
+    if(x==n) return ans;
+
+    while(x!=n){
+        ll z=x;
+        for(int i=2;i<=z;i++){
+            ll zz=x+(x/i);
+            if(zz<=n){
+                ans++;
+                x=zz;
+                break;
+            }
+        }
+    }
+
+    return ans;
+}
+
 void solve(){
-    ll n; cin>>n;
-    vll a(2*n);
-    daalo(a);
-    vll uniq;
-    umll mp;
-    each(x, a){
-        mp[x]++;
-        if(mp[x] > 2){
-            cout<<"NO"<<endl;
-            return;
-        }
-        if(mp[x] == 2){
-            uniq.pb(x);
-        }
-    }
-    if(uniq.size() != n){
-        cout<<"NO"<<endl;
-        return;
-    }
-    sort(all(uniq));
-    umll mp1;
-    deb(uniq);
-    ll sum = 0;
-    for(ll i=n-1; i>=0; i--){
-        uniq[i] -= sum;
-        if(uniq[i] <= 0 || (uniq[i])%(2*(i+1)) != 0){
-            cout<<"NO"<<endl;
-            return;
-        }
-        uniq[i] /= 2*(i+1);
-        sum += 2*uniq[i];
-    }
-    deb(uniq);
-    cout<<"YES"<<endl;
+  	memset(dp,0,sizeof dp);
+  	memset(v,0,sizeof v);
+    ll n, k; cin>>n>>k;
+    vll b(n);
+    daalo(b);
+    vll c(n);
+    daalo(c);
+    vll temp(n);
+    deb(b);
+    deb(c);
+    // for(ll i=0; i<n; i++){
+    //     ll t = b[i];
+    //     ll tp = log2(t);
+    //     // deb(tp);
+    //     temp[i] = tp;
+    //     tp = pow(2, tp);
+    //     temp[i] += b[i]-tp;
+    // }
+    for(int i=0;i<n;i++){
+        // if(b[i]==1)continue;
+        // ll num =1ll;
+        // ll ans =0ll;
+
+        // for(int j=1; ;j++){
+        //     if(num==b[i]){
+        //         break;
+        //     }
+        //     while(num+(num/j)<=b[i]){
+        //         num+=num/j;
+        //         ans++;
+        //     }
+
+        // }
+        // temp[i]=ans;
+        temp[i] = moves(b[i]);
+  		}
+    deb(temp);
+    // cout<<knapSack(k, temp, c, n)<<endl;
+    // cout<<rec(0, temp, c, k)<<endl;
+    cout<<maxWeight(temp, c, n, k)<<endl;
 }
 
 int main(){

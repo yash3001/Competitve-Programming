@@ -164,41 +164,58 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
+/* ------------------Binary Search------------------ */
+// 1) Lower Bound -> returns iterator to the first element greater than or equal to the given element or returns end() if no such element exists
+// 2) Upper Bound -> returns iterator to the first element greater than the given element or returns end() if no such element exists
+
+vll a(5001), b(5001);
+ll n;
+map<pair<ll,ll>, ll> mp;
+
+ll rec(ll x, ll y){
+    if(x+1 == y){
+        return mp[{x, y}] = a[y]*b[x]+a[x]*b[y];
+    }
+    if(x == y){
+        return mp[{x, y}] = a[x]*b[y];
+    }
+    if(mp[{x, y}]){
+        return mp[{x, y}];
+    }
+    if(mp[{x+1, y-1}] == 0){
+        mp[{x+1, y-1}] = rec(x+1, y-1);
+    }
+    return mp[{x, y}] = a[x]*b[y] + b[x]*a[y] + mp[{x+1, y-1}];
+}
+
 void solve(){
-    ll n; cin>>n;
-    vll a(2*n);
-    daalo(a);
-    vll uniq;
-    umll mp;
-    each(x, a){
-        mp[x]++;
-        if(mp[x] > 2){
-            cout<<"NO"<<endl;
-            return;
-        }
-        if(mp[x] == 2){
-            uniq.pb(x);
+    cin>>n;
+    for(ll i=0; i<n; i++){
+        cin>>a[i];
+    }
+    for(ll i=0; i<n; i++){
+        cin>>b[i];
+    }
+    for(ll i=0; i<n-1; i++){
+        for(ll j=i+1; j<n; j++){
+            if(!mp[{i, j}]){
+                mp[{i, j}] = rec(i, j);
+            }
         }
     }
-    if(uniq.size() != n){
-        cout<<"NO"<<endl;
-        return;
+    deb(mp);
+    vll pre(n+1, 0);
+    for(ll i=0; i<n; i++){
+        pre[i+1] = pre[i] + a[i]*b[i];
     }
-    sort(all(uniq));
-    umll mp1;
-    deb(uniq);
-    ll sum = 0;
-    for(ll i=n-1; i>=0; i--){
-        uniq[i] -= sum;
-        if(uniq[i] <= 0 || (uniq[i])%(2*(i+1)) != 0){
-            cout<<"NO"<<endl;
-            return;
+    deb(pre);
+    ll ans = pre[n];
+    for(ll i=0; i<n-1; i++){
+        for(ll j=i+1; j<n; j++){
+            ans = max(ans, mp[{i, j}]+pre[i]+pre[n]-pre[j+1]);
         }
-        uniq[i] /= 2*(i+1);
-        sum += 2*uniq[i];
     }
-    deb(uniq);
-    cout<<"YES"<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){
@@ -215,7 +232,7 @@ int main(){
     cout.tie(NULL);
 
     ll t=1;
-    cin >> t;
+    // cin >> t;
     for(ll i=1; i<=t; i++){
         pt(i);
         solve();

@@ -164,41 +164,40 @@ T modpow(T a, T b, T m){
 // s.find_by_order(i)    0<=i<n     returns iterator to ith element (0 if i>=n)
 // s.order_of_key(e)     returns elements strictly less than the given element e (need not be present)
 
+/* ------------------Binary Search------------------ */
+// 1) Lower Bound -> returns iterator to the first element greater than or equal to the given element or returns end() if no such element exists
+// 2) Upper Bound -> returns iterator to the first element greater than the given element or returns end() if no such element exists
+
+
 void solve(){
-    ll n; cin>>n;
-    vll a(2*n);
-    daalo(a);
-    vll uniq;
-    umll mp;
-    each(x, a){
-        mp[x]++;
-        if(mp[x] > 2){
-            cout<<"NO"<<endl;
-            return;
-        }
-        if(mp[x] == 2){
-            uniq.pb(x);
+    ll n, m; cin>>n>>m;
+    vs v(n);
+    daalo(v);
+    string ans = v[0];
+    for(ll i=0; i<m; i++){
+        string temp = ans;
+        for(char ch='a'; ch<='z'; ch++){
+            temp[i] = ch;
+            bool flag = true;
+            for(ll j=0; j<n; j++){
+                ll cnt = 0;
+                for(ll l=0; l<m; l++){
+                    if(v[j][l] != temp[l]){
+                        cnt++;
+                    }
+                }
+                if(cnt > 1){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                cout<<temp<<endl;
+                return;
+            }
         }
     }
-    if(uniq.size() != n){
-        cout<<"NO"<<endl;
-        return;
-    }
-    sort(all(uniq));
-    umll mp1;
-    deb(uniq);
-    ll sum = 0;
-    for(ll i=n-1; i>=0; i--){
-        uniq[i] -= sum;
-        if(uniq[i] <= 0 || (uniq[i])%(2*(i+1)) != 0){
-            cout<<"NO"<<endl;
-            return;
-        }
-        uniq[i] /= 2*(i+1);
-        sum += 2*uniq[i];
-    }
-    deb(uniq);
-    cout<<"YES"<<endl;
+    cout<<-1<<endl;
 }
 
 int main(){
