@@ -229,7 +229,10 @@ vector<bool> seive(long long n){
 
 /* ----------STRING AND INTEGER CONVERSIONS---------- */
 // 1) number to string -> to_string(num)
-// 2) string to number -> stoi(str)
+// 2) string to int -> stoi(str)
+// 3) string to long long -> stoll(str)
+// 4) string to decimal -> stod(str)
+// 5) string to long decimal -> stold(str)
 
 /* ----------Decimal Precision---------- */
 // cout<<fixed<<setprecision(n) -> to fix precision to n decimal places.
