@@ -167,6 +167,18 @@ T modpow(T a, T b, T m){
     return c;
 }
 
+template<typename T>
+vector<T> makeUnique(vector<T> &vec){
+    vector<T> temp;
+    unordered_map<T, long long> mp;
+    for(const auto &e: vec){
+        if(mp[e]++ == 0){
+            temp.push_back(e);
+        }
+    }
+    return temp;
+}
+
 vector<long long> primeFactorization(long long n) {
     vector<long long> factorization;
     for (int d : {2, 3, 5}) {
@@ -232,6 +244,11 @@ vector<bool> seive(long long n){
 // 1) Lower Bound -> returns iterator to the first element greater than or equal to the given element or returns end() if no such element exists
 // 2) Upper Bound -> returns iterator to the first element greater than the given element or returns end() if no such element exists
 
+/* --------------Builtin Bit Functions-------------- */
+// 1) __builtin_clz(x) -> returns the number of zeros at the beginning in the bit representaton of x.
+// 2) __builtin_ctz(x) -> returns the number of zeros at the end in the bit representaton of x.
+// 3) __builtin_popcount(x) -> returns the number of ones in the bit representaton of x.
+// 4) __builtin_parity(x) -> returns the parity of the number of ones in the bit representaton of x.
 
 void solve(){
     
