@@ -1,48 +1,72 @@
-/* @author -> gamma30 */
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int knapsack(vector<int> weight, vector<int> value, int w, int n);
+typedef long long ll;
 
-//max w - 10000
-//max n - 10000
-int dp[10001][10001];
-
-int main(){
-    // cout<<"Enter the capacity of the knapsack: ";
-    int w; cin>>w;
-    // cout<<"Enter the number of elements: ";
-    int n; cin>>n;
-    vector<int> weight(n), value(n);
-    // cout<<"Enter the weight of the elements:"<<endl;
-    for(int i=0; i<n; i++){
-        cin>>weight[i];
+int ts(vector<int> &vec, int t){
+    ll n = vec.size();
+    vector<pair<ll, ll>> v(n);
+    for(ll i=0; i<n; i++){
+        v[i].first = vec[i];
+        v[i].second = n-i;
     }
-    // cout<<"Enter the value of the elements:"<<endl;
-    for(int i=0; i<n; i++){
-        cin>>value[i];
+    sort(v.begin(), v.end());
+    ll i = 0, ans = 0, w = t;
+    while(w>0){
+        ll c = v[i].first * v[i].second;
+        if(c <= w){
+            w -= c;
+            ans += v[i].second;
+        }
+        else{
+            ans += w/v[i].first;
+            w = 0;
+        }
+        i++;
     }
-    cout<<"The maximum profit is: "<<knapsack(weight, value, w, n)<<endl;
-    return 0;
+    return ans;
 }
 
-int knapsack(vector<int> weight, vector<int> value, int w, int n){
-    for(int j=0; j<n+1; j++){
-        dp[0][j] = 0;
+
+bool equal_sum_partition(vector<int> arr, int sum, int n){
+    vector<vector<int>> dp(sum+1, vector<int>(n+1, 0));
+
+    for(int i=0; i<n+1; i++){
+        dp[0][i] = 1;
     }
-    for(int i=0; i<w+1; i++){
+    for(int i=1; i<sum+1; i++){
         dp[i][0] = 0;
     }
-    for(int i=1; i<w+1; i++){
+
+    for(int i=1; i<sum+1; i++){
         for(int j=1; j<n+1; j++){
-            if(weight[j-1]<=i){
-                dp[i][j]=max(value[j-1] + dp[i-weight[j-1]][j-1], dp[i][j-1]);
+            if(arr[j-1]<=i){
+                dp[i][j] = (dp[i-arr[j-1]][j-1] || dp[i][j-1]);
             }
             else{
-                dp[i][j]=dp[i][j-1];
+                dp[i][j] = (dp[i][j-1]);
             }
         }
     }
-    return(dp[w][n]);
+    return dp[sum][n];
+}
+
+string solve(vector<int> ar){
+    int sum = accumulate(ar.begin(), ar.end(), 0LL), n = ar.size();
+    if(!(sum&1) && equal_sum_partition(ar,sum/2,n)){
+        return "YES";
+    }
+    else{
+        return "NO";
+    }
+}
+
+
+int main(){
+    vector<int> v = {1,1,1,1,1,1,6};
+    int t = 4;
+    // cout<<ts(v, t)<<endl;
+    // return 0;
+    cout<<solve(v)<<endl;
 }
